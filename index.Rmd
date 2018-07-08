@@ -1,0 +1,26 @@
+---
+title: "HakodateR#0"
+author: "chroneru"
+date: "2018/08/02"
+site: bookdown::bookdown_site
+description: "この本は、HakodateR#0での説明に用いたものです。"
+always_allow_html: yes
+---
+
+# はじめに {-}
+
+今回は、スライド形式だと扱いにくい内容もありますので、bookdownでの作成となっています。
+わかりにくい点など、多々あると思いますがよろしくお願いします。
+
+今回、乱数生成するところがありますが、set.seed()を設定していないので実行結果は異なります。
+
+# 自己紹介 {-}
+
+<div id="myprof">
+
+* @chroneru_mineru
+* R歴はぎゅっとすると2年ぐらい
+* Rについてのブログを書いてる
+
+</div>
+

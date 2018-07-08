@@ -1,0 +1,183 @@
+# rmarkdown
+
+## rmarkdownの準備
+
+* File > New File > R markdown > Document HTML(ラジオボタン) > OK
+* はじめてrmdファイルを作ろうとするとエラーが出る
+* とりあえず，インストールしてください。
+
+```{r , eval=FALSE}
+install.packages(c("bitops", "caTools"))
+```
+
+## yamlヘッダ
+
+* 出力するファイルのオプションを設定
+
+<pre>
+---
+title: "たいとる"
+author: "書いた人"
+date: "日付"
+output: 出力形式: 
+    css: "cssのパス"
+    self_contained: TRUEかFALSE
+---
+</pre>
+
+## 出力形式
+
+|指定方法|出力形式|
+|:------:|:------:|
+|html_document|html|
+|pdf_document|pdf|
+|word_document|word|
+|ioslides_presentation|htmlのスライド|
+|revealjs::revealjs_presentation|イケてるスライド|
+|bookdown::gitbook|本|
+
+* 他にもいろいろな出力形式がある。
+* pdfはlatexをつかうので、ハマる。
+
+
+```{r install_revealjs, eval=FALSE}
+#CRANから
+install.packages("revealjs")
+
+#githubから
+install.packages("devtools")
+install_github("rstudio/revealjs")
+```
+
+```{r install_bookdown, eval=FALSE}
+install.packages("bookdown")
+```
+
+## pdfの出力
+
+* pdfを出力するとエラーが出る
+* texライブラリが足りないみたい
+
+<pre>
+output: pdf_document
+    
+Ctrl + Shift + K (knit)
+</pre>
+
+## texのログファイル
+
+* pdfをレンダリングするとログが出るので読む
+    * 大事なところだけでいい
+
+<pre>
+! LaTeX Error: File `titling.sty' not found.
+!  ==> Fatal error occurred, no output PDF file produced!
+</pre>
+
+* `titling.sty`がないということ
+
+## texライブラリ
+
+* texライブラリを追加すればOK
+
+```bash
+wget ftp://ftp.jaist.ac.jp/pub/CTAN/macros/latex/contrib/titling.zip
+unzip titling.zip
+cd titling.zip
+latex titling.ins
+sudo cp titling.sty /usr/share/texlive/texmf-dist/tex/latex/titling/
+sudo texhash
+```
+
+* 必要ないかもだけど一応
+
+<pre>
+# You are recommended to install the tinytex package to build PDF.FALSE
+On Rstudio
+install.packages("tinytex")
+</pre>
+
+# コードチャンク
+
+## コードチャンクの書き方
+
+* 先頭の\\はエスケープです。
+* 取り除いてください。
+
+<pre>
+\```{r}
+\Rのコード 
+\``` 
+</pre>
+
+* `Ctrl + Alt + I` でチャンクを追加できる
+
+## チャンクオプション
+
+* `{r チャンク名, オプションの指定}`
+
+|オプション|T, F| 結果 |
+|:--------:|:--:|:----:|
+|include   |FALSE|コードと結果を表示しない|
+|echo      |FALSE|コードを表示しない|
+|message   |FALSE|メッセージを表示しない|
+|eval      |FALSE|実行しない|
+
+* ほかにもいろいろある
+* オプションのチェック方法
+    * `knitr::opts_chunk$get`
+
+## setupチャンク
+
+* `{r setup, include = FALSE}`
+* setupのチャンクは一度しか使えない。
+* `include = FALSE`がよく使う指定。
+    * コードチャンクを表示しない
+
+
+* 今回は次のように設定してある。
+* bookdownは違う設定をしてある。
+
+<pre>
+\```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+  comment = "#>",
+  collapse = TRUE,
+  fig.show = "hold"
+)
+\```
+</pre>
+
+## エンジン
+
+* `{r チャンク名, engine="言語名"}`
+* ````言語名:チャンク名`
+* `{言語名 チャンク名, オプション}`
+
+[他言語](#other_languages) に書いた言語以外にもいろいろ使える。
+
+## tex数式 {#tex_math}
+
+* インラインは`$数式$`
+* ブロックラインは`$$数式$$`
+
+たとえば,$E=mc^2$, $mgh=\frac{1}{2}mv^2$
+
+$$E=mc^2$$
+$$mgh=\frac{1}{2}mv^2$$
+
+## texコマンド {#tex_command}
+
+* コマンドは\\をつける
+
+|コマンド|効果|
+|:-------:|:--------:|
+|`\text`  | 演算子など記号を文字にする |
+|`{\rm }` | 文字がイタリックになるのをやめる|
+|`_{}`    | 下付き文字 |
+|`^{}`    | 上付き文字 |
+|`\theta` |$\theta$ギリシャ文字(ほかにも使えます)|
+|`\frac{a}{b}`|$\frac{a}{b}$の分数をつくる|
+|`\int_a^b`|$\int_a^b$こんな感じの積分を作る|
+
+

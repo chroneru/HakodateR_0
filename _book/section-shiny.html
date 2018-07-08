@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>HakodateR#0</title>
+  <meta name="description" content="この本は、HakodateR#0での説明に用いたものです。">
+  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+
+  <meta property="og:title" content="HakodateR#0" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="この本は、HakodateR#0での説明に用いたものです。" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="HakodateR#0" />
+  
+  <meta name="twitter:description" content="この本は、HakodateR#0での説明に用いたものです。" />
+  
+
+<meta name="author" content="chroneru">
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="section-14.html">
+<link rel="next" href="section-htmlwidgets.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<script src="libs/htmlwidgets-1.2/htmlwidgets.js"></script>
+<script src="libs/d3-3.3.8/d3.min.js"></script>
+<script src="libs/dagre-0.4.0/dagre-d3.min.js"></script>
+<link href="libs/mermaid-0.3.0/dist/mermaid.css" rel="stylesheet" />
+<script src="libs/mermaid-0.3.0/dist/mermaid.slim.min.js"></script>
+<link href="libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet" />
+<script src="libs/chromatography-0.1/chromatography.js"></script>
+<script src="libs/DiagrammeR-binding-1.0.0/DiagrammeR.js"></script>
+<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-1.3.1/leaflet.js"></script>
+<link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+<script src="libs/Proj4Leaflet-1.0.1/proj4-compressed.js"></script>
+<script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-binding-2.0.0/leaflet.js"></script>
+<script src="libs/viz-1.8.2/viz.js"></script>
+<script src="libs/grViz-binding-1.0.0/grViz.js"></script>
+<link href="libs/vis-4.20.1/vis.css" rel="stylesheet" />
+<script src="libs/vis-4.20.1/vis.min.js"></script>
+<script src="libs/visNetwork-binding-2.0.3/visNetwork.js"></script>
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="newbie_book.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>はじめに</a></li>
+<li class="chapter" data-level="" data-path="e887aae5b7b1e7b4b9e4bb8b.html"><a href="e887aae5b7b1e7b4b9e4bb8b.html"><i class="fa fa-check"></i>自己紹介</a></li>
+<li class="chapter" data-level="1" data-path="section-r.html"><a href="section-r.html"><i class="fa fa-check"></i><b>1</b> Rのインストール</a><ul>
+<li class="chapter" data-level="1.1" data-path="section-r.html"><a href="section-r.html#section-windows"><i class="fa fa-check"></i><b>1.1</b> windows</a></li>
+<li class="chapter" data-level="1.2" data-path="section-r.html"><a href="section-r.html#section-mac"><i class="fa fa-check"></i><b>1.2</b> mac</a></li>
+<li class="chapter" data-level="1.3" data-path="section-r.html"><a href="section-r.html#section-linux"><i class="fa fa-check"></i><b>1.3</b> linux</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="section-rstudio.html"><a href="section-rstudio.html"><i class="fa fa-check"></i><b>2</b> Rstudioのインストール</a><ul>
+<li class="chapter" data-level="2.1" data-path="section-rstudio.html"><a href="section-rstudio.html#section-windows-1"><i class="fa fa-check"></i><b>2.1</b> windows</a></li>
+<li class="chapter" data-level="2.2" data-path="section-rstudio.html"><a href="section-rstudio.html#section-mac-1"><i class="fa fa-check"></i><b>2.2</b> mac</a></li>
+<li class="chapter" data-level="2.3" data-path="section-rstudio.html"><a href="section-rstudio.html#section-linux-1"><i class="fa fa-check"></i><b>2.3</b> linux</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="section-operator.html"><a href="section-operator.html"><i class="fa fa-check"></i><b>3</b> Rの演算子</a><ul>
+<li class="chapter" data-level="3.1" data-path="section-operator.html"><a href="section-operator.html#section-3.1"><i class="fa fa-check"></i><b>3.1</b> 算術演算子</a></li>
+<li class="chapter" data-level="3.2" data-path="section-operator.html"><a href="section-operator.html#section-3.2"><i class="fa fa-check"></i><b>3.2</b> 代入演算子</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="section-4.html"><a href="section-4.html"><i class="fa fa-check"></i><b>4</b> データ型</a><ul>
+<li class="chapter" data-level="4.1" data-path="section-4.html"><a href="section-4.html#section-4.1"><i class="fa fa-check"></i><b>4.1</b> ベクトル</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="section-4.html"><a href="section-4.html#section-4.1.1"><i class="fa fa-check"></i><b>4.1.1</b> クイズ</a></li>
+<li class="chapter" data-level="4.1.2" data-path="section-4.html"><a href="section-4.html#section-4.1.2"><i class="fa fa-check"></i><b>4.1.2</b> 正解は</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="section-4.html"><a href="section-4.html#section-4.2"><i class="fa fa-check"></i><b>4.2</b> リサイクルルール</a></li>
+<li class="chapter" data-level="4.3" data-path="section-4.html"><a href="section-4.html#section-4.3"><i class="fa fa-check"></i><b>4.3</b> ベクトルの要素を参照する</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="section-4.html"><a href="section-4.html#section-1"><i class="fa fa-check"></i><b>4.3.1</b> ベクトルの要素は<code>[1]</code>からはじまる!</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="section-4.html"><a href="section-4.html#section-na"><i class="fa fa-check"></i><b>4.4</b> NA</a></li>
+<li class="chapter" data-level="4.5" data-path="section-4.html"><a href="section-4.html#section-scanf"><i class="fa fa-check"></i><b>4.5</b> scanfみたいなのも用意されてる</a><ul>
+<li class="chapter" data-level="4.5.1" data-path="section-4.html"><a href="section-4.html#section-4.5.1"><i class="fa fa-check"></i><b>4.5.1</b> 作ってみよう。</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="section-5.html"><a href="section-5.html"><i class="fa fa-check"></i><b>5</b> 他言語との連携</a><ul>
+<li class="chapter" data-level="5.1" data-path="section-5.html"><a href="section-5.html#section-c"><i class="fa fa-check"></i><b>5.1</b> C言語</a></li>
+<li class="chapter" data-level="5.2" data-path="section-5.html"><a href="section-5.html#section-Ccompile"><i class="fa fa-check"></i><b>5.2</b> Cのコードはめんどい</a></li>
+<li class="chapter" data-level="5.3" data-path="section-5.html"><a href="section-5.html#section-C2R"><i class="fa fa-check"></i><b>5.3</b> Rからロード</a></li>
+<li class="chapter" data-level="5.4" data-path="section-5.html"><a href="section-5.html#section-shellscript"><i class="fa fa-check"></i><b>5.4</b> シェルスクリプト</a></li>
+<li class="chapter" data-level="5.5" data-path="section-5.html"><a href="section-5.html#section-commandargs"><i class="fa fa-check"></i><b>5.5</b> commandArgs()</a></li>
+<li class="chapter" data-level="5.6" data-path="section-5.html"><a href="section-5.html#section-shebang"><i class="fa fa-check"></i><b>5.6</b> shebang</a></li>
+<li class="chapter" data-level="5.7" data-path="section-5.html"><a href="section-5.html#section-program_with_heredoc"><i class="fa fa-check"></i><b>5.7</b> ヒアドキュメント</a></li>
+<li class="chapter" data-level="5.8" data-path="section-5.html"><a href="section-5.html#section-5.8"><i class="fa fa-check"></i><b>5.8</b> 他にも使える言語</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="section-6.html"><a href="section-6.html"><i class="fa fa-check"></i><b>6</b> パッケージ</a><ul>
+<li class="chapter" data-level="6.1" data-path="section-6.html"><a href="section-6.html#section-6.1"><i class="fa fa-check"></i><b>6.1</b> パッケージとは</a><ul>
+<li class="chapter" data-level="6.1.1" data-path="section-6.html"><a href="section-6.html#section-6.1.1"><i class="fa fa-check"></i><b>6.1.1</b> いろんな人がつくった便利な関数群</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="section-6.html"><a href="section-6.html#section-install_with_heredoc"><i class="fa fa-check"></i><b>6.2</b> ヒアドキュメント</a></li>
+<li class="chapter" data-level="6.3" data-path="section-6.html"><a href="section-6.html#section-tidyverse"><i class="fa fa-check"></i><b>6.3</b> tidyverse群</a></li>
+<li class="chapter" data-level="6.4" data-path="section-6.html"><a href="section-6.html#section-tidy_example"><i class="fa fa-check"></i><b>6.4</b> tidyverseの実践</a></li>
+<li class="chapter" data-level="6.5" data-path="section-6.html"><a href="section-6.html#section-ggplot"><i class="fa fa-check"></i><b>6.5</b> ggplot</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="section-7.html"><a href="section-7.html"><i class="fa fa-check"></i><b>7</b> 関数</a><ul>
+<li class="chapter" data-level="7.1" data-path="section-7.html"><a href="section-7.html#section-function"><i class="fa fa-check"></i><b>7.1</b> function()</a></li>
+<li class="chapter" data-level="7.2" data-path="section-7.html"><a href="section-7.html#section-7.2"><i class="fa fa-check"></i><b>7.2</b> 関数例:パレート図の統計量</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="section-8.html"><a href="section-8.html"><i class="fa fa-check"></i><b>8</b> データ</a><ul>
+<li class="chapter" data-level="8.1" data-path="section-8.html"><a href="section-8.html#section-read.csv"><i class="fa fa-check"></i><b>8.1</b> read.csv</a></li>
+<li class="chapter" data-level="8.2" data-path="section-8.html"><a href="section-8.html#section-read_csv"><i class="fa fa-check"></i><b>8.2</b> read_csv</a></li>
+<li class="chapter" data-level="8.3" data-path="section-8.html"><a href="section-8.html#section-write.csv"><i class="fa fa-check"></i><b>8.3</b> write.csv</a></li>
+<li class="chapter" data-level="8.4" data-path="section-8.html"><a href="section-8.html#section-8.4"><i class="fa fa-check"></i><b>8.4</b> サンプルデータの作成</a></li>
+<li class="chapter" data-level="8.5" data-path="section-8.html"><a href="section-8.html#section-sample"><i class="fa fa-check"></i><b>8.5</b> sample</a></li>
+<li class="chapter" data-level="8.6" data-path="section-8.html"><a href="section-8.html#section-8.6"><i class="fa fa-check"></i><b>8.6</b> その他</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="section-9.html"><a href="section-9.html"><i class="fa fa-check"></i><b>9</b> 使用例</a><ul>
+<li class="chapter" data-level="9.1" data-path="section-9.html"><a href="section-9.html#section-pareto_graph"><i class="fa fa-check"></i><b>9.1</b> パレート図</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="section-10.html"><a href="section-10.html"><i class="fa fa-check"></i><b>10</b> 統計処理</a><ul>
+<li class="chapter" data-level="10.1" data-path="section-10.html"><a href="section-10.html#section-10.1"><i class="fa fa-check"></i><b>10.1</b> とりあえずやってみる。</a></li>
+<li class="chapter" data-level="10.2" data-path="section-10.html"><a href="section-10.html#section-10.2"><i class="fa fa-check"></i><b>10.2</b> 方針</a></li>
+<li class="chapter" data-level="10.3" data-path="section-10.html"><a href="section-10.html#section-tibble"><i class="fa fa-check"></i><b>10.3</b> tibble型の威力</a></li>
+<li class="chapter" data-level="10.4" data-path="section-10.html"><a href="section-10.html#section-10.4"><i class="fa fa-check"></i><b>10.4</b> 列名を変更する</a></li>
+<li class="chapter" data-level="10.5" data-path="section-10.html"><a href="section-10.html#section-10.5"><i class="fa fa-check"></i><b>10.5</b> 散布図で様子見</a></li>
+<li class="chapter" data-level="10.6" data-path="section-10.html"><a href="section-10.html#section-10.6"><i class="fa fa-check"></i><b>10.6</b> 線形回帰分析</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="section-11.html"><a href="section-11.html"><i class="fa fa-check"></i><b>11</b> ベイズ</a><ul>
+<li class="chapter" data-level="11.1" data-path="section-11.html"><a href="section-11.html#section-11.1"><i class="fa fa-check"></i><b>11.1</b> ベイズ統計</a></li>
+<li class="chapter" data-level="11.2" data-path="section-11.html"><a href="section-11.html#section-baysian-linear-regression"><i class="fa fa-check"></i><b>11.2</b> baysian linear regression</a></li>
+<li class="chapter" data-level="11.3" data-path="section-11.html"><a href="section-11.html#section-mcmcregress"><i class="fa fa-check"></i><b>11.3</b> MCMCregress</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="section-bayesfactor.html"><a href="section-bayesfactor.html"><i class="fa fa-check"></i><b>12</b> BayesFactor</a><ul>
+<li class="chapter" data-level="12.1" data-path="section-bayesfactor.html"><a href="section-bayesfactor.html#section-12.1"><i class="fa fa-check"></i><b>12.1</b> ベイズファクター</a></li>
+<li class="chapter" data-level="12.2" data-path="section-bayesfactor.html"><a href="section-bayesfactor.html#section-anovabf"><i class="fa fa-check"></i><b>12.2</b> anovaBF</a></li>
+<li class="chapter" data-level="12.3" data-path="section-bayesfactor.html"><a href="section-bayesfactor.html#section-anovabf"><i class="fa fa-check"></i><b>12.3</b> anovaBFの使用</a></li>
+<li class="chapter" data-level="12.4" data-path="section-bayesfactor.html"><a href="section-bayesfactor.html#section-12.4"><i class="fa fa-check"></i><b>12.4</b> プロット結果</a></li>
+<li class="chapter" data-level="12.5" data-path="section-bayesfactor.html"><a href="section-bayesfactor.html#section-12.5"><i class="fa fa-check"></i><b>12.5</b> ふたたび線形回帰分析</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="section-rmarkdown.html"><a href="section-rmarkdown.html"><i class="fa fa-check"></i><b>13</b> rmarkdown</a><ul>
+<li class="chapter" data-level="13.1" data-path="section-rmarkdown.html"><a href="section-rmarkdown.html#section-rmarkdown"><i class="fa fa-check"></i><b>13.1</b> rmarkdownの準備</a></li>
+<li class="chapter" data-level="13.2" data-path="section-rmarkdown.html"><a href="section-rmarkdown.html#section-yaml"><i class="fa fa-check"></i><b>13.2</b> yamlヘッダ</a></li>
+<li class="chapter" data-level="13.3" data-path="section-rmarkdown.html"><a href="section-rmarkdown.html#section-13.3"><i class="fa fa-check"></i><b>13.3</b> 出力形式</a></li>
+<li class="chapter" data-level="13.4" data-path="section-rmarkdown.html"><a href="section-rmarkdown.html#section-pdf"><i class="fa fa-check"></i><b>13.4</b> pdfの出力</a></li>
+<li class="chapter" data-level="13.5" data-path="section-rmarkdown.html"><a href="section-rmarkdown.html#section-tex"><i class="fa fa-check"></i><b>13.5</b> texのログファイル</a></li>
+<li class="chapter" data-level="13.6" data-path="section-rmarkdown.html"><a href="section-rmarkdown.html#section-tex"><i class="fa fa-check"></i><b>13.6</b> texライブラリ</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="section-14.html"><a href="section-14.html"><i class="fa fa-check"></i><b>14</b> コードチャンク</a><ul>
+<li class="chapter" data-level="14.1" data-path="section-14.html"><a href="section-14.html#section-14.1"><i class="fa fa-check"></i><b>14.1</b> コードチャンクの書き方</a></li>
+<li class="chapter" data-level="14.2" data-path="section-14.html"><a href="section-14.html#section-14.2"><i class="fa fa-check"></i><b>14.2</b> チャンクオプション</a></li>
+<li class="chapter" data-level="14.3" data-path="section-14.html"><a href="section-14.html#section-setup"><i class="fa fa-check"></i><b>14.3</b> setupチャンク</a></li>
+<li class="chapter" data-level="14.4" data-path="section-14.html"><a href="section-14.html#section-14.4"><i class="fa fa-check"></i><b>14.4</b> エンジン</a></li>
+<li class="chapter" data-level="14.5" data-path="section-14.html"><a href="section-14.html#section-tex_math"><i class="fa fa-check"></i><b>14.5</b> tex数式</a></li>
+<li class="chapter" data-level="14.6" data-path="section-14.html"><a href="section-14.html#section-tex_command"><i class="fa fa-check"></i><b>14.6</b> texコマンド</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="section-shiny.html"><a href="section-shiny.html"><i class="fa fa-check"></i><b>15</b> shiny</a><ul>
+<li class="chapter" data-level="15.1" data-path="section-shiny.html"><a href="section-shiny.html#section-widget"><i class="fa fa-check"></i><b>15.1</b> widget</a></li>
+<li class="chapter" data-level="15.2" data-path="section-shiny.html"><a href="section-shiny.html#section-reactive"><i class="fa fa-check"></i><b>15.2</b> reactive</a></li>
+<li class="chapter" data-level="15.3" data-path="section-shiny.html"><a href="section-shiny.html#section-observer"><i class="fa fa-check"></i><b>15.3</b> observer</a></li>
+<li class="chapter" data-level="15.4" data-path="section-shiny.html"><a href="section-shiny.html#section-endpoint"><i class="fa fa-check"></i><b>15.4</b> endpoint</a></li>
+<li class="chapter" data-level="15.5" data-path="section-shiny.html"><a href="section-shiny.html#section-shiny"><i class="fa fa-check"></i><b>15.5</b> shinyのレイアウト</a><ul>
+<li class="chapter" data-level="15.5.1" data-path="section-shiny.html"><a href="section-shiny.html#section-panel"><i class="fa fa-check"></i><b>15.5.1</b> *Panel</a></li>
+<li class="chapter" data-level="15.5.2" data-path="section-shiny.html"><a href="section-shiny.html#section-fluidrow"><i class="fa fa-check"></i><b>15.5.2</b> fluidRow</a></li>
+<li class="chapter" data-level="15.5.3" data-path="section-shiny.html"><a href="section-shiny.html#section-css"><i class="fa fa-check"></i><b>15.5.3</b> css</a></li>
+<li class="chapter" data-level="15.5.4" data-path="section-shiny.html"><a href="section-shiny.html#section-googleapi"><i class="fa fa-check"></i><b>15.5.4</b> googleapi</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="section-htmlwidgets.html"><a href="section-htmlwidgets.html"><i class="fa fa-check"></i><b>16</b> htmlwidgets</a><ul>
+<li class="chapter" data-level="16.1" data-path="section-htmlwidgets.html"><a href="section-htmlwidgets.html#section-htmlwidgets"><i class="fa fa-check"></i><b>16.1</b> htmlwidgetsとは</a></li>
+<li class="chapter" data-level="16.2" data-path="section-htmlwidgets.html"><a href="section-htmlwidgets.html#section-leaflet"><i class="fa fa-check"></i><b>16.2</b> leaflet</a></li>
+<li class="chapter" data-level="16.3" data-path="section-htmlwidgets.html"><a href="section-htmlwidgets.html#section-leaflet-route-machine"><i class="fa fa-check"></i><b>16.3</b> Leaflet Route Machine</a></li>
+<li class="chapter" data-level="16.4" data-path="section-htmlwidgets.html"><a href="section-htmlwidgets.html#section-libpng"><i class="fa fa-check"></i><b>16.4</b> libpng</a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="section-diagrammer.html"><a href="section-diagrammer.html"><i class="fa fa-check"></i><b>17</b> DiagrammeR</a><ul>
+<li class="chapter" data-level="17.1" data-path="section-diagrammer.html"><a href="section-diagrammer.html#section-diagrammer"><i class="fa fa-check"></i><b>17.1</b> DiagrammeRとは</a></li>
+<li class="chapter" data-level="17.2" data-path="section-diagrammer.html"><a href="section-diagrammer.html#section-graphviz"><i class="fa fa-check"></i><b>17.2</b> graphviz</a><ul>
+<li class="chapter" data-level="17.2.1" data-path="section-diagrammer.html"><a href="section-diagrammer.html#section-grviz"><i class="fa fa-check"></i><b>17.2.1</b> grViz関数</a></li>
+</ul></li>
+<li class="chapter" data-level="17.3" data-path="section-diagrammer.html"><a href="section-diagrammer.html#section-footnumber"><i class="fa fa-check"></i><b>17.3</b> footnumber</a></li>
+<li class="chapter" data-level="17.4" data-path="section-diagrammer.html"><a href="section-diagrammer.html#section-mermaid"><i class="fa fa-check"></i><b>17.4</b> mermaid</a></li>
+<li class="chapter" data-level="17.5" data-path="section-diagrammer.html"><a href="section-diagrammer.html#section-sequencediagram"><i class="fa fa-check"></i><b>17.5</b> sequenceDiagram</a></li>
+<li class="chapter" data-level="17.6" data-path="section-diagrammer.html"><a href="section-diagrammer.html#section-gant-diagram"><i class="fa fa-check"></i><b>17.6</b> Gant diagram</a></li>
+<li class="chapter" data-level="17.7" data-path="section-diagrammer.html"><a href="section-diagrammer.html#section-pipe_diagrammer"><i class="fa fa-check"></i><b>17.7</b> パイプライン</a><ul>
+<li class="chapter" data-level="17.7.1" data-path="section-diagrammer.html"><a href="section-diagrammer.html#section-17.7.1"><i class="fa fa-check"></i><b>17.7.1</b> 公式</a></li>
+</ul></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">HakodateR#0</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="section-shiny" class="section level1">
+<h1><span class="header-section-number">15</span> shiny</h1>
+<ul>
+<li>Rでwebアプリを作れるやつ</li>
+<li>shinyパッケージをインストールする</li>
+<li>ここ数年で仕様が変化している模様
+<ul>
+<li>ui.Rとserver.Rからapp.Rに</li>
+</ul></li>
+<li>shinyサーバーをインストールして構築するのは難易度高め</li>
+<li><p>shinyserverproを使うとユーザー認証ができたりする。</p></li>
+<li>ここからは<code>eval=FALSE</code>にしてある
+<ul>
+<li>shinyのある環境でお試しください。</li>
+</ul></li>
+<li><p>簡単に書いてみると</p></li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ui &lt;-<span class="st"> </span><span class="kw">fluidPage</span>(
+  <span class="kw">titlePanel</span>(<span class="st">&quot;たいとる&quot;</span>),
+  <span class="kw">mainPanel</span>(),
+  <span class="kw">sidebarPanel</span>()
+)
+
+server &lt;-<span class="st"> </span><span class="cf">function</span>(input, output) {
+  
+}
+
+<span class="kw">shinyApp</span>(<span class="dt">ui =</span> ui, <span class="dt">server =</span> server)</code></pre></div>
+<ul>
+<li>ui.Rでの場合
+<ul>
+<li><code>shinyUI()</code>でui設定を<code>{}</code>でくくって記述</li>
+</ul></li>
+<li>server.Rでの場合
+<ul>
+<li><code>shinyServer()</code>でserver設定を<code>function(input,output){}</code>の関数内で記述</li>
+</ul></li>
+<li>app.Rでの場合
+<ul>
+<li><code>ui</code>,<code>server</code>オブジェクトを定義</li>
+<li><code>shinyApp(ui = ui, server = server)</code>でアプリ起動</li>
+</ul></li>
+</ul>
+<div id="section-widget" class="section level2">
+<h2><span class="header-section-number">15.1</span> widget</h2>
+<ul>
+<li>さっきのはシンプルな形</li>
+<li>入力フォームや出力などのウィジェットを定義する。</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ls</span>(<span class="dt">envir =</span> <span class="kw">environment</span>(shiny<span class="op">::</span>numericInput)) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="co"># ..*で任意の一文字以上, (Input|Output)でInputまたはOutput, $は行末のアンカー</span>
+<span class="st">  </span><span class="kw">str_subset</span>(<span class="st">&quot;..*(Input|Output)$&quot;</span>) 
+<span class="co">#&gt;  [1] &quot;cancelOutput&quot;                  &quot;checkboxGroupInput&quot;           </span>
+<span class="co">#&gt;  [3] &quot;checkboxInput&quot;                 &quot;dataTableOutput&quot;              </span>
+<span class="co">#&gt;  [5] &quot;dateInput&quot;                     &quot;dateRangeInput&quot;               </span>
+<span class="co">#&gt;  [7] &quot;fileInput&quot;                     &quot;htmlOutput&quot;                   </span>
+<span class="co">#&gt;  [9] &quot;imageOutput&quot;                   &quot;numericInput&quot;                 </span>
+<span class="co">#&gt; [11] &quot;passwordInput&quot;                 &quot;plotOutput&quot;                   </span>
+<span class="co">#&gt; [13] &quot;restoreInput&quot;                  &quot;selectInput&quot;                  </span>
+<span class="co">#&gt; [15] &quot;selectizeInput&quot;                &quot;serializerFileInput&quot;          </span>
+<span class="co">#&gt; [17] &quot;sliderInput&quot;                   &quot;snapshotPreprocessInput&quot;      </span>
+<span class="co">#&gt; [19] &quot;snapshotPreprocessorFileInput&quot; &quot;snapshotPreprocessOutput&quot;     </span>
+<span class="co">#&gt; [21] &quot;tableOutput&quot;                   &quot;textAreaInput&quot;                </span>
+<span class="co">#&gt; [23] &quot;textInput&quot;                     &quot;textOutput&quot;                   </span>
+<span class="co">#&gt; [25] &quot;uiOutput&quot;                      &quot;updateCheckboxGroupInput&quot;     </span>
+<span class="co">#&gt; [27] &quot;updateCheckboxInput&quot;           &quot;updateDateInput&quot;              </span>
+<span class="co">#&gt; [29] &quot;updateDateRangeInput&quot;          &quot;updateNumericInput&quot;           </span>
+<span class="co">#&gt; [31] &quot;updateSelectInput&quot;             &quot;updateSelectizeInput&quot;         </span>
+<span class="co">#&gt; [33] &quot;updateSliderInput&quot;             &quot;updateTextAreaInput&quot;          </span>
+<span class="co">#&gt; [35] &quot;updateTextInput&quot;               &quot;verbatimTextOutput&quot;</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">
+ui &lt;-<span class="st"> </span><span class="kw">fluidPage</span>(
+  <span class="kw">titlePanel</span>(<span class="st">&quot;numericInput&amp;sliderInput&quot;</span>),
+  <span class="kw">fluidRow</span>(
+    <span class="kw">column</span>(<span class="dv">6</span>,
+           <span class="kw">numericInput</span>(<span class="st">&quot;test_num&quot;</span>, <span class="st">&quot;数字を入力してね&quot;</span>, <span class="dt">value =</span> <span class="ot">NA</span>, <span class="dt">min =</span> <span class="dv">0</span>, <span class="dt">max =</span> <span class="dv">20</span>)),
+    <span class="kw">column</span>(<span class="dv">6</span>,
+            <span class="kw">sliderInput</span>(<span class="st">&quot;test_slide&quot;</span>, <span class="st">&quot;スライドしよう&quot;</span>, <span class="dt">min =</span> <span class="dv">0</span>, <span class="dt">max =</span> <span class="dv">100</span>, <span class="dt">value =</span> <span class="dv">20</span>))
+  ),
+  <span class="kw">textOutput</span>(<span class="st">&quot;test_text&quot;</span>)
+)
+
+server &lt;-<span class="st"> </span><span class="cf">function</span>(input, output) {
+  output<span class="op">$</span>test_text &lt;-<span class="st"> </span><span class="kw">renderText</span>({
+    <span class="kw">paste0</span>(<span class="st">&quot;入力した数字は,&quot;</span>, input<span class="op">$</span>test_num, <span class="st">&quot;スライダーの数字は,&quot;</span>, input<span class="op">$</span>test_slide)
+  })
+}
+
+<span class="kw">shinyApp</span>(<span class="dt">ui =</span> ui, <span class="dt">server =</span> server)</code></pre></div>
+<ul>
+<li><p><code>output$id名</code>に出力を代入する。</p></li>
+<li><p>render系の関数は出力時に使う。</p></li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ls</span>(<span class="dt">envir =</span> <span class="kw">environment</span>(shiny<span class="op">::</span>renderText)) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">str_subset</span>(<span class="st">&quot;.*render.*&quot;</span>)
+<span class="co">#&gt;  [1] &quot;as.tags.shiny.render.function&quot;    &quot;knit_print.shiny.render.function&quot;</span>
+<span class="co">#&gt;  [3] &quot;renderDataTable&quot;                  &quot;renderImage&quot;                     </span>
+<span class="co">#&gt;  [5] &quot;renderPage&quot;                       &quot;renderPlot&quot;                      </span>
+<span class="co">#&gt;  [7] &quot;renderPrint&quot;                      &quot;renderReactLog&quot;                  </span>
+<span class="co">#&gt;  [9] &quot;renderTable&quot;                      &quot;renderText&quot;                      </span>
+<span class="co">#&gt; [11] &quot;renderUI&quot;</span></code></pre></div>
+</div>
+<div id="section-reactive" class="section level2">
+<h2><span class="header-section-number">15.2</span> reactive</h2>
+<h3>
+いままでやったのはreactivityとは少し違う。
+</h3>
+<ul>
+<li><code>render*</code>はinputの値が変わるたびに、再実行する。</li>
+<li>つまり、不要な更新も行われるということ。</li>
+<li>さっきの例だと
+<ul>
+<li><code>numericInput</code>の値しか変わらないのに<code>sliderInput</code>の値を再代入してしまう。</li>
+</ul></li>
+</ul>
+<h3>
+<code>reactive()</code>を使おう!
+</h3>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ui &lt;-<span class="st"> </span><span class="kw">fluidPage</span>(
+  <span class="kw">titlePanel</span>(<span class="st">&quot;numericInput&amp;sliderInput&quot;</span>),
+  <span class="kw">fluidRow</span>(
+    <span class="kw">column</span>(<span class="dv">6</span>,
+           <span class="kw">numericInput</span>(<span class="st">&quot;test_num&quot;</span>, <span class="st">&quot;数字を入力してね&quot;</span>, <span class="dt">value =</span> <span class="ot">NA</span>, <span class="dt">min =</span> <span class="dv">0</span>, <span class="dt">max =</span> <span class="dv">20</span>)),
+    <span class="kw">column</span>(<span class="dv">6</span>,
+            <span class="kw">sliderInput</span>(<span class="st">&quot;test_slide&quot;</span>, <span class="st">&quot;スライドしよう&quot;</span>, <span class="dt">min =</span> <span class="dv">0</span>, <span class="dt">max =</span> <span class="dv">100</span>, <span class="dt">value =</span> <span class="dv">20</span>))
+  ),
+  <span class="kw">textOutput</span>(<span class="st">&quot;test_text&quot;</span>)
+)
+
+server &lt;-<span class="st"> </span><span class="cf">function</span>(input, output) {
+  reactive_test_num &lt;-<span class="st"> </span><span class="kw">reactive</span>(<span class="kw">list</span>(input<span class="op">$</span>test_num, input<span class="op">$</span>test_slide))
+  output<span class="op">$</span>test_text &lt;-<span class="st"> </span><span class="kw">renderText</span>({
+    <span class="kw">paste0</span>(<span class="st">&quot;入力した数字は,&quot;</span>, <span class="kw">reactive_test_num</span>()[[<span class="dv">1</span>]], <span class="st">&quot;スライダーの数字は,&quot;</span>, <span class="kw">reactive_test_num</span>()[[<span class="dv">2</span>]])
+  })
+}
+
+<span class="kw">shinyApp</span>(<span class="dt">ui =</span> ui, <span class="dt">server =</span> server)</code></pre></div>
+<ul>
+<li><code>reactive</code>は関数オブジェクトの形をとる。</li>
+<li><p><code>[[]]</code>でのアクセスは、ベクトルを返させる。</p></li>
+<li><code>reactive</code>の関数は、<code>{}</code>でくくると複数行の表現式を受け取れる。</li>
+<li><code>reactive</code>は、メモリ中の<code>input</code>変数が変わったら、再実行される。
+<ul>
+<li>変わらなければ再代入されない。</li>
+</ul></li>
+<li><p>なんども関数を実行することは速度の低下につながる。</p></li>
+</ul>
+</div>
+<div id="section-observer" class="section level2">
+<h2><span class="header-section-number">15.3</span> observer</h2>
+<ul>
+<li><code>observe</code>は常に<code>input</code>を監視する。</li>
+<li>挙動は<code>reactive</code>と同じ。</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ui &lt;-<span class="st"> </span><span class="kw">fluidPage</span>(
+  <span class="kw">titlePanel</span>(<span class="st">&quot;numericInput&amp;sliderInput&quot;</span>),
+  <span class="kw">fluidRow</span>(
+    <span class="kw">column</span>(<span class="dv">6</span>,
+           <span class="kw">numericInput</span>(<span class="st">&quot;test_num&quot;</span>, <span class="st">&quot;数字を入力してね&quot;</span>, <span class="dt">value =</span> <span class="ot">NA</span>, <span class="dt">min =</span> <span class="dv">0</span>, <span class="dt">max =</span> <span class="dv">20</span>)),
+    <span class="kw">column</span>(<span class="dv">6</span>,
+            <span class="kw">sliderInput</span>(<span class="st">&quot;test_slide&quot;</span>, <span class="st">&quot;スライドしよう&quot;</span>, <span class="dt">min =</span> <span class="dv">0</span>, <span class="dt">max =</span> <span class="dv">100</span>, <span class="dt">value =</span> <span class="dv">20</span>))
+  ),
+  <span class="kw">textOutput</span>(<span class="st">&quot;test_text&quot;</span>)
+)
+
+server &lt;-<span class="st"> </span><span class="cf">function</span>(input, output) {
+  <span class="co">#observe(list(input$test_num, input$test_slide))</span>
+  observe_test &lt;-<span class="st"> </span><span class="kw">reactiveValues</span>()
+  <span class="kw">observe</span>({observe_test<span class="op">$</span>num &lt;-<span class="st"> </span>input<span class="op">$</span>test_num; observe_test<span class="op">$</span>slide &lt;-<span class="st"> </span>input<span class="op">$</span>test_slide})
+  output<span class="op">$</span>test_text &lt;-<span class="st"> </span><span class="kw">renderText</span>({
+    <span class="kw">paste0</span>(<span class="st">&quot;入力した数字は,&quot;</span>,
+           <span class="co">#input$test_num,</span>
+           observe_test<span class="op">$</span>num,
+           <span class="st">&quot;スライダーの数字は,&quot;</span>,
+           <span class="co">#input$test_slide</span>
+           observe_test<span class="op">$</span>slide)
+  })
+}
+
+<span class="kw">shinyApp</span>(<span class="dt">ui =</span> ui, <span class="dt">server =</span> server)</code></pre></div>
+<ul>
+<li><code>observe()</code>は,<code>reactive</code>と決定的に違う。</li>
+<li><code>input</code>が変わらなくても、<code>observe</code>内の関数を再実行する。
+<ul>
+<li><code>render*</code>内の関数を外に押し出すのにいいかも。</li>
+</ul></li>
+</ul>
+</div>
+<div id="section-endpoint" class="section level2">
+<h2><span class="header-section-number">15.4</span> endpoint</h2>
+<ul>
+<li><code>render*</code>の関数</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">mermaid</span>(<span class="st">&quot;</span>
+<span class="st">        graph LR</span>
+<span class="st">          id1[reactive]</span>
+<span class="st">          id2{observer}</span>
+<span class="st">          id3&gt;endpoint]</span>
+<span class="st">        </span>
+<span class="st">          id1---id2</span>
+<span class="st">          id2---id3&quot;</span>)</code></pre></div>
+<div id="htmlwidget-d5c3d1aac6680938e48b" style="width:70%;height:355.968px;" class="DiagrammeR html-widget"></div>
+<script type="application/json" data-for="htmlwidget-d5c3d1aac6680938e48b">{"x":{"diagram":"\n        graph LR\n          id1[reactive]\n          id2{observer}\n          id3>endpoint]\n        \n          id1---id2\n          id2---id3"},"evals":[],"jsHooks":[]}</script>
+<ul>
+<li>イメージとしてはこんな感じ</li>
+<li>最後に<code>render*</code>で<code>output</code>にわたす
+<ul>
+<li><code>renderText()</code>をさっき使った</li>
+</ul></li>
+<li><code>mermaid()</code>は後述</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ui &lt;-<span class="st"> </span><span class="kw">fluidPage</span>(
+  <span class="kw">titlePanel</span>(<span class="st">&quot;numericInput&amp;sliderInput&quot;</span>),
+  <span class="kw">fluidRow</span>(
+    <span class="kw">column</span>(<span class="dv">6</span>,
+           <span class="kw">numericInput</span>(<span class="st">&quot;test_num&quot;</span>, <span class="st">&quot;数字を入力してね&quot;</span>, <span class="dt">value =</span> <span class="ot">NA</span>, <span class="dt">min =</span> <span class="dv">0</span>, <span class="dt">max =</span> <span class="dv">20</span>)),
+    <span class="kw">column</span>(<span class="dv">6</span>,
+            <span class="kw">sliderInput</span>(<span class="st">&quot;test_slide&quot;</span>, <span class="st">&quot;スライドしよう&quot;</span>, <span class="dt">min =</span> <span class="dv">0</span>, <span class="dt">max =</span> <span class="dv">100</span>, <span class="dt">value =</span> <span class="dv">20</span>))
+  ),
+  <span class="kw">dataTableOutput</span>(<span class="st">&quot;test_table&quot;</span>)
+)
+
+server &lt;-<span class="st"> </span><span class="cf">function</span>(input, output) {
+  check_var &lt;-<span class="st"> </span><span class="kw">reactive</span>(<span class="kw">data.frame</span>(<span class="dt">num =</span> input<span class="op">$</span>test_num, <span class="dt">slide =</span> input<span class="op">$</span>test_slide))
+  <span class="kw">observe</span>({table_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">check_var</span>())})
+  output<span class="op">$</span>test_table &lt;-<span class="st"> </span><span class="kw">renderDataTable</span>({<span class="kw">as.data.frame</span>(<span class="kw">check_var</span>())})
+}
+
+<span class="kw">shinyApp</span>(<span class="dt">ui =</span> ui, <span class="dt">server =</span> server)</code></pre></div>
+<ul>
+<li><code>renderDataTable()</code>はdata.frameとmatrixを出力</li>
+<li><code>renderTable()</code>は<code>xtable::xtable</code>を使うので注意！</li>
+<li>詳しくは<code>?shiny::renderDataTable</code></li>
+</ul>
+<h3>
+基本的には, reactive, endpoint, がわかればOK!
+</h3>
+</div>
+<div id="section-shiny" class="section level2">
+<h2><span class="header-section-number">15.5</span> shinyのレイアウト</h2>
+<div id="section-panel" class="section level3">
+<h3><span class="header-section-number">15.5.1</span> *Panel</h3>
+<ul>
+<li>基本的には<code>*Panel</code>で書けばいい。</li>
+<li><code>sidebarLayout()</code>も簡単</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ls</span>(<span class="dt">envir =</span> <span class="kw">environment</span>(shiny<span class="op">::</span>titlePanel)) <span class="op">%&gt;%</span><span class="st"> </span>
+<span class="st">  </span><span class="kw">str_subset</span>(<span class="st">&quot;.*Panel$&quot;</span>)
+<span class="co">#&gt;  [1] &quot;absolutePanel&quot;      &quot;conditionalPanel&quot;   &quot;fixedPanel&quot;        </span>
+<span class="co">#&gt;  [4] &quot;headerPanel&quot;        &quot;inputPanel&quot;         &quot;mainPanel&quot;         </span>
+<span class="co">#&gt;  [7] &quot;navlistPanel&quot;       &quot;sidebarPanel&quot;       &quot;tabPanel&quot;          </span>
+<span class="co">#&gt; [10] &quot;tabsetPanel&quot;        &quot;titlePanel&quot;         &quot;updateNavlistPanel&quot;</span>
+<span class="co">#&gt; [13] &quot;updateTabsetPanel&quot;  &quot;wellPanel&quot;</span></code></pre></div>
+</div>
+<div id="section-fluidrow" class="section level3">
+<h3><span class="header-section-number">15.5.2</span> fluidRow</h3>
+<ul>
+<li><code>fluidRow()</code>の中に<code>column(width, )</code>でレイアウトしていく
+<ul>
+<li>いままで使ってたやつ</li>
+</ul></li>
+<li><code>column(width, )</code>のwidthは,同一の<code>fluidRow()</code>内で合計12になるようにする。
+<ul>
+<li>2つに等分するなら<code>width = 6</code></li>
+<li>3等分なら<code>width = 4</code></li>
+<li>自由に、<code>width = 2</code>, <code>width = 4</code> , <code>width = 6</code>もOK</li>
+</ul></li>
+</ul>
+</div>
+<div id="section-css" class="section level3">
+<h3><span class="header-section-number">15.5.3</span> css</h3>
+<ol style="list-style-type: decimal">
+<li>app.R, ui.R, server.Rのあるところにcssを置く</li>
+<li><p><code>shiny::includeCSS()</code>でcssファイルを指定する。(パス無し)</p></li>
+<li><code>www</code>ディレクトリをapp.R, ui.R, server.Rのあるところに作る</li>
+<li><code>www</code>内にcssファイルを置く</li>
+<li><code>fluidPage(theme = &quot;css&quot;, )</code>で指定する。</li>
+<li><p><code>tags$head()</code>内の<code>tags$link()</code>で設定する</p></li>
+</ol>
+<ul>
+<li><code>tags$head()</code>内の<code>tags$style()</code>で直接スタイルを書く</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ui &lt;-<span class="st"> </span><span class="kw">fluidPage</span>(
+  <span class="co">#失敗,たぶんリポジトリのディレクトリ構造が干渉してる</span>
+  <span class="co"># theme = &quot;shiny_css/test_shiny_css.css&quot;,</span>
+  <span class="co">#失敗,たぶん上と同じ理由</span>
+    <span class="co"># tags$head(</span>
+    <span class="co">#   tags$link(rel = &quot;stylesheet&quot;, type = &quot;text/css&quot;, href = &quot;shiny_css/test_shiny_css.css&quot;)</span>
+    <span class="co"># ),</span>
+  <span class="co">#これはうまくいく。パスはRmd起点にしてある。</span>
+  <span class="co">#includeCSS(&quot;www/shiny_css/test_shiny_css.css&quot;),</span>
+  
+  <span class="kw">headerPanel</span>(<span class="st">&quot;numericInput&amp;sliderInput&quot;</span>),
+  <span class="kw">fluidRow</span>(
+    <span class="kw">column</span>(<span class="dv">6</span>,
+           <span class="kw">numericInput</span>(<span class="st">&quot;test_num&quot;</span>, <span class="st">&quot;数字を入力してね&quot;</span>, <span class="dt">value =</span> <span class="ot">NA</span>, <span class="dt">min =</span> <span class="dv">0</span>, <span class="dt">max =</span> <span class="dv">20</span>)),
+    <span class="kw">column</span>(<span class="dv">6</span>,
+            <span class="kw">sliderInput</span>(<span class="st">&quot;test_slide&quot;</span>, <span class="st">&quot;スライドしよう&quot;</span>, <span class="dt">min =</span> <span class="dv">0</span>, <span class="dt">max =</span> <span class="dv">100</span>, <span class="dt">value =</span> <span class="dv">20</span>))
+  ),
+  <span class="kw">dataTableOutput</span>(<span class="st">&quot;test_table&quot;</span>)
+)
+
+server &lt;-<span class="st"> </span><span class="cf">function</span>(input, output) {
+  check_var &lt;-<span class="st"> </span><span class="kw">reactive</span>(<span class="kw">data.frame</span>(<span class="dt">num =</span> input<span class="op">$</span>test_num, <span class="dt">slide =</span> input<span class="op">$</span>test_slide))
+  <span class="kw">observe</span>({table_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">check_var</span>())})
+  output<span class="op">$</span>test_table &lt;-<span class="st"> </span><span class="kw">renderDataTable</span>({<span class="kw">as.data.frame</span>(<span class="kw">check_var</span>())})
+}
+
+<span class="kw">shinyApp</span>(<span class="dt">ui =</span> ui, <span class="dt">server =</span> server)</code></pre></div>
+<ul>
+<li>ちょー見づらいけど、テストだからわかりやすく。</li>
+</ul>
+</div>
+<div id="section-googleapi" class="section level3">
+<h3><span class="header-section-number">15.5.4</span> googleapi</h3>
+<ul>
+<li>googleapiのcssを<code>@import</code>する</li>
+<li>日本語は開発中らしい</li>
+<li>earlyaccessでcssを読み込める</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">ui &lt;-<span class="st"> </span><span class="kw">fluidPage</span>(
+  tags<span class="op">$</span><span class="kw">head</span>(
+    tags<span class="op">$</span><span class="kw">style</span>(<span class="kw">HTML</span>(<span class="st">&quot;</span>
+<span class="st">/*</span>
+<span class="st">                    @import url(//fonts.googleapis.com/earlyaccess/nicomoji.css);</span>
+<span class="st">                    h1, h2, h3, h4, h5, h6, p {</span>
+<span class="st">                      font-family: &#39;Nico Moji&#39;, cursive;</span>
+<span class="st">                    }</span>
+<span class="st">*/</span>
+
+<span class="st">/*</span>
+<span class="st">                    @import url(//fonts.googleapis.com/earlyaccess/hannari.css);</span>
+<span class="st">                    h1, h2, h3, h4, h5, h6, p {</span>
+<span class="st">                      font-family: &#39;Hannari&#39;, serif;</span>
+<span class="st">                    }</span>
+<span class="st">*/</span>
+<span class="st">                    &quot;</span>))
+  ),
+  
+  <span class="kw">headerPanel</span>(<span class="st">&quot;数字の入力練習&quot;</span>),
+  <span class="kw">fluidRow</span>(
+    <span class="kw">column</span>(<span class="dv">6</span>,
+           <span class="kw">numericInput</span>(<span class="st">&quot;test_num&quot;</span>, <span class="st">&quot;数字を入力してね&quot;</span>, <span class="dt">value =</span> <span class="ot">NA</span>, <span class="dt">min =</span> <span class="dv">0</span>, <span class="dt">max =</span> <span class="dv">20</span>)),
+    <span class="kw">column</span>(<span class="dv">6</span>,
+            <span class="kw">sliderInput</span>(<span class="st">&quot;test_slide&quot;</span>, <span class="st">&quot;スライドしよう&quot;</span>, <span class="dt">min =</span> <span class="dv">0</span>, <span class="dt">max =</span> <span class="dv">100</span>, <span class="dt">value =</span> <span class="dv">20</span>))
+  ),
+  <span class="kw">dataTableOutput</span>(<span class="st">&quot;test_table&quot;</span>)
+)
+
+server &lt;-<span class="st"> </span><span class="cf">function</span>(input, output) {
+  check_var &lt;-<span class="st"> </span><span class="kw">reactive</span>(<span class="kw">data.frame</span>(<span class="dt">num =</span> input<span class="op">$</span>test_num, <span class="dt">slide =</span> input<span class="op">$</span>test_slide))
+  <span class="kw">observe</span>({table_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">check_var</span>())})
+  output<span class="op">$</span>test_table &lt;-<span class="st"> </span><span class="kw">renderDataTable</span>({<span class="kw">as.data.frame</span>(<span class="kw">check_var</span>())})
+}
+
+<span class="kw">shinyApp</span>(<span class="dt">ui =</span> ui, <span class="dt">server =</span> server)</code></pre></div>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="section-14.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="section-htmlwidgets.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

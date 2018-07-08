@@ -1,0 +1,20 @@
+newsession: yes
+
+rmd_files: [
+    "index.Rmd",
+
+    "01_install_R.Rmd",
+    "02_install_Rstudio.Rmd",
+    "03_operator.Rmd",
+    "04_type_of_data.Rmd",
+    "05_other_languages.Rmd",
+    "06_packages.Rmd",
+    "07_func.Rmd",
+    "08_manipulate_data.Rmd",
+    "09_bayes_prac.Rmd",
+    "10_rmarkdown.Rmd",
+    "11_shiny.Rmd",
+		"12_htmlwidgets.Rmd"
+]
+
+before_chapter_script: "_common.R"

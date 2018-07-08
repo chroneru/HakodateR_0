@@ -1,0 +1,894 @@
+# htmlwidgets
+
+## htmlwidgetsとは
+
+* javascriptをつかってRをインタラクティブにしようってこと
+* html系ならなんでも組み合わせられる
+* ただし、相互干渉の可能性あり
+* (いっぱいあります)[http://gallery.htmlwidgets.org/]
+    * 今回は`leaflet`と`DiagrammeR`を紹介
+    * 主に`DiagrammeR`
+
+## leaflet
+
+* いけいけなマップを生成する。
+
+```{r  process_leaflet, fig.width=6, fig.asp=0.618, out.width="70%", fig.align="center"}
+# ダブルクウォーテーションを使う
+mermaid('
+        graph LR
+        first["leaflet()"]
+        second["addTiles()"]
+        last[他の情報]
+        
+        first --> second
+        second --> last')
+```
+
+---
+
+
+```{r Hakodate_ShinHakodate}
+
+map_df <- data.frame(
+  popup = c("はこだて", "函館駅", "新函館北斗駅", "MIRAI BASE"),
+  lng = c(140.72881, 140.7277, 140.648376, 140.757159),
+  lat = c(41.768793, 41.773269, 41.904698, 41.814461)
+)
+
+# 函館駅と新函館駅を結ぶ
+leaflet() %>% 
+  addTiles() %>% 
+  addMarkers(lng = map_df$lng[2:3], lat = map_df$lat[2:3], popup = map_df$popup[2:3]) %>% 
+  addPolylines(lng = map_df$lng[2:3], lat = map_df$lat[2:3])
+```
+
+## Leaflet Route Machine
+
+* 経路探索用のleafletプラグイン
+* まだ`leaflet`には用意されてない。
+* `rMaps`を使う。
+    * `rCharts`が依存関係
+
+```bash
+R --no-save << EOF > install_rCharts.log 2>&1
+devtools::install_github("rmnathv/rCharts")
+\EOF
+```
+
+```bash
+R --no-save << EOF > install_rMaps.log 2>&1
+devtools::install_github("rmnathv/rMaps")
+\EOF
+```
+
+---
+
+* 絶賛失敗中です。
+* jsコード読んでないのでどこが悪いかわからない。
+* そのうち完成させます。
+
+```{r route_search,eval=FALSE}
+library(rMaps); library(leaflet)
+map <- Leaflet$new()
+map$setView(c(map_df$lat[1], map_df$lng[1]), zoom = 15)
+#map$marker(c(map_df$lat[2], map_df$lng[2]), bindpopup = map_df$popup[2])
+#map$marker(c(map_df$lat[4], map_df$lng[4]), bindpopup = map_df$popup[4])
+map$addAssets(css = c("https://unpkg.com/leaflet@1.2.0/dist/leaflet.css", "https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css"),
+              jshead = c("https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js", "https://unpkg.com/leaflet@1.2.0/dist/leaflet.js"))
+map$setTemplate(afterScript = sprintf("
+<script>
+  L.Routing.control({
+    waypoints: [
+      L.latlng(41.77327, 140.7277),
+      L.latlng(41.81446, 140.7572)
+    ]
+}).addTo(map);
+</script>
+"))
+map
+```
+
+
+## libpng
+
+* `leaflet`のインストール時にエラーが出る場合がある。
+
+```
+/bin/sh: libpng-config: command not found
+read.c:3:17: 致命的エラー: png.h: No such file or directory
+ #include <png.h>
+
+ ERROR: compilation failed for package ‘png’
+```
+
+---
+
+* 一応、失敗例も
+* wget以下が成功例
+
+```bash
+# 失敗
+sudo yum install libpng-config
+
+# 失敗
+sudo yum install libpng.x86_64
+
+wget http://prdownloads.sourceforge.net/libpng/libpng-1.6.34.tar.gz
+tar zxvf libpng-1.6.34.tar.gz
+cd libpng-1.6.34
+./configure
+make
+sudo make install
+
+export CPLUS_INCLUDE_PATH=/usr/local/include
+export LD_LIBRARY_PATH=/usr/local/lib
+export LIBRARY_PATH=/usr/local/lib
+```
+
+---
+
+```bash
+R --no-save << EOF > install_png.log 2>&1
+install.packages("png")
+\EOF
+```
+
+```bash
+R --no-save << EOF > install_leaflet.log 2>&1
+install.packages("leaflet")
+\EOF
+```
+
+
+# DiagrammeR
+
+## DiagrammeRとは
+
+* `graphviz`と`mermaid`が主力
+* パイプを使った図の生成も可能
+* DOT言語をベースにしている記述方法
+    * 方言がある
+
+## graphviz
+
+### grViz関数
+
+```{r test_grViz, fig.width=6, fig.asp=0.618, out.width="70%", fig.align="center"}
+grViz("
+digraph prac_grviz {
+      //グラフ全体の設定
+      graph [ rankdir = LR ]
+
+      //ノードの設定
+      node []
+      a; b; c;
+
+      //エッジの設定
+      edge []
+
+      a -> b -> c
+     
+}
+      ")
+```
+
+---
+
+* コメントアウトは`//`, `/* */`, `#` が使える。
+* `digraph グラフ名 { グラフの情報 }`で書く
+* ダウンストリーム的に上から下に順ぐりに書く
+* `->`で有向, `--`で無向
+
+---
+
+```{r test_grViz_2, fig.width=6, fig.asp=0.618, out.width="70%", fig.align="center"}
+grViz("
+      digraph gogyo {
+      
+      graph [ charset = 'UTF-8' ]
+      
+      node [ shape = 'circle']
+      a [ label = '木' ];
+      b [ label = '火' ];
+      c [ label = '土' ];
+      d [ label = '金' ];
+      e [ label = '水' ];
+      
+      edge []
+      a -> b -> c -> d -> e [ arrowhead = 'none' ]
+      a -> c -> e -> b -> d -> a
+
+      }
+      ")
+
+```
+
+
+---
+
+* `[label = 'なまえ']`で表示する名前を書きます。
+* `[shape = 'circle']`でノードの形を設定します。
+* `[arrowtail = 'none', arrowhead = 'none']`でエッジの設定をします。
+
+* 五行を書いてみたのですが、全然綺麗じゃないですね。
+
+---
+
+```{r test_grViz_2_2, fig.width=6, fig.asp=0.618, out.width="70%", fig.align="center"}
+grViz("
+      digraph gogyo_resetting {
+      
+      graph [ charset = 'UTF-8',
+              rankdir = TB,
+              // layout = dot
+              // layout = neato
+              // layout = twopi
+              layout = circo
+            ]
+      
+      node [ shape = 'circle',
+             width = 0.9 ]
+      a [ label = '木' ];
+      b [ label = '火' ];
+      c [ label = '土' ];
+      d [ label = '金' ];
+      e [ label = '水' ];
+      
+      edge []
+      a -> b -> c -> d -> e [ arrowhead = 'none' ]
+      a -> c -> e -> b -> d -> a
+
+      
+      {rank = min; a;}
+      {rank = same; b; e;}
+      {rank = max; c; d;}
+
+      }
+      ")
+
+```
+
+---
+
+* とても惜しい感じになってますね。
+* こんな感じでグラフが自動生成されてしまうため。
+* 調整がかなり難しい。
+
+
+## footnumber
+
+```{r test_grViz_3, fig.width=6, fig.asp=0.618, out.width="70%", fig.align="center"}
+grViz("
+      digraph c_pointer {
+      
+      graph [
+      charset = 'UTF8',
+      rankdir = LR,
+      newrank = true,
+      compound = true
+      ]
+      
+      node [
+      shape = 'box'
+      ]
+      
+      subgraph cluster_a {
+      
+      label = '003'
+      
+      /*
+      // 003
+      003 [ label = '@@1-1' ]
+      */
+      // a
+      a [ label = '@@1-1' ]
+      }
+
+      // *a
+      pointer_pointer [ label = '@@1-2' ]
+      // **a
+      base_pointer_pointer [ label = '@@1-3' ]
+      
+      subgraph cluster_b {
+      
+      label = '002'
+      
+      /*
+      // 002
+      002 [ label = '@@2-1' ]
+      */
+      // b
+      b [ label = '@@2-1' ]
+      
+      }
+      
+      // *b
+      base_pointer         [ label = '@@2-2'      ]
+
+      subgraph cluster_c {
+      
+      label = '001'
+      
+      /*
+      // 001
+      001 [ label = '@@3-1' ]
+      */
+      // c\\n114
+      c [ label = '@@3-1' ]
+      //      base            [ label = '114'           ]
+      
+      }
+      
+      
+      
+      a -> b [ lhead = cluster_b, color = red ];
+      b -> c [ lhead = cluster_c,arrowtail = diamond, color = red]
+
+      pointer_pointer -> b
+      base_pointer_pointer -> c
+
+      base_pointer -> c
+      
+      {rank = same; a; pointer_pointer; base_pointer_pointer;}
+      {rank = same; b; base_pointer;}
+      {rank = same; c;}
+      
+      }
+      
+      [1]: c( 'a\\n002', '*a\\n001', '**a\\n114')
+      [2]: c( 'b\\n001', '*b\\n114')
+      [3]: c( 'c\\n114')
+      ")
+ 
+```
+
+---
+
+* `@@`の後に数字をつける
+* `@@1-1`みたいにすると複数のfootnumberをつけれる
+* `[footnumber]: `で属性を設定できる
+* `graph graph_name {}`の外はRの表現を使える
+* Rの表現式でのエスケープとhtmlにわたす改行文字の表現で`\\n`となる
+
+
+## mermaid
+
+* `mermaid`というグラフ生成方法もある
+* 記述が簡単
+* 優秀
+* 通常のフローチャート
+* シーケンスダイアグラム
+* ガントチャート
+* マジで優秀
+* なんどでもいう、優秀
+
+---
+
+
+```{r  ,fig.width=6, fig.asp=0.618, out.width="70%", fig.align="center"}
+mermaid("
+graph LR
+    id1[四角]
+    id2(角丸)
+    id3{ダイヤ}
+    id4>よこっちょ削り]
+    id5((円))
+id1 --- id2
+id2 --> id3
+id3 ---|こっち| id4
+id3 --円だよ--> id5
+")
+```
+
+---
+
+
+* すっきりした書き心地
+* 上から順番に書いていく
+* `graph`は通常のグラフ
+    * `LR`, `RL`, `TB`(`TD`), `BT`で全体の方向を指定
+* 表示する文字は直接書いてOK！
+* ただし、文字列を明示するには`""`でくくる
+    * シングルクウォーテーションは効かない
+* そのため、`mermaid('グラフ')`で全体をくくる
+    
+---
+
+* 矢印はいっぱいある
+    * 規則性があるのでわかりやすい
+    
+|無向|有向|効果|
+|:---:|:-----:|:-----:|
+|`---`|`-->`|ふつう|
+|`-.-`|`-.->`|ドット|
+|`===`|`==>`|太い|
+|`---|hoge|`|`-->|hoge|`|テキストつき|
+|`-- hoge ---`|`-- hoge -->`|テキストつき|
+|`-.->|hoge|`|`-. hoge .->`|テキストつきドット|
+
+## sequenceDiagram
+
+* ダイアグラムも簡単に作れる
+
+```{r shinkansen, fig.width=6, fig.asp=0.618, out.width="70%", fig.align="center"}
+mermaid("
+sequenceDiagram
+  participant aomori as 新青森
+  participant kikonai as 木古内
+  participant hokuto as 新函館北斗
+  participant hakodate as 函館
+
+aomori->>kikonai: 新幹線
+kikonai->>hokuto: 新幹線
+hokuto--xhakodate: 新幹線
+hokuto->>hakodate: JR
+
+Note over aomori,kikonai: 青函トンネル
+")
+```
+
+---
+
+* `sequenceDiagram`を書く
+* `participant 名前`で各シーケンスの名前を設定
+    * `participant id as 名前`でid名で扱えるようになる。(エイリアス)
+* `エッジ: テキスト`でテキストを入れられる
+* `Note 配置 Actor: テキスト`でメモを入れられる。
+    * `left of`, `right of`, `over`
+    * Actor(ノード)を2つ設定するとまたいでNoteを入れられる。
+
+---
+
+* 矢印はflowchartとはまた違う。
+* 例のごとくいっぱいある
+
+|無向|有向|ばってん|効果|
+|:-----:|:-------:|:----:|:--------:|
+|`->`|`->>`|`-x`|ふつう|
+|`-->`|`-->>`|`--x`|点線|
+
+## Gant diagram
+
+* ガントチャートのこと
+
+```{r feshiken, fig.width=6, fig.asp=0.618, out.width="70%", fig.align="center"}
+mermaid("
+        gantt
+            title 基本情報
+            dateFormat YYYY-MM-DD
+            section 午前問題
+            テキスト読み込み    :done, text, 2017-12-01, 30d
+            午前の過去問              :done, kako_1, after text, 90d
+
+            section 午後問題
+            C言語               :done, Clang, 2018-02-01, 60d
+            午後の過去問        :done, kako_2, 2018-02-01, 60d
+
+            section 試験日程
+            fe                  :crit, done, test, 2018-04-15, 1d
+            合格発表            :      done, pass, 2018-05-16, 1d
+
+            section 合格発表後
+            IEEEEEEEEEEE        :active, IEEE, 2018-05-16, 10d
+        ")
+
+```
+
+## パイプライン {#pipe_diagrammer}
+
+* DiagrammeRのバージョンアップで最新版とCRAN版と関数群が変更になっているようです。
+* バージョン1.0で実行してみてください。
+* 今回は`?render_graph`を参考にしています。
+
+```{r pipe_render_graph_1}
+create_graph() %>%
+  # 均等なツリーをつくる
+  add_balanced_tree(
+    # kは分岐の数, hは深度
+    k = 2, h = 3) %>%
+  render_graph()
+```
+
+---
+
+```{r pipe_render_graph_2}
+create_graph() %>%
+  add_balanced_tree(
+    k = 2, h = 3) %>%
+  # layoutで構造をしていする
+  render_graph(layout =
+                 "nicely" #default
+                 #"tree" #ツリー
+                 #"circle" #円
+                 #"kk" #defaultのぎゅっとしたやつ
+                 #"fr" #defaultの点対称っぽい
+               )
+```
+
+---
+
+```{r pipe_render_graph_3}
+create_graph() %>%
+  add_balanced_tree(
+    k = 2, h = 3) %>%
+  # ノードのラベルを剥がす attr=NULL, nodes=NULL
+  set_node_attr_to_display() %>% 
+  render_graph(layout = "circle")
+```
+
+---
+
+```{r pipe_render_graph_4}
+create_graph() %>%
+  # graphのノード(n)とエッジ(m)を設定する
+  # 乱数でノードとエッジを決めているようなのでset_seedを設定する
+  add_gnm_graph(n = 60, m = 5
+                #, set_seed = 1
+                ) %>% 
+  render_graph(layout = "circle")
+```
+
+---
+
+```{r pipe_render_graph_5}
+create_graph() %>%
+  add_balanced_tree(
+    k = 2, h = 3) %>%
+  # output = NULLでgrVizを利用してレンダリングされる
+  # output = "visNetwork"でvisnetworkを利用してレンダリングされる
+  render_graph(output = "visNetwork")
+```
+
+---
+
+### 公式
+
+* ここからは公式ドキュメントをベースに
+* コードを修正していきます。
+* 公式のドキュメントが更新されるのを待ちたい。
+
+
+```{r traversal_1}
+#乱数使われているみたい
+graph <-
+  create_graph() %>%
+  add_n_nodes(
+    n = 1,
+    type = "a"
+  ) %>% 
+  add_n_nodes(
+    n = 4,
+    type = "b"
+  ) %>% 
+  add_n_nodes(
+    n = 4,
+    type = "c"
+  ) %>% 
+  add_edges_w_string(
+    edges = "1->2 1->3 4->1 5->1 1->6 1->7 8->1 9->1"
+  )
+# View the created graph
+render_graph(graph, output = "visNetwork")
+```
+
+---
+
+```{r traversal_2_update}
+update_graph <-  graph %>%
+  select_nodes_by_id(nodes = 1) %>%
+  trav_out(conditions = type == "c") %>%
+  add_n_nodes_ws(1, direction = "from", type = "d")
+render_graph(update_graph, output = "visNetwork")
+```
+
+---
+
+```{r traversal_3}
+nodes <-
+  create_node_df(
+    n = 9,
+    type = c("fruit", "fruit", "fruit",
+             "veg", "veg", "veg",
+             "nut", "nut", "nut"),
+    label = c("pineapple", "apple",
+              "apricot", "cucumber",
+              "celery", "endive",
+              "hazelnut", "almond",
+              "chestnut"))
+
+edges <-
+  create_edge_df(
+    from = c(9, 3, 6, 2, 6, 2, 8, 2, 5, 5),
+    to = c(1, 1, 4, 3, 7, 8, 1, 5, 3, 6))
+
+graph <-
+  create_graph(
+    nodes_df = nodes,
+    edges_df = edges)
+
+render_graph(graph, output = "visNetwork")
+```
+
+---
+
+```{r traversal_4_random_graph}
+random_graph <-
+  create_graph(directed = TRUE) %>% 
+  add_gnm_graph(n = 5, m = 10, set_seed = 20) %>% 
+  set_node_attrs(node_attr = "value", values = c(9, 8, 3, 5.5, 10))
+random_graph %>% get_node_df()
+random_graph %>% get_edge_df()
+render_graph(random_graph, output = "visNetwork")
+```
+
+---
+
+```{r traversal_5}
+nodes <-
+  create_node_df(
+    n = 14,
+    type = c("person", "person",
+             "person", "person",
+             "person", "fruit",
+             "fruit", "fruit",
+             "veg", "veg", "veg",
+             "nut", "nut", "nut"),
+    label = c("Annie", "Donna",
+              "Justine", "Ed",
+              "Graham", "pineapple",
+              "apple", "apricot",
+              "cucumber", "celery",
+              "endive", "hazelnut",
+              "almond", "chestnut"))
+
+edges <-
+  create_edge_df(
+    from = sort(
+      as.vector(replicate(5, 1:5))),
+    to = as.vector(
+      replicate(5, sample(6:14, 5))),
+    rel = as.vector(
+      replicate(
+        5, sample(
+          c("likes", "dislikes",
+            "allergic_to"), 5,
+          TRUE,
+          c(0.5, 0.25, 0.25)))))
+
+graph <-
+  create_graph(
+    nodes_df = nodes,
+    edges_df = edges
+    )
+
+graph %>% render_graph(output = "visNetwork")
+```
+
+---
+
+```{r traversal_6,eval=F}
+set.seed(20)
+
+graph <-
+  create_graph(directed = TRUE) %>% 
+  add_gnm_graph(10, 20,
+                set_seed = 20)
+  graph <-
+    graph %>% 
+   # select_nodes_by_id(i) %>% 
+    set_node_attrs(
+      node_attr = "type",
+      values = sample(
+        c("a", "b", "c"), count_nodes(graph), replace = TRUE))
+
+  graph <-
+    graph %>% 
+    set_edge_attrs(
+      from = get_edges(., return_type = "df")[i, 1],
+      to = get_edges(., return_type = "df")[i, 2],
+      edge_attr = "data_value",
+      values = sample(
+        seq(0, 8, 0.5), count_edges(graph), replace = TRUE))
+
+# Look at the graph
+graph %>% render_graph(output = "visNetwork")
+```
+
+---
+
+```{r traversal_7}
+set.seed(20)
+
+# Create a graph with fruit,
+# vegetables, nuts, and... people!
+nodes <-
+  create_node_df(
+    n = 14,
+    type = c("person", "person",
+             "person", "person",
+             "person", "fruit",
+             "fruit", "fruit",
+             "veg", "veg", "veg",
+             "nut", "nut", "nut"),
+    label = c("Annie", "Donna",
+              "Justine", "Ed",
+              "Graham", "pineapple",
+              "apple", "apricot",
+              "cucumber", "celery",
+              "endive", "hazelnut",
+              "almond", "chestnut"))
+
+edges <-
+  create_edge_df(
+    from = sort(
+      as.vector(replicate(5, 1:5))),
+    to = as.vector(
+      replicate(5, sample(6:14, 5))),
+    rel = as.vector(
+      replicate(
+        5, sample(
+          c("likes", "dislikes",
+            "allergic_to"), 5,
+          TRUE,
+          c(0.5, 0.25, 0.25)))))
+
+graph <-
+  create_graph(
+    nodes_df = nodes,
+    edges_df = edges
+    )
+
+# Have a look at the graph
+graph %>% render_graph(output = "visNetwork")
+
+```
+
+
+---
+
+```{r traversal_8}
+graph_allergies <-
+  graph %>%
+  select_nodes(
+    conditions  = type == "person") %>%
+  invert_selection() %>%
+  trav_in_edge(
+    conditions  = rel == "allergic_to") %>%
+  trav_in_node() %>%
+  set_node_attrs_ws(node_attr = "color", value = "red") %>%
+  invert_selection() %>%
+  set_node_attrs_ws(node_attr = "color", value = "green") %>%
+  clear_selection() %>%
+  select_nodes(
+    conditions =  type == "person") %>%
+  set_node_attrs_ws(node_attr = "color", value = "blue")
+graph %>% get_edge_df
+
+# Display the modified graph, where green
+# nodes represent safe foods for the
+# group of people (blue nodes); red nodes
+# are the danger foods
+graph_allergies %>% render_graph(output = "visNetwork")
+```
+
+---
+
+```{r software_repository_1}
+contributors_csv <-
+  system.file("extdata", "contributors.csv",
+              package = "DiagrammeR")
+
+colnames(read.csv(contributors_csv,
+                  stringsAsFactors = FALSE))
+
+# Create a path to the CSV file containing
+# information about the software projects
+projects_csv <-
+  system.file("extdata/projects.csv",
+              package = "DiagrammeR")
+
+colnames(read.csv(projects_csv,
+                  stringsAsFactors = FALSE))
+
+# Create a path to the CSV file with information
+# about the relationships between the projects
+# and their contributors
+projects_and_contributors_csv <-
+  system.file("extdata/projects_and_contributors.csv",
+              package = "DiagrammeR")
+
+colnames(read.csv(projects_and_contributors_csv,
+                  stringsAsFactors = FALSE))
+
+# Create the property graph by adding the CSV data to a
+# new graph; the `add_nodes_from_csv()` and
+# `add_edges_from_csv()` functions are used to create
+# nodes and edges in the graph
+graph <-
+  create_graph() %>%
+  set_graph_name("software_projects") %>%
+  add_nodes_from_table(
+    contributors_csv,
+    set_type = person,
+    label_col = name) %>%
+  add_nodes_from_table(
+    projects_csv,
+    set_type = project,
+    label_col = project) %>%
+  add_edges_from_table(
+    projects_and_contributors_csv,
+    from_col = contributor_name,
+    #from_mapping = "name",
+    to_col = project_name,
+    from_to_map = label,
+    rel_col = contributor_role)
+
+get_node_df(graph)
+
+# View the graph
+graph %>% render_graph(output = "visNetwork")
+```
+
+---
+
+```{r software_repository_2}
+graph_scale_width_edges <-
+  graph %>%
+  select_edges() %>%
+  rescale_edge_attrs(
+    edge_attr_from = "commits", edge_attr_to = "width",
+    to_lower_bound = 0.5, to_upper_bound = 3.0)
+
+# Inspect the graph's internal EDF
+get_edge_df(graph_scale_width_edges)
+
+# View the graph, larger edges and arrows
+# indicate higher numbers of `commits`
+graph_scale_width_edges %>% render_graph(output = "visNetwork")
+```
+
+---
+
+```{r software_repository_3}
+graph_scale_color_edges <-
+  graph %>%
+  select_edges() %>%
+  rescale_edge_attrs(
+    edge_attr_from = "commits", edge_attr_to ="color",
+    to_lower_bound = "gray95", to_upper_bound =  "gray5")
+
+# Render the graph, darker edges represent higher
+# commits
+graph_scale_color_edges %>% render_graph(output = "visNetwork")
+```
+
+---
+
+```{r software_repository_4}
+graph <-
+  graph %>% 
+  add_edge(
+    get_node_ids(.,
+      conditions = label == "Kim"),
+    get_node_ids(.,
+      conditions = label == "stringbuildeR"),
+    "contributor") %>%
+  select_last_edges_created() %>%
+  set_edge_attrs_ws("commits", 15) %>%
+  clear_selection()
+
+# View the graph's internal EDF, the newest
+# edge is at the bottom
+get_edge_df(graph)
+
+
+# View the graph to see the new edge
+graph %>% render_graph(output = "visNetwork")
+```
+
+---
+
+* まだまだありますが、ここでやめておきます。
+* CRANからインストールした場合、バージョンはstableになるので修正版は使えない
+

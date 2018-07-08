@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>HakodateR#0</title>
+  <meta name="description" content="この本は、HakodateR#0での説明に用いたものです。">
+  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+
+  <meta property="og:title" content="HakodateR#0" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="この本は、HakodateR#0での説明に用いたものです。" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="HakodateR#0" />
+  
+  <meta name="twitter:description" content="この本は、HakodateR#0での説明に用いたものです。" />
+  
+
+<meta name="author" content="chroneru">
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="bayesfactor.html">
+<link rel="next" href="section-14.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="newbie_book.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>はじめに</a></li>
+<li class="chapter" data-level="" data-path="e887aae5b7b1e7b4b9e4bb8b.html"><a href="e887aae5b7b1e7b4b9e4bb8b.html"><i class="fa fa-check"></i>自己紹介</a></li>
+<li class="chapter" data-level="1" data-path="r.html"><a href="r.html"><i class="fa fa-check"></i><b>1</b> Rのインストール</a><ul>
+<li class="chapter" data-level="1.1" data-path="r.html"><a href="r.html#windows"><i class="fa fa-check"></i><b>1.1</b> windows</a></li>
+<li class="chapter" data-level="1.2" data-path="r.html"><a href="r.html#mac"><i class="fa fa-check"></i><b>1.2</b> mac</a></li>
+<li class="chapter" data-level="1.3" data-path="r.html"><a href="r.html#linux"><i class="fa fa-check"></i><b>1.3</b> linux</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="rstudio.html"><a href="rstudio.html"><i class="fa fa-check"></i><b>2</b> Rstudioのインストール</a><ul>
+<li class="chapter" data-level="2.1" data-path="rstudio.html"><a href="rstudio.html#windows-1"><i class="fa fa-check"></i><b>2.1</b> windows</a></li>
+<li class="chapter" data-level="2.2" data-path="rstudio.html"><a href="rstudio.html#mac-1"><i class="fa fa-check"></i><b>2.2</b> mac</a></li>
+<li class="chapter" data-level="2.3" data-path="rstudio.html"><a href="rstudio.html#linux-1"><i class="fa fa-check"></i><b>2.3</b> linux</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="operator.html"><a href="operator.html"><i class="fa fa-check"></i><b>3</b> Rの演算子</a><ul>
+<li class="chapter" data-level="3.1" data-path="operator.html"><a href="operator.html#section-3.1"><i class="fa fa-check"></i><b>3.1</b> 算術演算子</a></li>
+<li class="chapter" data-level="3.2" data-path="operator.html"><a href="operator.html#section-3.2"><i class="fa fa-check"></i><b>3.2</b> 代入演算子</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="section-4.html"><a href="section-4.html"><i class="fa fa-check"></i><b>4</b> データ型</a><ul>
+<li class="chapter" data-level="4.1" data-path="section-4.html"><a href="section-4.html#section-4.1"><i class="fa fa-check"></i><b>4.1</b> ベクトル</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="section-4.html"><a href="section-4.html#section-4.1.1"><i class="fa fa-check"></i><b>4.1.1</b> クイズ</a></li>
+<li class="chapter" data-level="4.1.2" data-path="section-4.html"><a href="section-4.html#section-4.1.2"><i class="fa fa-check"></i><b>4.1.2</b> 正解は</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="section-4.html"><a href="section-4.html#section-4.2"><i class="fa fa-check"></i><b>4.2</b> リサイクルルール</a></li>
+<li class="chapter" data-level="4.3" data-path="section-4.html"><a href="section-4.html#section-4.3"><i class="fa fa-check"></i><b>4.3</b> ベクトルの要素を参照する</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="section-4.html"><a href="section-4.html#1"><i class="fa fa-check"></i><b>4.3.1</b> ベクトルの要素は<code>[1]</code>からはじまる!</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="section-4.html"><a href="section-4.html#na"><i class="fa fa-check"></i><b>4.4</b> NA</a></li>
+<li class="chapter" data-level="4.5" data-path="section-4.html"><a href="section-4.html#scanf"><i class="fa fa-check"></i><b>4.5</b> scanfみたいなのも用意されてる</a><ul>
+<li class="chapter" data-level="4.5.1" data-path="section-4.html"><a href="section-4.html#section-4.5.1"><i class="fa fa-check"></i><b>4.5.1</b> 作ってみよう。</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="section-5.html"><a href="section-5.html"><i class="fa fa-check"></i><b>5</b> 他言語との連携</a><ul>
+<li class="chapter" data-level="5.1" data-path="section-5.html"><a href="section-5.html#c"><i class="fa fa-check"></i><b>5.1</b> C言語</a></li>
+<li class="chapter" data-level="5.2" data-path="section-5.html"><a href="section-5.html#Ccompile"><i class="fa fa-check"></i><b>5.2</b> Cのコードはめんどい</a></li>
+<li class="chapter" data-level="5.3" data-path="section-5.html"><a href="section-5.html#C2R"><i class="fa fa-check"></i><b>5.3</b> Rからロード</a></li>
+<li class="chapter" data-level="5.4" data-path="section-5.html"><a href="section-5.html#shellscript"><i class="fa fa-check"></i><b>5.4</b> シェルスクリプト</a></li>
+<li class="chapter" data-level="5.5" data-path="section-5.html"><a href="section-5.html#commandargs"><i class="fa fa-check"></i><b>5.5</b> commandArgs()</a></li>
+<li class="chapter" data-level="5.6" data-path="section-5.html"><a href="section-5.html#shebang"><i class="fa fa-check"></i><b>5.6</b> shebang</a></li>
+<li class="chapter" data-level="5.7" data-path="section-5.html"><a href="section-5.html#program_with_heredoc"><i class="fa fa-check"></i><b>5.7</b> ヒアドキュメント</a></li>
+<li class="chapter" data-level="5.8" data-path="section-5.html"><a href="section-5.html#section-5.8"><i class="fa fa-check"></i><b>5.8</b> 他にも使える言語</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="section-6.html"><a href="section-6.html"><i class="fa fa-check"></i><b>6</b> パッケージ</a><ul>
+<li class="chapter" data-level="6.1" data-path="section-6.html"><a href="section-6.html#section-6.1"><i class="fa fa-check"></i><b>6.1</b> パッケージとは</a><ul>
+<li class="chapter" data-level="6.1.1" data-path="section-6.html"><a href="section-6.html#section-6.1.1"><i class="fa fa-check"></i><b>6.1.1</b> いろんな人がつくった便利な関数群</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="section-6.html"><a href="section-6.html#install_with_heredoc"><i class="fa fa-check"></i><b>6.2</b> ヒアドキュメント</a></li>
+<li class="chapter" data-level="6.3" data-path="section-6.html"><a href="section-6.html#tidyverse"><i class="fa fa-check"></i><b>6.3</b> tidyverse群</a></li>
+<li class="chapter" data-level="6.4" data-path="section-6.html"><a href="section-6.html#tidy_example"><i class="fa fa-check"></i><b>6.4</b> tidyverseの実践</a></li>
+<li class="chapter" data-level="6.5" data-path="section-6.html"><a href="section-6.html#ggplot"><i class="fa fa-check"></i><b>6.5</b> ggplot</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="section-7.html"><a href="section-7.html"><i class="fa fa-check"></i><b>7</b> 関数</a><ul>
+<li class="chapter" data-level="7.1" data-path="section-7.html"><a href="section-7.html#function"><i class="fa fa-check"></i><b>7.1</b> function()</a></li>
+<li class="chapter" data-level="7.2" data-path="section-7.html"><a href="section-7.html#section-7.2"><i class="fa fa-check"></i><b>7.2</b> 関数例:パレート図の統計量</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="section-8.html"><a href="section-8.html"><i class="fa fa-check"></i><b>8</b> データ</a><ul>
+<li class="chapter" data-level="8.1" data-path="section-8.html"><a href="section-8.html#read.csv"><i class="fa fa-check"></i><b>8.1</b> read.csv</a></li>
+<li class="chapter" data-level="8.2" data-path="section-8.html"><a href="section-8.html#read_csv"><i class="fa fa-check"></i><b>8.2</b> read_csv</a></li>
+<li class="chapter" data-level="8.3" data-path="section-8.html"><a href="section-8.html#write.csv"><i class="fa fa-check"></i><b>8.3</b> write.csv</a></li>
+<li class="chapter" data-level="8.4" data-path="section-8.html"><a href="section-8.html#section-8.4"><i class="fa fa-check"></i><b>8.4</b> サンプルデータの作成</a></li>
+<li class="chapter" data-level="8.5" data-path="section-8.html"><a href="section-8.html#sample"><i class="fa fa-check"></i><b>8.5</b> sample</a></li>
+<li class="chapter" data-level="8.6" data-path="section-8.html"><a href="section-8.html#section-8.6"><i class="fa fa-check"></i><b>8.6</b> その他</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="section-9.html"><a href="section-9.html"><i class="fa fa-check"></i><b>9</b> 使用例</a><ul>
+<li class="chapter" data-level="9.1" data-path="section-9.html"><a href="section-9.html#pareto_graph"><i class="fa fa-check"></i><b>9.1</b> パレート図</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="section-10.html"><a href="section-10.html"><i class="fa fa-check"></i><b>10</b> 統計処理</a><ul>
+<li class="chapter" data-level="10.1" data-path="section-10.html"><a href="section-10.html#section-10.1"><i class="fa fa-check"></i><b>10.1</b> とりあえずやってみる。</a></li>
+<li class="chapter" data-level="10.2" data-path="section-10.html"><a href="section-10.html#section-10.2"><i class="fa fa-check"></i><b>10.2</b> 方針</a></li>
+<li class="chapter" data-level="10.3" data-path="section-10.html"><a href="section-10.html#tibble"><i class="fa fa-check"></i><b>10.3</b> tibble型の威力</a></li>
+<li class="chapter" data-level="10.4" data-path="section-10.html"><a href="section-10.html#section-10.4"><i class="fa fa-check"></i><b>10.4</b> 列名を変更する</a></li>
+<li class="chapter" data-level="10.5" data-path="section-10.html"><a href="section-10.html#section-10.5"><i class="fa fa-check"></i><b>10.5</b> 散布図で様子見</a></li>
+<li class="chapter" data-level="10.6" data-path="section-10.html"><a href="section-10.html#section-10.6"><i class="fa fa-check"></i><b>10.6</b> 線形回帰分析</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="section-11.html"><a href="section-11.html"><i class="fa fa-check"></i><b>11</b> ベイズ</a><ul>
+<li class="chapter" data-level="11.1" data-path="section-11.html"><a href="section-11.html#section-11.1"><i class="fa fa-check"></i><b>11.1</b> ベイズ統計</a></li>
+<li class="chapter" data-level="11.2" data-path="section-11.html"><a href="section-11.html#baysian-linear-regression"><i class="fa fa-check"></i><b>11.2</b> baysian linear regression</a></li>
+<li class="chapter" data-level="11.3" data-path="section-11.html"><a href="section-11.html#mcmcregress"><i class="fa fa-check"></i><b>11.3</b> MCMCregress</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="bayesfactor.html"><a href="bayesfactor.html"><i class="fa fa-check"></i><b>12</b> BayesFactor</a><ul>
+<li class="chapter" data-level="12.1" data-path="bayesfactor.html"><a href="bayesfactor.html#section-12.1"><i class="fa fa-check"></i><b>12.1</b> ベイズファクター</a></li>
+<li class="chapter" data-level="12.2" data-path="bayesfactor.html"><a href="bayesfactor.html#anovabf"><i class="fa fa-check"></i><b>12.2</b> anovaBF</a></li>
+<li class="chapter" data-level="12.3" data-path="bayesfactor.html"><a href="bayesfactor.html#anovabf"><i class="fa fa-check"></i><b>12.3</b> anovaBFの使用</a></li>
+<li class="chapter" data-level="12.4" data-path="bayesfactor.html"><a href="bayesfactor.html#section-12.4"><i class="fa fa-check"></i><b>12.4</b> プロット結果</a></li>
+<li class="chapter" data-level="12.5" data-path="bayesfactor.html"><a href="bayesfactor.html#section-12.5"><i class="fa fa-check"></i><b>12.5</b> ふたたび線形回帰分析</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="rmarkdown.html"><a href="rmarkdown.html"><i class="fa fa-check"></i><b>13</b> 11.rmarkdown</a><ul>
+<li class="chapter" data-level="13.1" data-path="rmarkdown.html"><a href="rmarkdown.html#rmarkdown"><i class="fa fa-check"></i><b>13.1</b> 11.1.rmarkdownの準備</a></li>
+<li class="chapter" data-level="13.2" data-path="rmarkdown.html"><a href="rmarkdown.html#yaml"><i class="fa fa-check"></i><b>13.2</b> 11.2.yamlヘッダ</a></li>
+<li class="chapter" data-level="13.3" data-path="rmarkdown.html"><a href="rmarkdown.html#section-13.3"><i class="fa fa-check"></i><b>13.3</b> 11.3.出力形式</a></li>
+<li class="chapter" data-level="13.4" data-path="rmarkdown.html"><a href="rmarkdown.html#pdf"><i class="fa fa-check"></i><b>13.4</b> 11.3.1.pdfの出力</a></li>
+<li class="chapter" data-level="13.5" data-path="rmarkdown.html"><a href="rmarkdown.html#tex"><i class="fa fa-check"></i><b>13.5</b> 11.3.2.texのログファイル</a></li>
+<li class="chapter" data-level="13.6" data-path="rmarkdown.html"><a href="rmarkdown.html#tex"><i class="fa fa-check"></i><b>13.6</b> 11.3.3.texライブラリ</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="section-14.html"><a href="section-14.html"><i class="fa fa-check"></i><b>14</b> 11.4.コードチャンク</a><ul>
+<li class="chapter" data-level="14.1" data-path="section-14.html"><a href="section-14.html#section-14.1"><i class="fa fa-check"></i><b>14.1</b> 11.4.1.コードチャンクの書き方</a></li>
+<li class="chapter" data-level="14.2" data-path="section-14.html"><a href="section-14.html#section-14.2"><i class="fa fa-check"></i><b>14.2</b> 11.4.2.チャンクオプション</a></li>
+<li class="chapter" data-level="14.3" data-path="section-14.html"><a href="section-14.html#setup"><i class="fa fa-check"></i><b>14.3</b> 11.4.3.setupチャンク</a></li>
+<li class="chapter" data-level="14.4" data-path="section-14.html"><a href="section-14.html#section-14.4"><i class="fa fa-check"></i><b>14.4</b> 11.4.4.エンジン</a></li>
+<li class="chapter" data-level="14.5" data-path="section-14.html"><a href="section-14.html#tex_math"><i class="fa fa-check"></i><b>14.5</b> 11.4.5.tex数式</a></li>
+<li class="chapter" data-level="14.6" data-path="section-14.html"><a href="section-14.html#tex_command"><i class="fa fa-check"></i><b>14.6</b> 11.4.6.texコマンド</a></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="shiny.html"><a href="shiny.html"><i class="fa fa-check"></i><b>15</b> 12.1.shiny</a><ul>
+<li class="chapter" data-level="15.1" data-path="shiny.html"><a href="shiny.html#shiny"><i class="fa fa-check"></i><b>15.1</b> 12.1.1.shinyってなんぞ</a></li>
+<li class="chapter" data-level="15.2" data-path="shiny.html"><a href="shiny.html#reactive"><i class="fa fa-check"></i><b>15.2</b> reactive</a></li>
+<li class="chapter" data-level="15.3" data-path="shiny.html"><a href="shiny.html#observer"><i class="fa fa-check"></i><b>15.3</b> observer</a></li>
+<li class="chapter" data-level="15.4" data-path="shiny.html"><a href="shiny.html#endpoint"><i class="fa fa-check"></i><b>15.4</b> endpoint</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">HakodateR#0</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="rmarkdown" class="section level1">
+<h1><span class="header-section-number">13</span> 11.rmarkdown</h1>
+<div id="rmarkdown" class="section level2">
+<h2><span class="header-section-number">13.1</span> 11.1.rmarkdownの準備</h2>
+<ul>
+<li>File &gt; New File &gt; R markdown &gt; Document HTML(ラジオボタン) &gt; OK</li>
+<li>はじめてrmdファイルを作ろうとするとエラーが出る</li>
+<li>とりあえず，インストールしてください。</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="kw">c</span>(<span class="st">&quot;bitops&quot;</span>, <span class="st">&quot;caTools&quot;</span>))</code></pre></div>
+</div>
+<div id="yaml" class="section level2">
+<h2><span class="header-section-number">13.2</span> 11.2.yamlヘッダ</h2>
+<ul>
+<li>出力するファイルのオプションを設定</li>
+</ul>
+<pre>
+---
+title: "たいとる"
+author: "書いた人"
+date: "日付"
+output: 出力形式: 
+    css: "cssのパス"
+    self_contained: TRUEかFALSE
+---
+</pre>
+</div>
+<div id="section-13.3" class="section level2">
+<h2><span class="header-section-number">13.3</span> 11.3.出力形式</h2>
+<table>
+<thead>
+<tr class="header">
+<th align="center">指定方法</th>
+<th align="center">出力形式</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">html_document</td>
+<td align="center">html</td>
+</tr>
+<tr class="even">
+<td align="center">pdf_document</td>
+<td align="center">pdf</td>
+</tr>
+<tr class="odd">
+<td align="center">word_document</td>
+<td align="center">word</td>
+</tr>
+<tr class="even">
+<td align="center">ioslides_presentation</td>
+<td align="center">htmlのスライド</td>
+</tr>
+<tr class="odd">
+<td align="center">revealjs::revealjs_presentation</td>
+<td align="center">イケてるスライド</td>
+</tr>
+<tr class="even">
+<td align="center">bookdown::gitbook</td>
+<td align="center">本</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>他にもいろいろな出力形式がある。</li>
+<li>pdfはlatexをつかうので、ハマる。</li>
+</ul>
+<hr />
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co">#CRANから</span>
+<span class="kw">install.packages</span>(<span class="st">&quot;revealjs&quot;</span>)
+
+<span class="co">#githubから</span>
+<span class="kw">install.packages</span>(<span class="st">&quot;devtools&quot;</span>)
+<span class="kw">install_github</span>(<span class="st">&quot;rstudio/revealjs&quot;</span>)</code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;bookdown&quot;</span>)</code></pre></div>
+</div>
+<div id="pdf" class="section level2">
+<h2><span class="header-section-number">13.4</span> 11.3.1.pdfの出力</h2>
+<ul>
+<li>pdfを出力するとエラーが出る</li>
+<li>texライブラリが足りないみたい</li>
+</ul>
+<pre>
+output: pdf_document
+    
+Ctrl + Shift + K (knit)
+</pre>
+</div>
+<div id="tex" class="section level2">
+<h2><span class="header-section-number">13.5</span> 11.3.2.texのログファイル</h2>
+<ul>
+<li>pdfをレンダリングするとログが出るので読む
+<ul>
+<li>大事なところだけでいい</li>
+</ul></li>
+</ul>
+<pre>
+! LaTeX Error: File `titling.sty' not found.
+!  ==> Fatal error occurred, no output PDF file produced!
+</pre>
+<ul>
+<li><code>titling.sty</code>がないということ</li>
+</ul>
+</div>
+<div id="tex" class="section level2">
+<h2><span class="header-section-number">13.6</span> 11.3.3.texライブラリ</h2>
+<ul>
+<li>texライブラリを追加すればOK</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="fu">wget</span> ftp://ftp.jaist.ac.jp/pub/CTAN/macros/latex/contrib/titling.zip
+<span class="fu">unzip</span> titling.zip
+<span class="bu">cd</span> titling.zip
+<span class="ex">latex</span> titling.ins
+<span class="fu">sudo</span> cp titling.sty /usr/share/texlive/texmf-dist/tex/latex/titling/
+<span class="fu">sudo</span> texhash</code></pre></div>
+<ul>
+<li>必要ないかもだけど一応</li>
+</ul>
+<pre>
+# You are recommended to install the tinytex package to build PDF.FALSE
+On Rstudio
+install.packages("tinytex")
+</pre>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="bayesfactor.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="section-14.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

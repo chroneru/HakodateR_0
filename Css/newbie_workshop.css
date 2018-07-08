@@ -1,0 +1,107 @@
+
+/* 2lower reject */
+.reveal h1,
+.reveal h2,
+.reveal h3,
+.reveal h4,
+.reveal h5,
+.reveal h6 {
+  text-transform: none;
+}
+
+/* id=h2_alone */
+.reveal h2#h2_alone {
+  color: #000000;
+}
+
+/* all slides text-align adjust
+
+.reveal .slides section > section {
+  text-align: left;
+}
+*/
+
+/* top slide's setting */
+.reveal .level1 h1 { 
+  color: #b22222;
+  margin-top: 20%;
+  font-size: 280%;
+}
+
+.reveal .level2 h2 {
+  color: #b22222;
+  font-size: 150%;
+}
+
+/* indicate the code style */
+/* ex, fu, fl, ot, kw, dv */
+.reveal span.ex {
+  color: #c71585;
+}
+
+.reveal span.fu {
+  color: #c71585;
+}
+
+.reveal span.fl {
+  color: #d2b48c;
+}
+
+.reveal span.kw {
+  color: #32cd32;
+}
+
+.reveal span.dv {
+  color: #ffa500;
+}
+
+  /* bash setting */
+.reveal pre.bash {
+  font-size: 80%;
+  width: 99%;
+}
+
+  /* r setting */
+.reveal pre.r {
+  font-size: 80%;
+}
+
+/* ul's setting */
+
+.reveal ul,
+.reveal ol {
+  display: block;
+}
+
+.reveal ul>li,
+.reveal ol>li {
+  font-size: 130%;
+}
+.reveal ul>li>ul>li,
+.reveal ol>li>ol>li {
+  font-size: 100%;
+}
+
+/* including the code style , li has setting */
+.reveal ul li code,
+.reveal ol li code /*,
+.reveal table code*/ {
+  color: magenta;
+}
+
+.reveal table {
+  margin-top: 50px;
+  border-collapse: collapse;
+  border: 1px solid;
+
+  width: 80%;
+  height: 100%;
+}
+
+.reveal div#myprof{
+  margin-top: 20%;
+}
+.reveal p#lastpage {
+  margin-top: 20%;
+  font-size: 120%;
+}

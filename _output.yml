@@ -1,0 +1,12 @@
+bookdown::gitbook: 
+    css: Css/newbie_book.css
+bookdown::pdf_book: 
+    includes: 
+        in_header: latex/preamble.tex
+    latex_engine: xelatex
+documentclass: bxjsarticle
+classoption: xelatex,ja=standard
+geometry: no
+bookdown::eput_book:
+    dev: svglite
+    stylesheet: Css/newbie_book.css

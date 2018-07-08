@@ -1,0 +1,335 @@
+# shiny
+
+* Rでwebアプリを作れるやつ
+* shinyパッケージをインストールする
+* ここ数年で仕様が変化している模様
+    * ui.Rとserver.Rからapp.Rに
+* shinyサーバーをインストールして構築するのは難易度高め
+* shinyserverproを使うとユーザー認証ができたりする。
+
+* ここからは`eval=FALSE`にしてある
+    * shinyのある環境でお試しください。
+
+
+* 簡単に書いてみると
+
+```{r , eval=FALSE}
+ui <- fluidPage(
+  titlePanel("たいとる"),
+  mainPanel(),
+  sidebarPanel()
+)
+
+server <- function(input, output) {
+  
+}
+
+shinyApp(ui = ui, server = server)
+```
+
+
+* ui.Rでの場合
+    * `shinyUI()`でui設定を`{}`でくくって記述
+* server.Rでの場合
+    * `shinyServer()`でserver設定を`function(input,output){}`の関数内で記述
+* app.Rでの場合
+    * `ui`,`server`オブジェクトを定義
+    * `shinyApp(ui = ui, server = server)`でアプリ起動
+
+
+## widget
+
+* さっきのはシンプルな形
+* 入力フォームや出力などのウィジェットを定義する。
+
+```{r Input_check}
+ls(envir = environment(shiny::numericInput)) %>% 
+  # ..*で任意の一文字以上, (Input|Output)でInputまたはOutput, $は行末のアンカー
+  str_subset("..*(Input|Output)$") 
+```
+
+
+```{r , eval=FALSE}
+
+ui <- fluidPage(
+  titlePanel("numericInput&sliderInput"),
+  fluidRow(
+    column(6,
+           numericInput("test_num", "数字を入力してね", value = NA, min = 0, max = 20)),
+    column(6,
+            sliderInput("test_slide", "スライドしよう", min = 0, max = 100, value = 20))
+  ),
+  textOutput("test_text")
+)
+
+server <- function(input, output) {
+  output$test_text <- renderText({
+    paste0("入力した数字は,", input$test_num, "スライダーの数字は,", input$test_slide)
+  })
+}
+
+shinyApp(ui = ui, server = server)
+```
+
+* `output$id名`に出力を代入する。
+
+
+* render系の関数は出力時に使う。
+
+```{r}
+ls(envir = environment(shiny::renderText)) %>% 
+  str_subset(".*render.*")
+```
+
+
+    
+## reactive
+
+<h3>いままでやったのはreactivityとは少し違う。</h3>
+
+* `render*`はinputの値が変わるたびに、再実行する。
+* つまり、不要な更新も行われるということ。
+* さっきの例だと
+    * `numericInput`の値しか変わらないのに`sliderInput`の値を再代入してしまう。
+
+<h3>`reactive()`を使おう!</h3>
+
+
+```{r test_reactive, eval=FALSE}
+ui <- fluidPage(
+  titlePanel("numericInput&sliderInput"),
+  fluidRow(
+    column(6,
+           numericInput("test_num", "数字を入力してね", value = NA, min = 0, max = 20)),
+    column(6,
+            sliderInput("test_slide", "スライドしよう", min = 0, max = 100, value = 20))
+  ),
+  textOutput("test_text")
+)
+
+server <- function(input, output) {
+  reactive_test_num <- reactive(list(input$test_num, input$test_slide))
+  output$test_text <- renderText({
+    paste0("入力した数字は,", reactive_test_num()[[1]], "スライダーの数字は,", reactive_test_num()[[2]])
+  })
+}
+
+shinyApp(ui = ui, server = server)
+
+```
+
+* `reactive`は関数オブジェクトの形をとる。
+* `[[]]`でのアクセスは、ベクトルを返させる。
+
+
+* `reactive`の関数は、`{}`でくくると複数行の表現式を受け取れる。
+* `reactive`は、メモリ中の`input`変数が変わったら、再実行される。
+    * 変わらなければ再代入されない。
+* なんども関数を実行することは速度の低下につながる。
+
+## observer
+
+* `observe`は常に`input`を監視する。
+* 挙動は`reactive`と同じ。
+
+```{r , eval=FALSE}
+ui <- fluidPage(
+  titlePanel("numericInput&sliderInput"),
+  fluidRow(
+    column(6,
+           numericInput("test_num", "数字を入力してね", value = NA, min = 0, max = 20)),
+    column(6,
+            sliderInput("test_slide", "スライドしよう", min = 0, max = 100, value = 20))
+  ),
+  textOutput("test_text")
+)
+
+server <- function(input, output) {
+  #observe(list(input$test_num, input$test_slide))
+  observe_test <- reactiveValues()
+  observe({observe_test$num <- input$test_num; observe_test$slide <- input$test_slide})
+  output$test_text <- renderText({
+    paste0("入力した数字は,",
+           #input$test_num,
+           observe_test$num,
+           "スライダーの数字は,",
+           #input$test_slide
+           observe_test$slide)
+  })
+}
+
+shinyApp(ui = ui, server = server)
+```
+
+
+* `observe()`は,`reactive`と決定的に違う。
+* `input`が変わらなくても、`observe`内の関数を再実行する。
+    * `render*`内の関数を外に押し出すのにいいかも。
+
+
+
+## endpoint
+
+* `render*`の関数
+
+```{r  fig.width=6, fig.asp=0.618, out.width="70%", fig.align="center"}
+mermaid("
+        graph LR
+          id1[reactive]
+          id2{observer}
+          id3>endpoint]
+        
+          id1---id2
+          id2---id3")
+```
+
+
+* イメージとしてはこんな感じ
+* 最後に`render*`で`output`にわたす
+    * `renderText()`をさっき使った
+* `mermaid()`は後述
+
+
+```{r test_render_table, eval=FALSE}
+ui <- fluidPage(
+  titlePanel("numericInput&sliderInput"),
+  fluidRow(
+    column(6,
+           numericInput("test_num", "数字を入力してね", value = NA, min = 0, max = 20)),
+    column(6,
+            sliderInput("test_slide", "スライドしよう", min = 0, max = 100, value = 20))
+  ),
+  dataTableOutput("test_table")
+)
+
+server <- function(input, output) {
+  check_var <- reactive(data.frame(num = input$test_num, slide = input$test_slide))
+  observe({table_1 <- as.data.frame(check_var())})
+  output$test_table <- renderDataTable({as.data.frame(check_var())})
+}
+
+shinyApp(ui = ui, server = server)
+```
+
+
+* `renderDataTable()`はdata.frameとmatrixを出力
+* `renderTable()`は`xtable::xtable`を使うので注意！
+* 詳しくは`?shiny::renderDataTable`
+
+<h3>基本的には, reactive, endpoint, がわかればOK!</h3>
+
+## shinyのレイアウト
+
+### \*Panel
+
+* 基本的には`*Panel`で書けばいい。
+* `sidebarLayout()`も簡単
+
+```{r ls_Panel}
+ls(envir = environment(shiny::titlePanel)) %>% 
+  str_subset(".*Panel$")
+```
+
+
+### fluidRow
+
+* `fluidRow()`の中に`column(width, )`でレイアウトしていく
+    * いままで使ってたやつ
+* `column(width, )`のwidthは,同一の`fluidRow()`内で合計12になるようにする。
+    * 2つに等分するなら`width = 6`
+    * 3等分なら`width = 4`
+    * 自由に、`width = 2`, `width = 4` , `width = 6`もOK
+
+### css
+
+1. app.R, ui.R, server.Rのあるところにcssを置く
+1. `shiny::includeCSS()`でcssファイルを指定する。(パス無し)
+
+1. `www`ディレクトリをapp.R, ui.R, server.Rのあるところに作る
+1. `www`内にcssファイルを置く
+1. `fluidPage(theme = "css", )`で指定する。
+1. `tags$head()`内の`tags$link()`で設定する
+
+* `tags$head()`内の`tags$style()`で直接スタイルを書く
+
+
+```{r test_shiny_css, eval=FALSE}
+ui <- fluidPage(
+  #失敗,たぶんリポジトリのディレクトリ構造が干渉してる
+  # theme = "shiny_css/test_shiny_css.css",
+  #失敗,たぶん上と同じ理由
+    # tags$head(
+    #   tags$link(rel = "stylesheet", type = "text/css", href = "shiny_css/test_shiny_css.css")
+    # ),
+  #これはうまくいく。パスはRmd起点にしてある。
+  #includeCSS("www/shiny_css/test_shiny_css.css"),
+  
+  headerPanel("numericInput&sliderInput"),
+  fluidRow(
+    column(6,
+           numericInput("test_num", "数字を入力してね", value = NA, min = 0, max = 20)),
+    column(6,
+            sliderInput("test_slide", "スライドしよう", min = 0, max = 100, value = 20))
+  ),
+  dataTableOutput("test_table")
+)
+
+server <- function(input, output) {
+  check_var <- reactive(data.frame(num = input$test_num, slide = input$test_slide))
+  observe({table_1 <- as.data.frame(check_var())})
+  output$test_table <- renderDataTable({as.data.frame(check_var())})
+}
+
+shinyApp(ui = ui, server = server)
+
+```
+
+* ちょー見づらいけど、テストだからわかりやすく。
+
+### googleapi
+
+* googleapiのcssを`@import`する
+* 日本語は開発中らしい
+* earlyaccessでcssを読み込める
+
+```{r import_font_css, eval=FALSE}
+ui <- fluidPage(
+  tags$head(
+    tags$style(HTML("
+/*
+                    @import url(//fonts.googleapis.com/earlyaccess/nicomoji.css);
+                    h1, h2, h3, h4, h5, h6, p {
+                      font-family: 'Nico Moji', cursive;
+                    }
+*/
+
+/*
+                    @import url(//fonts.googleapis.com/earlyaccess/hannari.css);
+                    h1, h2, h3, h4, h5, h6, p {
+                      font-family: 'Hannari', serif;
+                    }
+*/
+                    "))
+  ),
+  
+  headerPanel("数字の入力練習"),
+  fluidRow(
+    column(6,
+           numericInput("test_num", "数字を入力してね", value = NA, min = 0, max = 20)),
+    column(6,
+            sliderInput("test_slide", "スライドしよう", min = 0, max = 100, value = 20))
+  ),
+  dataTableOutput("test_table")
+)
+
+server <- function(input, output) {
+  check_var <- reactive(data.frame(num = input$test_num, slide = input$test_slide))
+  observe({table_1 <- as.data.frame(check_var())})
+  output$test_table <- renderDataTable({as.data.frame(check_var())})
+}
+
+shinyApp(ui = ui, server = server)
+
+```
+
+

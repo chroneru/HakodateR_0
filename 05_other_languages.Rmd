@@ -1,0 +1,171 @@
+
+# 他言語との連携
+
+## C言語
+
+
+* さっきのクイズをCにしてみると
+
+```c
+#include "/usr/include/stdio.h"
+#include "/usr/include/stdlib.h"
+#include "/usr/include/string.h"
+#include "/usr/include/R/R.h"
+
+void quiz(char **ans_u);
+
+void quiz(char **ans_u) {
+  char answer[] = "さくらんぼ";
+  char yes[] = "あってるよ";
+  char no[] = "まちがってるよ";
+
+  printf("おうとうってなんだ？: %p\n",*ans_u);
+  if(strcmp(answer,*ans_u) == 0) {
+        printf("%s",yes);
+  } else {
+        printf("%s",no);
+  }
+}
+```
+
+
+* gccだとエラーは出ないが，危険っぽい
+
+```bash
+gcc -shared -fPIC -I/usr/include/R -o quiz_point.so quiz_point.c
+```
+
+* Rのバッチコマンドからビルドする
+
+```bash
+R CMD SHLIB quiz_point.c
+```
+
+
+```{r quiz,eval=FALSE}
+dyn.load("./C/quiz_point.so")
+ANS <- "さくらんぼ"
+.C('quiz', as.character(ANS))
+#> list()
+#> おうとうってなんだ？: まちがってるよ
+dyn.unload("./C/quiz_point.so")
+```
+
+
+* `R.h`のinclude必要!
+* ヘッダファイルのincludeには絶対パスで指定するのが簡単
+* `?.C`でデータ型を確認する
+* gccも使える
+    * gccのオプションでヘッダファイルのパスを指定する。
+         * `-I/usr/include/R`
+         * R.h内部でRconfig.hが呼び出されるため
+
+
+## Cのコードはめんどい {#Ccompile}
+
+* 関数の戻り値は`void`にする。
+* 引数はポインタを使う。
+* RのデータとCの引数の型とが一致しない
+* gccだと.soをつくれてしまう
+* Rバッチだとエラーの特定がしづらい
+
+## Rからロード {#C2R}
+
+* 形式は，`.so`か`.dll`
+* `dyn.load(`"hoge.so"`)`で読み込む
+* `dyn.unload(`"hoge.so"`)`でアンロード
+    * Rはメモリだけで処理するのでアンロードしておくといい
+    * fcloseぐらいに思っておく
+* `.C('関数名',引数)`か`.Call()`を使う
+* RにはC用のデータ型が用意されている
+
+
+## シェルスクリプト {#shellscript}
+
+* シェルでも再現してみる。
+* これはけっこう素直に扱える。
+
+```{bash quiz_sh, results='hide', eval=FALSE}
+#!/bin/sh
+
+if [ $# -eq 1 ] 
+then
+        echo "おうとうってなんだ？"
+        R --vanilla --no-save --slave -f ./quiz_sh.R --args $1
+
+else
+        echo "引数の数が正しくありません。"
+fi
+```
+
+```{r quiz_sh_r, eval=FALSE}
+ans_u <- commandArgs(trailingOnly = TRUE)
+
+diagnosis <- c("まちがってるよ\n",
+               "あってるよ\n")
+
+cat( ans_u )
+cat( "\n" )
+
+cat(diagnosis[ (ans_u == "さくらんぼ") + 1 ])
+```
+
+```bash
+chmod u+x quiz_sh.sh
+```
+
+## commandArgs()
+
+* `trailingOnly = TRUE`を指定する。
+    * `FALSE`だとコマンドとオプションも渡される。
+* Rコマンドのオプションに`--args`を指定する。
+* 引数を複数わたすこともできる。
+
+## shebang
+
+* シバンを変えることで`.R`スクリプトを直接実行できる。
+
+```bash
+#! /usr/bin/R --vanilla --no-save --slave -f
+
+quiz <- function() {
+  answer <- "さくらんぼ"
+  ans_u <- readline("おうとうってなんだ？: ")
+  if (ans_u == answer) print("あってるよ") 
+  else print("まちがってるよ")
+}
+quiz()
+```
+
+```bash
+chmod u+x ファイル名
+```
+
+## ヒアドキュメント {#program_with_heredoc}
+
+* シェルのヒアドキュメントも使える
+
+```bash
+R --vanilla --no-save --slave << EOF
+quiz <- function() {
+  answer <- "さくらんぼ"
+  ans_u <- readline("おうとうってなんだ？: ")
+  if (ans_u == answer) print("あってるよ") 
+  else print("まちがってるよ")
+}
+quiz()
+EOF
+```
+
+
+## 他にも使える言語
+
+
+* C++
+* Python
+* Ruby
+* SQL
+* Haskell
+* Rust
+
+などなどいろいろ用意されている。

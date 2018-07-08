@@ -1,0 +1,225 @@
+---
+title: "newbie_workshop"
+author: "chroneru"
+date: "2018/4/5"
+output:
+  revealjs::revealjs_presentation:
+    theme: sky
+    self_contained: FALSE
+    mainfont: "IPAPGothic"
+---
+
+```{r setup, include=FALSE}
+#options(prompt = "#> $ ")
+#options(continue = "#> $ ") #行末継続子
+knitr::opts_chunk$set(
+  comment = "#>",
+  collapse = TRUE
+)
+#TRUEでprompt表示
+#knitr::opts_current$set(prompt=FALSE, eval = FALSE)
+```
+
+
+# 1.Rのインストール
+
+## 1.1.windows
+
+* [Rのページ](https://www.r-project.org/)に行きます。
+* Mirrors からjapanのミラーサイトを選択してください。
+* Download　R　x.x.x for Windowsをクリックしてダウンロードして実行する。(x.x.xはバージョンです。)
+* 後はインストーラにしたがってください。
+
+## 1.2.mac
+
+* homebrewでのインストールだとこんな感じ
+
+```{bash brew_r, eval=FALSE}
+brew tap homebrew/science
+brew install r
+```
+
+## 1.3.linux
+
+* 簡易的な方法を示します。
+* ubuntu
+
+```{bash ubuntu_r_base, eval=FALSE}
+sudo apt-get install r-base
+```
+
+* centos
+
+```{bash centos_R, eval=FALSE}
+sudo yum install epel-release
+sudo yum --enablerepo=epel install R
+```
+
+# 2.Rstudioのインストール
+
+## 2.1.windows
+
+* [Rstudio](https://www.rstudio.com)のページからダウンロード，インストールします。
+* 別に難しくない
+
+## 2.2.mac
+
+* homebrewでのインストール
+    * brew-cask必須！
+
+```{bash brew_rstudio, eval=FALSE}
+brew cask install rstudio
+```
+
+## 2.3.linux
+
+* ubuntu
+
+```bash
+wget https://download1.rstudio.org/rstudio-1.1.447-amd64.deb
+sudo dpkg -i rstudio-1.1.447-amd64.deb
+```
+
+* centos
+
+```{bash centos_rstudio, eval=FALSE}
+sudo yum install wget
+wget https://download2.rstudio.org/rstudio-server-rhel-1.1.442-x86_64.rpm
+sudo yum install rstudio-server-rhel-1.1.442-x86_64.rpm
+```
+
+# 3.Rの演算子 {#operator}
+
+## 3.1.算術演算子
+
+* ふつうの計算に使う
+
+| 演算子 | 使い方 | 結果  |
+|:-------|-------:|------:|
+|`+`     |`1 + 2` |`r 1+2`  |
+|`-`     |`1 - 2` |`r 1-2`  |
+|`*`     |`2 * 3` |`r 2*3`  |
+|`/`     |`2 / 3` |`r 2/3`  |
+|`^`     |`2 ^ 3` |`r 2^3`   |
+
+## 3.2.代入演算子
+
+* 代入に使う
+* `=` は非推奨，`<-` を使う
+* `<<-` はグローバル環境への代入
+    * `<<-`よりもassign関数を使うほうがいい
+
+| 演算子 | 使い方 |
+|:-------|-------:|
+|`<-`    |`a <- 3`|
+|`<<-`   |`a <<- 5`|
+
+# 4.データ型
+
+## ベクトル
+
+* Rではベクトルとして代入される。
+* 文字列は`""`でくくる。
+* 数値はそのまま代入
+* 論理値は`TRUE`と`FALSE`
+
+```{r vector}
+hoge <- "やっほー"
+fuga <- 1.414
+foo <- TRUE
+hoge; fuga; foo
+```
+
+---
+
+* 複数の値を代入するときは`c()`を使う
+    * 型強制が起こる
+        * 数値は文字列に
+        * 論理値は数値か文字列に
+
+```{r combine_vectior}
+hoge <- c("やっほー", "おっはー")
+fuga <- c(1.414, 1.732)
+foo <- c(TRUE,FALSE)
+hoge; fuga; foo
+```
+
+```{r combine_vector2}
+hoge2 <- c("やっほー", 1, TRUE)
+fuga2 <- c(1.414, TRUE)
+hoge2; fuga2
+```
+
+## クイズ
+
+### 次のベクトルはどんなデータになるでしょう
+
+```{r quiz_vector}
+quiz1 <- c(1+TRUE, "やっほー")
+quiz2 <- c(1+TRUE, 3) * FALSE
+```
+
+---
+
+### 正解は
+
+```{r ans_vector}
+quiz1
+
+quiz2
+```
+
+`TRUE`は`1`に，`FALSE`は`0`になります。
+
+---
+
+### ベクトルの計算では，リサイクルルールが使われます。
+
+```{r calc_vector}
+a <- c(1,2,3,4)
+b <- c(1,2)
+c <- c(1,2,3)
+```
+
+```{r res_calc}
+a * 3
+
+a + b
+
+b + a
+
+a * c
+```
+
+小さいベクトルが，大きいベクトルにあわせて繰り返されます。
+
+## ベクトルの要素を参照する
+
+### ベクトルの要素は`[1]`からはじまる!
+
+* ベクトルの参照は線形代数と一緒
+* `[行番号,列番号]`で参照する!
+
+```{r}
+a <- c(1,2,3,4)
+dim(a) <- c(2,2) #2次元配列
+a
+
+a[1,2]
+
+a[c(1,2),2]
+```
+
+---
+
+* 代入もできる
+
+```{r}
+a
+
+tmp <- a[2,1]
+a[2,1] <- a[1,2]
+a[1,2] <- tmp
+a
+```
+

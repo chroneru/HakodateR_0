@@ -1,0 +1,33 @@
+
+# Rstudioのインストール
+
+## windows
+
+* [Rstudio](https://www.rstudio.com)のページからダウンロード，インストールします。
+* 別に難しくない
+
+## mac
+
+* homebrewでのインストール
+    * brew-cask必須！
+
+```bash
+brew cask install rstudio
+```
+
+## linux
+
+* ubuntu
+
+```bash
+wget https://download1.rstudio.org/rstudio-1.1.447-amd64.deb
+sudo dpkg -i rstudio-1.1.447-amd64.deb
+```
+
+* centos
+
+```bash
+sudo yum install wget
+wget https://download2.rstudio.org/rstudio-server-rhel-1.1.442-x86_64.rpm
+sudo yum install rstudio-server-rhel-1.1.442-x86_64.rpm
+```

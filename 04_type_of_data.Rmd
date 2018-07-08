@@ -1,0 +1,148 @@
+
+# データ型
+
+## ベクトル
+
+* Rではベクトルとして代入される。
+* 文字列は`""`でくくる。
+* 数値はそのまま代入
+* 論理値は`TRUE`と`FALSE`
+
+```{r vector}
+hoge <- "やっほー"
+fuga <- 1.414
+foo <- TRUE
+hoge; fuga; foo
+```
+
+---
+
+* 複数の値を代入するときは`c()`を使う
+    * 型強制が起こる
+        * 数値は文字列に
+        * 論理値は数値か文字列に
+
+```{r combine_vectior}
+hoge <- c("やっほー", "おっはー")
+fuga <- c(1.414, 1.732)
+foo <- c(TRUE,FALSE)
+hoge; fuga; foo
+```
+
+```{r combine_vector2}
+hoge2 <- c("やっほー", 1, TRUE)
+fuga2 <- c(1.414, TRUE)
+hoge2; fuga2
+```
+
+### クイズ
+
+#### 次のベクトルはどんなデータになるでしょう
+
+```{r quiz_vector}
+quiz1 <- c(1+TRUE, "やっほー")
+quiz2 <- c(1+TRUE, 3) * FALSE
+```
+
+
+### 正解は
+
+```{r ans_vector}
+quiz1
+
+quiz2
+```
+
+`TRUE`は`1`に，`FALSE`は`0`になります。
+
+## リサイクルルール
+
+* 小さいベクトルが，大きいベクトルにあわせて繰り返されます。
+* ベクトルの長さによって警告が出る
+
+
+```{r calc_vector}
+a <- c(1,2,3,4)
+b <- c(1,2)
+c <- c(1,2,3)
+```
+
+```{r res_calc}
+a * 3
+a + b
+b + a
+a * c
+```
+
+
+
+## ベクトルの要素を参照する
+
+### ベクトルの要素は`[1]`からはじまる!
+
+* ベクトルの参照は線形代数と一緒
+* `[行番号,列番号]`で参照する!
+
+```{r matrix}
+a <- c(1,2,3,4)
+dim(a) <- c(2,2) #2次元配列
+a
+
+a[1,2]
+
+a[c(1,2),2]
+```
+
+---
+
+* 代入もできる
+
+```{r matrix_swap}
+a
+
+tmp <- a[2,1]
+a[2,1] <- a[1,2]
+a[1,2] <- tmp
+a
+```
+
+## NA
+
+* `NA`はNot Available
+  * なにかわからない値に使う
+* 特別な値
+
+
+```{r na_ex}
+na_vec <- c(NA, NA, NA)
+is.na(na_vec)
+na_vec + 1
+na_vec == 1
+na_vec == NA
+na_vec != NA
+```
+
+## scanfみたいなのも用意されてる
+
+* readline関数
+
+```{r scan}
+a <- readline("入力してね: ")
+
+#> 入力してね: ここに入力
+```
+
+* これを使うと簡単なクイズができる。
+
+
+### 作ってみよう。
+
+```{r quiz_r}
+quiz <- function() {
+  answer <- "さくらんぼ"
+  ans_u <- readline("おうとうってなんだ？: ")
+  if (ans_u == answer) print("あってるよ") 
+  else print("まちがってるよ")
+}
+quiz()
+```

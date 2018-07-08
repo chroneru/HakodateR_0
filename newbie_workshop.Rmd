@@ -1,0 +1,1044 @@
+---
+title: "newbie_workshop"
+author: "chroneru"
+date: "2018/4/24"
+output:
+  revealjs::revealjs_presentation:
+    theme: sky
+    self_contained: FALSE
+    css: Css/newbie_workshop.css
+  html_document: 
+    css: Css/newbie_workshop_pages.css
+---
+
+```{r setup, include=FALSE}
+#options(prompt = "#> $ ")
+#options(continue = "#> $ ") #行末継続子
+knitr::opts_chunk$set(
+  comment = "#>",
+  collapse = TRUE,
+  fig.show = "hold"
+)
+#TRUEでprompt表示
+#knitr::opts_current$set(prompt=FALSE, eval = FALSE)
+#rmarkdown::render("newbie_workshop.Rmd", "revealjs_presentation", "newbie_workshop.html")
+#rmarkdown::render("newbie_workshop.Rmd", "html_document", "newbie_workshop_pages.html")
+
+library(tidyverse)
+```
+
+# 自己紹介
+
+---
+
+<div id="myprof">
+
+* @chroneru_mineru
+* R歴はぎゅっとすると2年ぐらい
+* Rについてのブログを書いてる
+
+</div>
+
+# 1.Rのインストール
+
+## 1.1.windows
+
+* [Rのページ](https://www.r-project.org/)に行きます。
+* Mirrors からjapanのミラーサイトを選択してください。
+* Download R x.x.x for Windowsをクリックしてダウンロードして実行する。(x.x.xはバージョンです。)
+* 後はインストーラにしたがってください。
+
+## 1.2.mac
+
+* homebrewでのインストールだとこんな感じ
+
+```bash
+brew tap homebrew/science
+brew install r
+```
+
+## 1.3.linux
+
+* 簡易的な方法を示します。
+* ubuntu
+
+```bash
+sudo apt-get install r-base
+```
+
+* centos
+
+```bash
+sudo yum install epel-release
+sudo yum --enablerepo=epel install R
+```
+
+# 2.Rstudioのインストール
+
+## 2.1.windows
+
+* [Rstudio](https://www.rstudio.com)のページからダウンロード，インストールします。
+* 別に難しくない
+
+## 2.2.mac
+
+* homebrewでのインストール
+    * brew-cask必須！
+
+```bash
+brew cask install rstudio
+```
+
+## 2.3.linux
+
+* ubuntu
+
+```bash
+wget https://download1.rstudio.org/rstudio-1.1.447-amd64.deb
+sudo dpkg -i rstudio-1.1.447-amd64.deb
+```
+
+* centos
+
+```bash
+sudo yum install wget
+wget https://download2.rstudio.org/rstudio-server-rhel-1.1.442-x86_64.rpm
+sudo yum install rstudio-server-rhel-1.1.442-x86_64.rpm
+```
+
+# 3.Rの演算子 {#operator}
+
+## 3.1.算術演算子
+
+* ふつうの計算に使う
+
+| 演算子 | 使い方 | 結果  |
+|:------:|-------:|------:|
+|`+`     |`1 + 2` |`r 1+2`  |
+|`-`     |`1 - 2` |`r 1-2`  |
+|`*`     |`2 * 3` |`r 2*3`  |
+|`/`     |`2 / 3` |`r 2/3`  |
+|`^`     |`2 ^ 3` |`r 2^3`   |
+
+## 3.2.代入演算子
+
+* 代入に使う
+* `=` は非推奨，`<-` を使う
+* `<<-` はグローバル環境への代入
+    * `<<-`よりもassign関数を使うほうがいい
+
+| 演算子 | 使い方 |
+|:------:|:------:|
+|`<-`    |`a <- 3`|
+|`<<-`   |`a <<- 5`|
+
+# 4.データ型
+
+## 4.1.ベクトル
+
+* Rではベクトルとして代入される。
+* 文字列は`""`でくくる。
+* 数値はそのまま代入
+* 論理値は`TRUE`と`FALSE`
+
+```{r vector}
+hoge <- "やっほー"
+fuga <- 1.414
+foo <- TRUE
+hoge; fuga; foo
+```
+
+---
+
+* 複数の値を代入するときは`c()`を使う
+    * 型強制が起こる
+        * 数値は文字列に
+        * 論理値は数値か文字列に
+
+```{r combine_vectior}
+hoge <- c("やっほー", "おっはー")
+fuga <- c(1.414, 1.732)
+foo <- c(TRUE,FALSE)
+hoge; fuga; foo
+```
+
+```{r combine_vector2}
+hoge2 <- c("やっほー", 1, TRUE)
+fuga2 <- c(1.414, TRUE)
+hoge2; fuga2
+```
+
+## クイズ
+
+### 次のベクトルはどんなデータになるでしょう
+
+```{r quiz_vector}
+quiz1 <- c(1+TRUE, "やっほー")
+quiz2 <- c(1+TRUE, 3) * FALSE
+```
+
+---
+
+### 正解は
+
+```{r ans_vector}
+quiz1
+
+quiz2
+```
+
+`TRUE`は`1`に，`FALSE`は`0`になります。
+
+## 4.1.1.リサイクルルール
+
+* 小さいベクトルが，大きいベクトルにあわせて繰り返されます。
+* ベクトルの長さによって警告が出る
+
+---
+
+```{r calc_vector}
+a <- c(1,2,3,4)
+b <- c(1,2)
+c <- c(1,2,3)
+```
+
+```{r res_calc}
+a * 3
+a + b
+b + a
+a * c
+```
+
+
+
+## 4.1.2.ベクトルの要素を参照する
+
+### ベクトルの要素は`[1]`からはじまる!
+
+* ベクトルの参照は線形代数と一緒
+* `[行番号,列番号]`で参照する!
+
+```{r matrix}
+a <- c(1,2,3,4)
+dim(a) <- c(2,2) #2次元配列
+a
+
+a[1,2]
+
+a[c(1,2),2]
+```
+
+---
+
+* 代入もできる
+
+```{r matrix_swap}
+a
+
+tmp <- a[2,1]
+a[2,1] <- a[1,2]
+a[1,2] <- tmp
+a
+```
+
+## 4.2.NA
+
+* `NA`はNot Available
+  * なにかわからない値に使う
+* 特別な値
+
+
+```{r na_ex}
+na_vec <- c(NA, NA, NA)
+is.na(na_vec)
+na_vec + 1
+na_vec == 1
+na_vec == NA
+na_vec != NA
+```
+
+## 4.3.scanfみたいなのも用意されてる
+
+* readline関数
+
+```{r scan}
+a <- readline("入力してね: ")
+
+#> 入力してね: ここに入力
+```
+
+* これを使うと簡単なクイズができる。
+
+---
+
+### 作ってみよう。
+
+```{r quiz_r}
+quiz <- function() {
+  answer <- "さくらんぼ"
+  ans_u <- readline("おうとうってなんだ？: ")
+  if (ans_u == answer) print("あってるよ") 
+  else print("まちがってるよ")
+}
+quiz()
+```
+
+
+
+
+# 5.他言語との連携
+
+# 5.1.C言語
+
+---
+
+* さっきのクイズをCにしてみると
+
+```c
+#include "/usr/include/stdio.h"
+#include "/usr/include/stdlib.h"
+#include "/usr/include/string.h"
+#include "/usr/include/R/R.h"
+
+void quiz(char **ans_u);
+
+void quiz(char **ans_u) {
+  char answer[] = "さくらんぼ";
+  char yes[] = "あってるよ";
+  char no[] = "まちがってるよ";
+
+  printf("おうとうってなんだ？: %p\n",*ans_u);
+  if(strcmp(answer,*ans_u) == 0) {
+        printf("%s",yes);
+  } else {
+        printf("%s",no);
+  }
+}
+```
+
+---
+
+* gccだとエラーは出ないが，危険っぽい
+
+```bash
+gcc -shared -fPIC -I/usr/include/R -o quiz_point.so quiz_point.c
+```
+
+* Rのバッチコマンドからビルドする
+
+```bash
+R CMD SHLIB quiz_point.c
+```
+
+
+```{r quiz,eval=FALSE}
+dyn.load("./C/quiz_point.so")
+ANS <- "さくらんぼ"
+.C('quiz', as.character(ANS))
+#> list()
+#> おうとうってなんだ？: まちがってるよ
+dyn.unload("./C/quiz_point.so")
+```
+
+---
+
+* `R.h`のinclude必要!
+* ヘッダファイルのincludeには絶対パスで指定するのが簡単
+* `?.C`でデータ型を確認する
+* gccも使える
+    * gccのオプションでヘッダファイルのパスを指定する。
+         * `-I/usr/include/R`
+         * R.h内部でRconfig.hが呼び出されるため
+
+
+## 5.1.1.Cのコードはめんどい {#Ccompile}
+
+* 関数の戻り値は`void`にする。
+* 引数はポインタを使う。
+* RのデータとCの引数の型とが一致しない
+* gccだと.soをつくれてしまう
+* Rバッチだとエラーの特定がしづらい
+
+## 5.1.2.Rからロード {#C2R}
+
+* 形式は，`.so`か`.dll`
+* `dyn.load(`"hoge.so"`)`で読み込む
+* `dyn.unload(`"hoge.so"`)`でアンロード
+    * Rはメモリだけで処理するのでアンロードしておくといい
+    * fcloseぐらいに思っておく
+* `.C('関数名',引数)`か`.Call()`を使う
+* RにはC用のデータ型が用意されている
+
+# 5.2.シェルスクリプト
+
+## 5.2.1.シェルスクリプト {#shellscript}
+
+* シェルでも再現してみる。
+* これはけっこう素直に扱える。
+
+```{bash quiz_sh, results='hide', eval=FALSE}
+#!/bin/sh
+
+if [ $# -eq 1 ] 
+then
+        echo "おうとうってなんだ？"
+        R --vanilla --no-save --slave -f ./quiz_sh.R --args $1
+
+else
+        echo "引数の数が正しくありません。"
+fi
+```
+
+---
+
+```{r quiz_sh_r, eval=FALSE}
+ans_u <- commandArgs(trailingOnly = TRUE)
+
+diagnosis <- c("まちがってるよ\n",
+               "あってるよ\n")
+
+cat( ans_u )
+cat( "\n" )
+
+cat(diagnosis[ (ans_u == "さくらんぼ") + 1 ])
+```
+
+```bash
+chmod u+x quiz_sh.sh
+```
+
+## 5.2.2.commandArgs()
+
+* `trailingOnly = TRUE`を指定する。
+    * `FALSE`だとコマンドとオプションも渡される。
+* Rコマンドのオプションに`--args`を指定する。
+* 引数を複数わたすこともできる。
+
+## 5.2.3.shebang
+
+* シバンを変えることで`.R`スクリプトを直接実行できる。
+
+```bash
+#! /usr/bin/R --vanilla --no-save --slave -f
+
+quiz <- function() {
+  answer <- "さくらんぼ"
+  ans_u <- readline("おうとうってなんだ？: ")
+  if (ans_u == answer) print("あってるよ") 
+  else print("まちがってるよ")
+}
+quiz()
+```
+
+```bash
+chmod u+x ファイル名
+```
+
+## 5.2.4.ヒアドキュメント {#program_with_heredoc}
+
+* シェルのヒアドキュメントも使える
+
+```bash
+R --vanilla --no-save --slave << EOF
+quiz <- function() {
+  answer <- "さくらんぼ"
+  ans_u <- readline("おうとうってなんだ？: ")
+  if (ans_u == answer) print("あってるよ") 
+  else print("まちがってるよ")
+}
+quiz()
+EOF
+```
+
+# 5.3.他にも使える言語
+
+---
+
+* C++
+* Python
+* Ruby
+* SQL
+* Haskell
+* Rust
+
+などなどいろいろ用意されている。
+
+# 6.パッケージ
+
+## 6.1.1.パッケージとは
+
+### いろんな人がつくった便利な関数群
+
+* `install.packages()`でインストール
+* `library()`で読み込み
+    * `require()`を使う人もいる。
+* `detach()`でアンロード
+
+```{r pkg_func, eval=FALSE}
+install.packages("パッケージ名")
+library(パッケージ名)
+detach("package:パッケージ名", unload = TRUE)
+```
+
+## 6.1.2.ヒアドキュメント {#install_with_heredoc}
+
+* ヒアドキュメントでログをとる。
+* インストール失敗時にべんり!
+* windowsは使えない。
+
+```bash
+R --no-save << EOF > logfile 2>&1
+install.packages("パッケージ名")
+EOF
+```
+
+
+## 6.2.tidyverse群
+
+* よくつかわれるパッケージをまとめたもの
+* データ処理につかう
+* パイプ`%>%`が使える
+* グラフをきれいにかける
+
+---
+
+```{r hadley_pkg, eval=FALSE}
+install.packages("tidyverse")
+library(tidyverse)
+```
+
+* インストール時につまづきやすい
+* エラーを読むと解決する
+
+## 6.3.tidyverseの実践 {#tidy_example}
+
+* ggplotについての例を示す
+* tidyverseパッケージが必要
+* ggplot2でもOK
+
+```{r ready_tidyverse, eval = FALSE}
+library(tidyverse)
+```
+
+
+## 6.3.1.ggplot
+
+* グラフをつくる関数
+* レイヤーを重ねる
+* 階層グラフィックス文法っていう書き方
+* `geom`関数でプロットの形式を変えれる
+* `ggsave()`で簡単にプロットを保存できる
+
+とりあえずここまでにしておく。
+
+---
+
+```{r ggplot_ex, eval=FALSE}
+mtcars_tibble <- as_tibble(mtcars)
+ggplot(
+  data = mtcars_tibble,
+  mapping = aes(
+    x = mpg,
+    y = disp,
+    color = cyl
+    )
+  ) +
+  geom_point()
+```
+
+* tibbleという型をつかう
+* `+`で関数をつなぐ
+
+---
+
+![mtcars_tibble](Image/newbie_workshop_image/mtcars_tibble.png)
+
+# 7.関数
+
+## 7.1.function()
+
+* `function()`をつかう。
+* ()のなかに引数をあたえる。
+* 中のプログラムは`{}`でくくる。
+
+## 7.2.関数例:パレート図の統計量
+
+### あんまりよくない
+
+* 個数を数える
+* 大きいものからならべる(desc)
+* 一個前のを自身に足す
+* 割合を計算する
+
+---
+
+```{r pareto_func}
+pareto_func <- function(vec) {
+
+res_count <- c("a" = NA, "b" = NA, "c" = NA, "d" = NA, "e" = NA)
+for(moji in c("a", "b", "c", "d", "e")) {
+    res_count[moji] <- sum(vec == moji)
+}
+res_count <- sort(res_count, decreasing = TRUE)
+res_pareto <- cumsum(res_count)
+res_pareto <- res_pareto / res_pareto[5]
+list("count" = res_count, "density" = res_pareto)
+}
+```
+
+* 一般化していない
+* あとでつかってみます
+
+---
+
+* 引数は，仮引数
+    * `function(a = 5)`のようにデフォルトも設定できる
+* `c("a" = NA)`で名前を与えられる。
+    * `names(ベクトル)`で名前を確認できる。
+* `sort()`はならべかえ
+* `cumsum()`は累積和
+
+```{r cumsum_ex}
+cumsum( c(1, 2, 3, 4, 5))
+```
+
+# 8.データ
+
+## 8.1.1.read.csv
+
+* 標準で使える読み込み関数
+* `stringAsFactors = FALSE`にする
+    * 文字列が変化するのを防ぐ
+    
+```r
+read.csv("ファイル名", stringAsFactors = FALSE)
+```
+
+## 8.1.2.read_csv
+
+* tidyverse群に用意されてる関数(readr)
+
+```r
+read_csv(
+  "ファイル名",
+  locale = locale(encoding = "エンコード")
+)
+```
+
+## 8.2.write.csv
+
+* 標準のcsv作成関数
+* `row.names = FALSE`
+    * 行名が追加されるのを防ぐ
+
+## 8.3.サンプルデータの作成
+
+* Rにはさまざまなデータ作成関数がある
+* `sample()`
+* `runif()`
+* `rnorm()`
+* `rgamma()`
+
+## 8.3.1.sample
+
+* `sample()`で単純なデータを作成できる
+* `size`は何個とりだすか
+* `replace`は複数回とりだせるか
+* `prob`は確率を指定する。
+    * 合計が1じゃなくても大丈夫
+
+```{r sample_ex}
+sample(1:100, size = 2)
+```
+
+## 8.3.2.その他
+
+|  関数   | 確率分布 |   使い方   |
+|:-------:|:--------:|:-----------:
+|`runif()`|一様分布|`runif(5)`|
+|`rnorm()`|正規分布|`rnorm(5)`|
+|`rgamma()`|ガンマ分布|`rgamma(5,shape = 2, rate = 5)`|
+|`rbeta()`|ベータ分布|`rbeta(5, shape1 = 0.5, shape2 = 0.5)`|
+
+* shapeはk, rateはシータ
+* shape1はα, shape2はβ
+
+# 9.使用例
+
+## 9.1.パレート図 {#pareto_graph}
+
+```{r pareto_play}
+prob_vec <- sample(1:5, size = 5)
+vec1 <- sample(
+  1:5,
+  size = 10000,
+  replace = TRUE,
+  prob = prob_vec
+)
+replace_abcde <- function(vec1) {
+  num <- 1
+  for(moji in c("a", "b", "c", "d", "e")) {
+    vec1[vec1 == num] <- moji
+    num <- num + 1
+  }
+  assign("vec1", vec1, envir = parent.env(environment()))
+}
+replace_abcde(vec1)
+result <- pareto_func(vec1)
+result
+```
+
+---
+
+* 図にすると
+
+```{r pareto_tibble}
+result <- as_tibble(result) %>% 
+  mutate(
+    name = names(result$count),
+    count_density = count / sum(count)
+  )
+```
+
+---
+
+```{r pareto_graph, fig.show = "hide"}
+result %>% 
+  ggplot() +
+  geom_hline(
+    yintercept = c(0.7,0.9,1),
+    size = 0.2,
+    color = "#ff0000"
+  ) +
+  geom_bar(
+    aes(name, count_density, fill = density),
+    stat = "identity"
+  ) +
+  geom_line(aes(name, density, group ="1")) +
+  geom_point(
+    aes(name, density, color = density),
+    size = 5
+  ) +
+  scale_x_discrete(limits = result$name) +
+  scale_y_continuous(breaks = seq(0, 1, by = 0.1)) +
+  scale_color_gradient(low = "#006600", high = "#ccffcc") +
+  scale_fill_gradient(low = "#006600", high = "#ccffcc") +
+#  viridis::scale_fill_viridis(option="inferno") +
+#  viridis::scale_color_viridis() +
+  coord_cartesian(ylim = c(0,1)) +
+  labs(
+    x = names(result$count),
+    y = NULL
+    ) +
+  theme(legend.position = "none")
+
+# ggsave("pareto_graph.png")
+```
+
+[見やすい方](newbie_workshop_pages.html#pareto_graph)
+
+---
+
+```{r import_pareto_graph, fig.width=6, fig.asp=0.618, out.width="70%", fig.align="center", echo=FALSE}
+knitr::include_graphics("Image/newbie_workshop_image/pareto_graph.png")
+```
+
+# 10.統計処理
+
+## 10.1.とりあえずやってみる。
+
+* `ToothGrowth`というデータセットを使ってみる
+
+```{r ToothGrowth_data}
+head(ToothGrowth)
+class(ToothGrowth)
+```
+
+---
+
+* モルモットの歯のデータセット
+    * `VC`かオレンジジュース(`Oj`)の用量と歯の長さ
+
+```{r import_guinea-pig, fig.width=6, fig.asp=0.618, out.width="70%", fig.align="center", echo=FALSE}
+knitr::include_graphics("Image/newbie_workshop_image/guinea-pig-242520_1920.jpg")
+```
+
+
+## 10.1.1.方針
+
+1. tidyverse群がつかえるようにtibbleにする。
+1. 列名をわかりやすくする
+1. とりあえず散布図を作る
+1. 他の処理について考える 
+
+## 10.1.2.tibble型の威力
+
+```{r ToothGrowth_2_tibble}
+ToothGrowth2 <- as_tibble(ToothGrowth)
+ToothGrowth2 %>% head(2) %>% knitr::kable()
+ToothGrowth2 %>% tail(2) %>% knitr::kable()
+```
+
+## 10.1.3.列名を変更する
+
+* ここは参考ぐらいに
+
+```{r ToothGrowth2_names}
+names(ToothGrowth2) <- c("Tooth_length", "Supplement", "Dose")
+ToothGrowth2 %>% head() %>% knitr::kable()
+```
+
+## 10.1.4.散布図で様子見
+
+```{r ToothGrowth2_plot, fig.width=6, fig.asp=0.618, out.width="70%", fig.align="center"}
+ToothGrowth2 %>% 
+  ggplot(aes(Dose, Tooth_length, color = Supplement)) +
+  geom_point()
+```
+
+## 10.1.5.線形回帰分析
+
+* `lm()`を使う
+
+```{r ToothGrowth2_lm}
+ToothGrowth2_VC_lm <- lm(Tooth_length ~ Dose, data = ToothGrowth2 %>% filter(Supplement == "VC"))
+ToothGrowth2_OJ_lm <- lm(Tooth_length ~ Dose, data = ToothGrowth2 %>% filter(Supplement == "OJ"))
+ToothGrowth2_lm <- list(VC_lm = summary(ToothGrowth2_VC_lm), OJ_lm = summary(ToothGrowth2_OJ_lm))
+ToothGrowth2_lm
+
+# Tooth_length = 3.295 + 11.716 * Dose
+# Tooth_length = 11.550 + 7.811 * Dose
+```
+
+---
+
+* 回帰直線のプロット
+
+```{r ToothGrowth2_lm_plot, fig.width=6, fig.asp=0.618, out.width="70%", fig.align="center"}
+ToothGrowth2 %>% 
+  group_by(Supplement) %>% 
+  ggplot(aes(Dose, Tooth_length, color = Supplement)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE)
+```
+
+
+# 10.2.ベイズ
+
+## 10.2.1.ベイズ統計
+
+* ToothGrowthでは母集団が少ない。
+* なにもしていない時の歯の増加量がわからない。
+* 特に事前情報がない。
+
+<br/>
+
+<h2>そんなときはベイズ</h2>
+
+## 10.2.2.baysian linear regression
+
+* 要は線形回帰分析
+
+```{r ToothGrowth2_lm_MCMC}
+ToothGrowth2_VC_bayes_lm <- MCMCpack::MCMCregress(Tooth_length ~ Dose, ToothGrowth2 %>% filter(Supplement == "VC"), verbose = 10000)
+ToothGrowth2_OJ_bayes_lm <- MCMCpack::MCMCregress(Tooth_length ~ Dose, ToothGrowth2 %>% filter(Supplement == "OJ"), verbose = 10000)
+ToothGrowth2_bayes_lm <- list(VC_bayes_lm = summary(ToothGrowth2_VC_bayes_lm), OJ_bayes_lm = summary(ToothGrowth2_OJ_bayes_lm))
+ToothGrowth2_bayes_lm
+
+# 試行によって違いが出る。
+# Tooth_length = 3.312 + 11.703 * Dose
+# Tooth_length = 11.571 + 7.796 * Dose
+```
+
+---
+
+```{r ToothGrowth2_lm_MCMC_plot, fig.width=6, fig.asp=0.618, out.width="70%", fig.align="center", eval=FALSE}
+# Tooth_length = 3.312 + 11.703 * Dose
+# Tooth_length = 11.571 + 7.796 * Dose
+ToothGrowth2 %>% 
+  group_by(Supplement) %>% 
+  ggplot(aes(Dose, Tooth_length, color = Supplement)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE, size = 2) +
+  stat_function(
+    fun = function(Dose) 3.312 + 11.703 * Dose,
+    geom = "line",
+    color = "#00ffc4",
+    size = 0.6,
+    xlim = c(0.5, 2.0),
+    show.legend = TRUE
+  ) +
+  stat_function(
+    fun = function(Dose) 11.571 + 7.796 * Dose,
+    geom = "line",
+    color = "#ffe4f1",
+    size = 0.5,
+    xlim = c(0.5, 2.0),
+    show.legend = TRUE
+  )
+```
+
+
+
+## 10.2.3.MCMCregress
+
+* `MCMCpack`パッケージを使う。
+* `MCMCpack::MCMCregress`でMCMC法での回帰直線を作成する。
+* デフォルトでバーンインは1000回,イテレーションは10000回
+* verboseを設定すると進行状況と各変数の確率分布を`print`で表示できる。
+
+---
+
+MCMC法による線形回帰の結果を通常の線形回帰分析と重ねあわせてみると 
+
+* だいたいおなじ
+* あくまで目安
+
+
+```{r import_ToothGrowth2_lm_MCMC_plot, fig.width=6, fig.asp=0.618, out.width="70%", fig.align="center", echo=FALSE}
+knitr::include_graphics("./Image/newbie_workshop_image/bayes_and_lm_plot.png")
+```
+
+
+# 10.3.BayesFactor
+
+## 10.3.1.ベイズファクター
+
+* 尤度を比較する指標
+* 事後確率の比と事前確率の比の比
+    * すごいわかりづらい
+
+<br/>
+
+<h2 id="h2_alone">ある仮説のときにデータがこうなってるよね?<br/>
+これって別の仮説の時のデータだとしたらどっちいいんかな?ってこと</h2>
+
+## 10.3.2.anovaBF
+
+* `BayesFactor::anovaBF`
+    * 分散を解析する関数
+* factorじゃないと使えないらしい
+* 質的変数として扱えるならそうする
+    * Doseは比例尺度と考えられる(量的変数)
+    * 今回は順位尺度と見る
+
+```{r anovaBF_error, error=TRUE}
+bf <- BayesFactor::anovaBF(
+  Tooth_length ~ Dose,
+  data = ToothGrowth2
+  )
+```
+
+## 10.3.3.anovaBFの使用
+
+* 公式にのっとってデータを整理していく
+
+```{r anovaBF_2_factor}
+ToothGrowth2$Dose <- factor(ToothGrowth2$Dose)
+levels(ToothGrowth2$Dose) <- c("Low", "Medium", "High")
+```
+
+---
+
+```{r calc_anovaBF}
+bf <- BayesFactor::anovaBF(
+  Tooth_length ~ Supplement * Dose,
+  data = ToothGrowth2
+  )
+bf
+```
+
+---
+
+* 今回はplotが用意されているので`plot()`を使う
+
+```{r calc_anovaBF_plot, fig.width=6, fig.asp=0.618, out.width="70%", fig.align="center", echo=FALSE}
+display_plot <- matrix(c(1, 0, 1, 0), 2, 2)
+layout(display_plot)
+plot(bf)
+plot(bf[3:4]/bf[2])
+```
+
+## 10.3.4.プロット結果
+
+* 見た感じ`Supplement`は関係なさそう
+* `Supplement + Dose + Supplement:Dose`で仮設を立てるのが最も良さそう
+
+というわけで`factor`を`numeric`にするんですが 
+少し失敗しました。笑 
+
+```{r ToothGrowth2_2_numeric}
+levels(ToothGrowth2$Dose) <- c(0.5, 1, 2)
+ToothGrowth2$Dose <- as.numeric(as.character(ToothGrowth2$Dose))
+str(ToothGrowth2$Dose)
+```
+
+## 10.3.5.ふたたび線形回帰分析
+
+* 手順は同じ
+
+```{r ToothGrowth_lm_result}
+# Tooth_length = b0 + b1*Supplement + b2*Dose + b3*Supplement*Dose
+ToothGrowth_lm_result <- lm(Tooth_length ~ Supplement * Dose, data = ToothGrowth2)
+summary(ToothGrowth_lm_result)
+```
+
+---
+
+* ggplotを使っていく
+* [見やすい方](newbie_workshop_pages.html#ToothGrowth_lm_result_table)
+
+
+
+```{r ToothGrowth_lm_result_table}
+ToothGrowth2 <- ToothGrowth2 %>% 
+  mutate(
+    Supplement_num = unclass(.$Supplement),
+    Tooth_length_res = predict(ToothGrowth_lm_result)
+  )
+ToothGrowth2 %>% head() %>% knitr::kable()
+```
+
+---
+
+```{r ToothGrowth_lm_result_plot, fig.width=6, fig.asp=0.618, out.width="70%", fig.align="center", echo=FALSE}
+par(mfrow = c(2, 2))
+plot(ToothGrowth_lm_result)
+```
+
+* 残差が同じぐらいの広がり
+* 正規性が見て取れる
+* クックの距離が0.5を超えているようなので当てはまりもよさそう
+
+---
+
+```{r ToothGrowth_lm_result_ggplot, fig.width=6, fig.asp=0.618, out.width="70%", fig.align="center"}
+ToothGrowth2 %>% 
+  ggplot(aes(Dose, color = Supplement)) +
+  geom_point(aes(y = Tooth_length_res), position = position_jitter(width = 0.1, height = 1), color = "#0000ff") +
+  geom_point(aes(y = Tooth_length), position = position_jitter(width = 0.1))
+```
+
+---
+
+* 95%信頼区間でのみ`b3 * Supplement * Dose`が棄却される。
+* イテレーションしたらもう少し違うかも。
+
+
+# さいごに
+
+---
+
+<p id="lastpage">
+今回は，他言語との連携をメインにRを紹介しました。<br/>
+ここでは触れなかったことの方が多いです。<br/>
+統計だけじゃない，Rを楽しみましょう！
+</p>
+
+# 付録
+
+
+## 参考資料
+
+* [アート・オブ・Rプログラミング](https://www.oreilly.co.jp/books/9784873115795/)
+* [R for Data Science](http://r4ds.had.co.nz/)
