@@ -3,8 +3,8 @@
 
 ## windows
 
-* [Rstudio](https://www.rstudio.com)のページからダウンロード，インストールします。
-* 別に難しくない
+* [Rstudio](https://www.rstudio.com)のページからダウンロード，インストールします
+* 別に難しくないですね
 
 ## mac
 

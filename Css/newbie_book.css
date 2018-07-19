@@ -1,0 +1,89 @@
+/* font-size は、上のバーから選択できる */
+
+.book li {
+  list-style: none;
+}
+
+.book h3 code,
+.book ul li code,
+.book ol li code,
+.book table code {
+  color: #ff1493 !important;
+}
+
+/*
+.book ul li code,
+.book ol li code,
+.book table code {
+  color: red;
+}*/
+
+/* bash */
+
+.book .bash span.ex {
+  color: #c71585;
+}
+
+.book .bash span.fu {
+  color: #c71585;
+}
+
+.book .bash span.op {
+  color: #d2691e;
+}
+
+/* r */
+
+.book span.st,
+.book span.va {
+  color: #00b0ff;
+}
+
+.book span.dv,
+.book span.fl {
+  color: #20b2aa;
+}
+
+.book span.ot{
+  color: #0000cd;
+}
+
+.book span.co {
+  color: #3cb371;
+}
+
+.book span.kw {
+  /* color: #ff8c00; */
+  color: #ff7f50;
+}
+
+.book span.cf {
+  color: #d2691e;
+}
+
+/* c */
+
+  /* span.kw とおなじ設定 */
+.book .c span.pp {
+  color: #ff7f50;
+}
+
+.book .c span.im {
+  color: #000000;
+}
+
+/* 個別のidを設定 */
+
+.book h2#h2_alone {
+  font-size: 120%;
+  margin: 20px 5px;
+}
+
+.book div#myprof{
+  margin-top: 20%;
+  font-size: 130%;
+}
+.book p#lastpage {
+  margin-top: 20%;
+  font-size: 120%;
+}

@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>HakodateR#0</title>
+  <meta name="description" content="この本は、HakodateR#0での説明に用いたものです。">
+  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+
+  <meta property="og:title" content="HakodateR#0" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="この本は、HakodateR#0での説明に用いたものです。" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="HakodateR#0" />
+  
+  <meta name="twitter:description" content="この本は、HakodateR#0での説明に用いたものです。" />
+  
+
+<meta name="author" content="chroneru">
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="section-5.html">
+<link rel="next" href="section-7.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<script src="libs/htmlwidgets-1.2/htmlwidgets.js"></script>
+<script src="libs/d3-3.3.8/d3.min.js"></script>
+<script src="libs/dagre-0.4.0/dagre-d3.min.js"></script>
+<link href="libs/mermaid-0.3.0/dist/mermaid.css" rel="stylesheet" />
+<script src="libs/mermaid-0.3.0/dist/mermaid.slim.min.js"></script>
+<link href="libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet" />
+<script src="libs/chromatography-0.1/chromatography.js"></script>
+<script src="libs/DiagrammeR-binding-1.0.0/DiagrammeR.js"></script>
+<link href="libs/leaflet-1.3.1/leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-1.3.1/leaflet.js"></script>
+<link href="libs/leafletfix-1.0.0/leafletfix.css" rel="stylesheet" />
+<script src="libs/Proj4Leaflet-1.0.1/proj4-compressed.js"></script>
+<script src="libs/Proj4Leaflet-1.0.1/proj4leaflet.js"></script>
+<link href="libs/rstudio_leaflet-1.3.1/rstudio_leaflet.css" rel="stylesheet" />
+<script src="libs/leaflet-binding-2.0.0/leaflet.js"></script>
+<script src="libs/viz-1.8.2/viz.js"></script>
+<script src="libs/grViz-binding-1.0.0/grViz.js"></script>
+<link href="libs/vis-4.20.1/vis.css" rel="stylesheet" />
+<script src="libs/vis-4.20.1/vis.min.js"></script>
+<script src="libs/visNetwork-binding-2.0.3/visNetwork.js"></script>
+<link rel="stylesheet" href="Css/print.css" media="print">
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+<link rel="stylesheet" href="Css/newbie_book.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>はじめに</a></li>
+<li class="chapter" data-level="" data-path="e887aae5b7b1e7b4b9e4bb8b.html"><a href="e887aae5b7b1e7b4b9e4bb8b.html"><i class="fa fa-check"></i>自己紹介</a></li>
+<li class="chapter" data-level="1" data-path="r.html"><a href="r.html"><i class="fa fa-check"></i><b>1</b> Rのインストール</a><ul>
+<li class="chapter" data-level="1.1" data-path="r.html"><a href="r.html#windows"><i class="fa fa-check"></i><b>1.1</b> windows</a></li>
+<li class="chapter" data-level="1.2" data-path="r.html"><a href="r.html#mac"><i class="fa fa-check"></i><b>1.2</b> mac</a></li>
+<li class="chapter" data-level="1.3" data-path="r.html"><a href="r.html#linux"><i class="fa fa-check"></i><b>1.3</b> linux</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="rstudio.html"><a href="rstudio.html"><i class="fa fa-check"></i><b>2</b> Rstudioのインストール</a><ul>
+<li class="chapter" data-level="2.1" data-path="rstudio.html"><a href="rstudio.html#windows-1"><i class="fa fa-check"></i><b>2.1</b> windows</a></li>
+<li class="chapter" data-level="2.2" data-path="rstudio.html"><a href="rstudio.html#mac-1"><i class="fa fa-check"></i><b>2.2</b> mac</a></li>
+<li class="chapter" data-level="2.3" data-path="rstudio.html"><a href="rstudio.html#linux-1"><i class="fa fa-check"></i><b>2.3</b> linux</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="operator.html"><a href="operator.html"><i class="fa fa-check"></i><b>3</b> Rの演算子</a><ul>
+<li class="chapter" data-level="3.1" data-path="operator.html"><a href="operator.html#section-3.1"><i class="fa fa-check"></i><b>3.1</b> 算術演算子</a></li>
+<li class="chapter" data-level="3.2" data-path="operator.html"><a href="operator.html#section-3.2"><i class="fa fa-check"></i><b>3.2</b> 代入演算子</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="section-4.html"><a href="section-4.html"><i class="fa fa-check"></i><b>4</b> データ型</a><ul>
+<li class="chapter" data-level="4.1" data-path="section-4.html"><a href="section-4.html#section-4.1"><i class="fa fa-check"></i><b>4.1</b> ベクトル</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="section-4.html"><a href="section-4.html#section-4.1.1"><i class="fa fa-check"></i><b>4.1.1</b> クイズ</a></li>
+<li class="chapter" data-level="4.1.2" data-path="section-4.html"><a href="section-4.html#section-4.1.2"><i class="fa fa-check"></i><b>4.1.2</b> 正解は</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="section-4.html"><a href="section-4.html#section-4.2"><i class="fa fa-check"></i><b>4.2</b> リサイクルルール</a></li>
+<li class="chapter" data-level="4.3" data-path="section-4.html"><a href="section-4.html#section-4.3"><i class="fa fa-check"></i><b>4.3</b> ベクトルの要素を参照する</a></li>
+<li class="chapter" data-level="4.4" data-path="section-4.html"><a href="section-4.html#na"><i class="fa fa-check"></i><b>4.4</b> NA</a></li>
+<li class="chapter" data-level="4.5" data-path="section-4.html"><a href="section-4.html#scanf"><i class="fa fa-check"></i><b>4.5</b> scanfみたいなのも用意されてる</a></li>
+<li class="chapter" data-level="4.6" data-path="section-4.html"><a href="section-4.html#section-4.6"><i class="fa fa-check"></i><b>4.6</b> 他の型</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="section-5.html"><a href="section-5.html"><i class="fa fa-check"></i><b>5</b> 他言語との連携</a><ul>
+<li class="chapter" data-level="5.1" data-path="section-5.html"><a href="section-5.html#c"><i class="fa fa-check"></i><b>5.1</b> C言語</a><ul>
+<li class="chapter" data-level="5.1.1" data-path="section-5.html"><a href="section-5.html#Ccompile"><i class="fa fa-check"></i><b>5.1.1</b> Cのコードはめんどい</a></li>
+<li class="chapter" data-level="5.1.2" data-path="section-5.html"><a href="section-5.html#C2R"><i class="fa fa-check"></i><b>5.1.2</b> Rからロード</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="section-5.html"><a href="section-5.html#shellscript"><i class="fa fa-check"></i><b>5.2</b> シェルスクリプト</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="section-5.html"><a href="section-5.html#commandargs"><i class="fa fa-check"></i><b>5.2.1</b> commandArgs()</a></li>
+<li class="chapter" data-level="5.2.2" data-path="section-5.html"><a href="section-5.html#shebang"><i class="fa fa-check"></i><b>5.2.2</b> shebang</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="section-5.html"><a href="section-5.html#program_with_heredoc"><i class="fa fa-check"></i><b>5.3</b> ヒアドキュメント</a></li>
+<li class="chapter" data-level="5.4" data-path="section-5.html"><a href="section-5.html#section-5.4"><i class="fa fa-check"></i><b>5.4</b> 他にも使える言語</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="section-6.html"><a href="section-6.html"><i class="fa fa-check"></i><b>6</b> パッケージ</a><ul>
+<li class="chapter" data-level="6.1" data-path="section-6.html"><a href="section-6.html#section-6.1"><i class="fa fa-check"></i><b>6.1</b> パッケージとは</a></li>
+<li class="chapter" data-level="6.2" data-path="section-6.html"><a href="section-6.html#install_with_heredoc"><i class="fa fa-check"></i><b>6.2</b> ヒアドキュメント</a></li>
+<li class="chapter" data-level="6.3" data-path="section-6.html"><a href="section-6.html#tidyverse"><i class="fa fa-check"></i><b>6.3</b> tidyverse群</a></li>
+<li class="chapter" data-level="6.4" data-path="section-6.html"><a href="section-6.html#tidy_example"><i class="fa fa-check"></i><b>6.4</b> tidyverseの実践</a></li>
+<li class="chapter" data-level="6.5" data-path="section-6.html"><a href="section-6.html#ggplot"><i class="fa fa-check"></i><b>6.5</b> ggplot</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="section-7.html"><a href="section-7.html"><i class="fa fa-check"></i><b>7</b> 関数</a><ul>
+<li class="chapter" data-level="7.1" data-path="section-7.html"><a href="section-7.html#function"><i class="fa fa-check"></i><b>7.1</b> function()</a></li>
+<li class="chapter" data-level="7.2" data-path="section-7.html"><a href="section-7.html#section-7.2"><i class="fa fa-check"></i><b>7.2</b> 関数例:パレート図の統計量</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="section-8.html"><a href="section-8.html"><i class="fa fa-check"></i><b>8</b> データ</a><ul>
+<li class="chapter" data-level="8.1" data-path="section-8.html"><a href="section-8.html#read.csv"><i class="fa fa-check"></i><b>8.1</b> read.csv</a></li>
+<li class="chapter" data-level="8.2" data-path="section-8.html"><a href="section-8.html#read_csv"><i class="fa fa-check"></i><b>8.2</b> read_csv</a></li>
+<li class="chapter" data-level="8.3" data-path="section-8.html"><a href="section-8.html#write.csv"><i class="fa fa-check"></i><b>8.3</b> write.csv</a></li>
+<li class="chapter" data-level="8.4" data-path="section-8.html"><a href="section-8.html#section-8.4"><i class="fa fa-check"></i><b>8.4</b> サンプルデータの作成</a></li>
+<li class="chapter" data-level="8.5" data-path="section-8.html"><a href="section-8.html#sample"><i class="fa fa-check"></i><b>8.5</b> sample</a></li>
+<li class="chapter" data-level="8.6" data-path="section-8.html"><a href="section-8.html#section-8.6"><i class="fa fa-check"></i><b>8.6</b> その他</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="section-9.html"><a href="section-9.html"><i class="fa fa-check"></i><b>9</b> 使用例</a><ul>
+<li class="chapter" data-level="9.1" data-path="section-9.html"><a href="section-9.html#pareto_graph"><i class="fa fa-check"></i><b>9.1</b> パレート図</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="section-10.html"><a href="section-10.html"><i class="fa fa-check"></i><b>10</b> 統計処理</a><ul>
+<li class="chapter" data-level="10.1" data-path="section-10.html"><a href="section-10.html#section-10.1"><i class="fa fa-check"></i><b>10.1</b> とりあえずやってみる。</a></li>
+<li class="chapter" data-level="10.2" data-path="section-10.html"><a href="section-10.html#section-10.2"><i class="fa fa-check"></i><b>10.2</b> 方針</a></li>
+<li class="chapter" data-level="10.3" data-path="section-10.html"><a href="section-10.html#tibble"><i class="fa fa-check"></i><b>10.3</b> tibble型の威力</a><ul>
+<li class="chapter" data-level="10.3.1" data-path="section-10.html"><a href="section-10.html#section-10.3.1"><i class="fa fa-check"></i><b>10.3.1</b> 列名を変更する</a></li>
+<li class="chapter" data-level="10.3.2" data-path="section-10.html"><a href="section-10.html#section-10.3.2"><i class="fa fa-check"></i><b>10.3.2</b> 散布図で様子見</a></li>
+<li class="chapter" data-level="10.3.3" data-path="section-10.html"><a href="section-10.html#section-10.3.3"><i class="fa fa-check"></i><b>10.3.3</b> 線形回帰分析</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="section-11.html"><a href="section-11.html"><i class="fa fa-check"></i><b>11</b> ベイズ</a><ul>
+<li class="chapter" data-level="11.1" data-path="section-11.html"><a href="section-11.html#section-11.1"><i class="fa fa-check"></i><b>11.1</b> ベイズ統計</a></li>
+<li class="chapter" data-level="11.2" data-path="section-11.html"><a href="section-11.html#baysian-linear-regression"><i class="fa fa-check"></i><b>11.2</b> baysian linear regression</a></li>
+<li class="chapter" data-level="11.3" data-path="section-11.html"><a href="section-11.html#mcmcregress"><i class="fa fa-check"></i><b>11.3</b> MCMCregress</a></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="bayesfactor.html"><a href="bayesfactor.html"><i class="fa fa-check"></i><b>12</b> BayesFactor</a><ul>
+<li class="chapter" data-level="12.1" data-path="bayesfactor.html"><a href="bayesfactor.html#section-12.1"><i class="fa fa-check"></i><b>12.1</b> ベイズファクター</a></li>
+<li class="chapter" data-level="12.2" data-path="bayesfactor.html"><a href="bayesfactor.html#anovabf"><i class="fa fa-check"></i><b>12.2</b> anovaBF</a></li>
+<li class="chapter" data-level="12.3" data-path="bayesfactor.html"><a href="bayesfactor.html#anovabf"><i class="fa fa-check"></i><b>12.3</b> anovaBFの使用</a></li>
+<li class="chapter" data-level="12.4" data-path="bayesfactor.html"><a href="bayesfactor.html#section-12.4"><i class="fa fa-check"></i><b>12.4</b> プロット結果</a></li>
+<li class="chapter" data-level="12.5" data-path="bayesfactor.html"><a href="bayesfactor.html#section-12.5"><i class="fa fa-check"></i><b>12.5</b> ふたたび線形回帰分析</a></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="rmarkdown.html"><a href="rmarkdown.html"><i class="fa fa-check"></i><b>13</b> rmarkdown</a><ul>
+<li class="chapter" data-level="13.1" data-path="rmarkdown.html"><a href="rmarkdown.html#rmarkdown"><i class="fa fa-check"></i><b>13.1</b> rmarkdownの準備</a></li>
+<li class="chapter" data-level="13.2" data-path="rmarkdown.html"><a href="rmarkdown.html#yaml"><i class="fa fa-check"></i><b>13.2</b> yamlヘッダ</a></li>
+<li class="chapter" data-level="13.3" data-path="rmarkdown.html"><a href="rmarkdown.html#section-13.3"><i class="fa fa-check"></i><b>13.3</b> 出力形式</a></li>
+<li class="chapter" data-level="13.4" data-path="rmarkdown.html"><a href="rmarkdown.html#pdf"><i class="fa fa-check"></i><b>13.4</b> pdfの出力</a><ul>
+<li class="chapter" data-level="13.4.1" data-path="rmarkdown.html"><a href="rmarkdown.html#tex"><i class="fa fa-check"></i><b>13.4.1</b> texのログファイル</a></li>
+<li class="chapter" data-level="13.4.2" data-path="rmarkdown.html"><a href="rmarkdown.html#tex"><i class="fa fa-check"></i><b>13.4.2</b> texライブラリ</a></li>
+</ul></li>
+<li class="chapter" data-level="13.5" data-path="rmarkdown.html"><a href="rmarkdown.html#sty"><i class="fa fa-check"></i><b>13.5</b> styのインストール</a></li>
+<li class="chapter" data-level="13.6" data-path="rmarkdown.html"><a href="rmarkdown.html#tex"><i class="fa fa-check"></i><b>13.6</b> texエンジン</a></li>
+<li class="chapter" data-level="13.7" data-path="rmarkdown.html"><a href="rmarkdown.html#section-13.7"><i class="fa fa-check"></i><b>13.7</b> コードチャンク</a><ul>
+<li class="chapter" data-level="13.7.1" data-path="rmarkdown.html"><a href="rmarkdown.html#section-13.7.1"><i class="fa fa-check"></i><b>13.7.1</b> コードチャンクの書き方</a></li>
+</ul></li>
+<li class="chapter" data-level="13.8" data-path="rmarkdown.html"><a href="rmarkdown.html#section-13.8"><i class="fa fa-check"></i><b>13.8</b> チャンクオプション</a></li>
+<li class="chapter" data-level="13.9" data-path="rmarkdown.html"><a href="rmarkdown.html#setup"><i class="fa fa-check"></i><b>13.9</b> setupチャンク</a></li>
+<li class="chapter" data-level="13.10" data-path="rmarkdown.html"><a href="rmarkdown.html#section-13.10"><i class="fa fa-check"></i><b>13.10</b> エンジン</a></li>
+<li class="chapter" data-level="13.11" data-path="rmarkdown.html"><a href="rmarkdown.html#tex_math"><i class="fa fa-check"></i><b>13.11</b> tex数式</a></li>
+<li class="chapter" data-level="13.12" data-path="rmarkdown.html"><a href="rmarkdown.html#tex_command"><i class="fa fa-check"></i><b>13.12</b> texコマンド</a></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="shiny.html"><a href="shiny.html"><i class="fa fa-check"></i><b>14</b> shiny</a><ul>
+<li class="chapter" data-level="14.1" data-path="shiny.html"><a href="shiny.html#widget"><i class="fa fa-check"></i><b>14.1</b> widget</a></li>
+<li class="chapter" data-level="14.2" data-path="shiny.html"><a href="shiny.html#reactive"><i class="fa fa-check"></i><b>14.2</b> reactive</a><ul>
+<li class="chapter" data-level="14.2.1" data-path="shiny.html"><a href="shiny.html#reactive"><i class="fa fa-check"></i><b>14.2.1</b> reactiveを使ってみる。</a></li>
+</ul></li>
+<li class="chapter" data-level="14.3" data-path="shiny.html"><a href="shiny.html#observer"><i class="fa fa-check"></i><b>14.3</b> observer</a></li>
+<li class="chapter" data-level="14.4" data-path="shiny.html"><a href="shiny.html#endpoint"><i class="fa fa-check"></i><b>14.4</b> endpoint</a></li>
+<li class="chapter" data-level="14.5" data-path="shiny.html"><a href="shiny.html#shiny"><i class="fa fa-check"></i><b>14.5</b> shinyのレイアウト</a><ul>
+<li class="chapter" data-level="14.5.1" data-path="shiny.html"><a href="shiny.html#panel"><i class="fa fa-check"></i><b>14.5.1</b> *Panel</a></li>
+<li class="chapter" data-level="14.5.2" data-path="shiny.html"><a href="shiny.html#fluidrow"><i class="fa fa-check"></i><b>14.5.2</b> fluidRow</a></li>
+<li class="chapter" data-level="14.5.3" data-path="shiny.html"><a href="shiny.html#css"><i class="fa fa-check"></i><b>14.5.3</b> css</a></li>
+<li class="chapter" data-level="14.5.4" data-path="shiny.html"><a href="shiny.html#googleapi"><i class="fa fa-check"></i><b>14.5.4</b> googleapi</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="htmlwidgets.html"><a href="htmlwidgets.html"><i class="fa fa-check"></i><b>15</b> htmlwidgets</a><ul>
+<li class="chapter" data-level="15.1" data-path="htmlwidgets.html"><a href="htmlwidgets.html#htmlwidgets"><i class="fa fa-check"></i><b>15.1</b> htmlwidgetsとは</a></li>
+<li class="chapter" data-level="15.2" data-path="htmlwidgets.html"><a href="htmlwidgets.html#leaflet"><i class="fa fa-check"></i><b>15.2</b> leaflet</a></li>
+<li class="chapter" data-level="15.3" data-path="htmlwidgets.html"><a href="htmlwidgets.html#leaflet-route-machine"><i class="fa fa-check"></i><b>15.3</b> Leaflet Route Machine</a></li>
+<li class="chapter" data-level="15.4" data-path="htmlwidgets.html"><a href="htmlwidgets.html#libpng"><i class="fa fa-check"></i><b>15.4</b> libpng</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="diagrammer.html"><a href="diagrammer.html"><i class="fa fa-check"></i><b>16</b> DiagrammeR</a><ul>
+<li class="chapter" data-level="16.1" data-path="diagrammer.html"><a href="diagrammer.html#diagrammer"><i class="fa fa-check"></i><b>16.1</b> DiagrammeRとは</a></li>
+<li class="chapter" data-level="16.2" data-path="diagrammer.html"><a href="diagrammer.html#graphviz"><i class="fa fa-check"></i><b>16.2</b> graphviz</a><ul>
+<li class="chapter" data-level="16.2.1" data-path="diagrammer.html"><a href="diagrammer.html#grviz"><i class="fa fa-check"></i><b>16.2.1</b> grViz関数</a></li>
+</ul></li>
+<li class="chapter" data-level="16.3" data-path="diagrammer.html"><a href="diagrammer.html#footnumber"><i class="fa fa-check"></i><b>16.3</b> footnumber</a></li>
+<li class="chapter" data-level="16.4" data-path="diagrammer.html"><a href="diagrammer.html#mermaid"><i class="fa fa-check"></i><b>16.4</b> mermaid</a></li>
+<li class="chapter" data-level="16.5" data-path="diagrammer.html"><a href="diagrammer.html#sequencediagram"><i class="fa fa-check"></i><b>16.5</b> sequenceDiagram</a></li>
+<li class="chapter" data-level="16.6" data-path="diagrammer.html"><a href="diagrammer.html#gant-diagram"><i class="fa fa-check"></i><b>16.6</b> Gant diagram</a></li>
+<li class="chapter" data-level="16.7" data-path="diagrammer.html"><a href="diagrammer.html#pipe_diagrammer"><i class="fa fa-check"></i><b>16.7</b> パイプライン</a><ul>
+<li class="chapter" data-level="16.7.1" data-path="diagrammer.html"><a href="diagrammer.html#section-16.7.1"><i class="fa fa-check"></i><b>16.7.1</b> 公式</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="section-17.html"><a href="section-17.html"><i class="fa fa-check"></i><b>17</b> 動的処理</a><ul>
+<li class="chapter" data-level="17.1" data-path="section-17.html"><a href="section-17.html#section-17.1"><i class="fa fa-check"></i><b>17.1</b> 小手調べ</a></li>
+<li class="chapter" data-level="17.2" data-path="section-17.html"><a href="section-17.html#section-17.2"><i class="fa fa-check"></i><b>17.2</b> 関数型</a></li>
+<li class="chapter" data-level="17.3" data-path="section-17.html"><a href="section-17.html#section-17.3"><i class="fa fa-check"></i><b>17.3</b> 匿名関数</a></li>
+<li class="chapter" data-level="17.4" data-path="section-17.html"><a href="section-17.html#do_call_func"><i class="fa fa-check"></i><b>17.4</b> do.call関数</a><ul>
+<li class="chapter" data-level="17.4.1" data-path="section-17.html"><a href="section-17.html#do_call_args"><i class="fa fa-check"></i><b>17.4.1</b> whatとargs</a></li>
+<li class="chapter" data-level="17.4.2" data-path="section-17.html"><a href="section-17.html#do_call_quote"><i class="fa fa-check"></i><b>17.4.2</b> quote</a></li>
+</ul></li>
+<li class="chapter" data-level="17.5" data-path="section-17.html"><a href="section-17.html#substitute_func"><i class="fa fa-check"></i><b>17.5</b> substitute関数</a><ul>
+<li class="chapter" data-level="17.5.1" data-path="section-17.html"><a href="section-17.html#section-17.5.1"><i class="fa fa-check"></i><b>17.5.1</b> 置換の挙動</a></li>
+<li class="chapter" data-level="17.5.2" data-path="section-17.html"><a href="section-17.html#substitute_expr"><i class="fa fa-check"></i><b>17.5.2</b> exprの型</a></li>
+</ul></li>
+<li class="chapter" data-level="17.6" data-path="section-17.html"><a href="section-17.html#eval_func"><i class="fa fa-check"></i><b>17.6</b> eval関数</a><ul>
+<li class="chapter" data-level="17.6.1" data-path="section-17.html"><a href="section-17.html#evalq_func"><i class="fa fa-check"></i><b>17.6.1</b> evalqもある</a></li>
+</ul></li>
+<li class="chapter" data-level="17.7" data-path="section-17.html"><a href="section-17.html#esd_func"><i class="fa fa-check"></i><b>17.7</b> eval, substitute, do.call</a></li>
+<li class="chapter" data-level="17.8" data-path="section-17.html"><a href="section-17.html#esd_speed"><i class="fa fa-check"></i><b>17.8</b> 速度</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="pointer-R-C.html"><a href="pointer-R-C.html"><i class="fa fa-check"></i><b>18</b> ポインタ</a><ul>
+<li class="chapter" data-level="18.1" data-path="pointer-R-C.html"><a href="pointer-R-C.html#pointer_what"><i class="fa fa-check"></i><b>18.1</b> ポインタとは</a></li>
+<li class="chapter" data-level="18.2" data-path="pointer-R-C.html"><a href="pointer-R-C.html#pointer_R"><i class="fa fa-check"></i><b>18.2</b> Rはポインタ</a></li>
+<li class="chapter" data-level="18.3" data-path="pointer-R-C.html"><a href="pointer-R-C.html#memory_R"><i class="fa fa-check"></i><b>18.3</b> Rのメモリ</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="e38195e38184e38194e381ab.html"><a href="e38195e38184e38194e381ab.html"><i class="fa fa-check"></i>さいごに</a></li>
+<li class="appendix"><span><b>付録</b></span></li>
+<li class="chapter" data-level="A" data-path="06_packages.html"><a href="#section-A"><i class="fa fa-check"></i><b>A</b> 環境構築</a><ul>
+<li class="chapter" data-level="A.1" data-path="section-19.html"><a href="section-19.html"><i class="fa fa-check"></i><b>A.1</b> virtualbox</a></li>
+<li class="chapter" data-level="A.2" data-path="section-19.html"><a href="section-19.html#vagrant"><i class="fa fa-check"></i><b>A.2</b> vagrant</a></li>
+<li class="chapter" data-level="A.3" data-path="section-19.html"><a href="section-19.html#box"><i class="fa fa-check"></i><b>A.3</b> boxイメージ</a></li>
+<li class="chapter" data-level="A.4" data-path="section-19.html"><a href="section-19.html#rstudio-server"><i class="fa fa-check"></i><b>A.4</b> rstudio-server</a></li>
+<li class="chapter" data-level="A.5" data-path="section-19.html"><a href="section-19.html#vagrantfile"><i class="fa fa-check"></i><b>A.5</b> Vagrantfile</a></li>
+<li class="chapter" data-level="A.6" data-path="section-19.html"><a href="section-19.html#nginx"><i class="fa fa-check"></i><b>A.6</b> Nginx</a></li>
+<li class="chapter" data-level="A.7" data-path="section-19.html"><a href="section-19.html#shiny-server"><i class="fa fa-check"></i><b>A.7</b> Shiny-server</a><ul>
+<li class="chapter" data-level="A.7.1" data-path="section-19.html"><a href="section-19.html#shiny_packages"><i class="fa fa-check"></i><b>A.7.1</b> パッケージのインストール</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="B" data-path="06_packages.html"><a href="#section-B"><i class="fa fa-check"></i><b>B</b> 正規表現</a><ul>
+<li class="chapter" data-level="B.1" data-path="06_packages.html"><a href="#section-B.1"><i class="fa fa-check"></i><b>B.1</b> メタキャラクタ</a></li>
+<li class="chapter" data-level="B.2" data-path="06_packages.html"><a href="#section-B.2"><i class="fa fa-check"></i><b>B.2</b> 拡張メタキャラクタ</a></li>
+<li class="chapter" data-level="B.3" data-path="section-20.html"><a href="section-20.html"><i class="fa fa-check"></i><b>B.3</b> 使用例</a></li>
+</ul></li>
+<li class="chapter" data-level="C" data-path="sed-page.html"><a href="sed-page.html"><i class="fa fa-check"></i><b>C</b> Sed</a><ul>
+<li class="chapter" data-level="C.1" data-path="06_packages.html"><a href="#section-C.1"><i class="fa fa-check"></i><b>C.1</b> 代表的なコマンド</a></li>
+<li class="chapter" data-level="C.2" data-path="sed-page.html"><a href="sed-page.html#sed01"><i class="fa fa-check"></i><b>C.2</b> 使用例</a></li>
+<li class="chapter" data-level="C.3" data-path="sed-page.html"><a href="sed-page.html#sed02"><i class="fa fa-check"></i><b>C.3</b> 使用例2</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">HakodateR#0</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="section-6" class="section level1">
+<h1><span class="header-section-number">6</span> パッケージ</h1>
+<div id="section-6.1" class="section level2">
+<h2><span class="header-section-number">6.1</span> パッケージとは</h2>
+<h3>
+いろんな人がつくった便利な関数群
+</h3>
+<ul>
+<li><code>install.packages()</code>でインストール</li>
+<li><code>library()</code>で読み込み
+<ul>
+<li><code>require()</code>を使う人もいる。</li>
+</ul></li>
+<li><code>detach()</code>でアンロード</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;パッケージ名&quot;</span>)
+<span class="kw">library</span>(パッケージ名)
+<span class="kw">detach</span>(<span class="st">&quot;package:パッケージ名&quot;</span>, <span class="dt">unload =</span> <span class="ot">TRUE</span>)</code></pre></div>
+</div>
+<div id="install_with_heredoc" class="section level2">
+<h2><span class="header-section-number">6.2</span> ヒアドキュメント</h2>
+<ul>
+<li>ヒアドキュメントでログをとる。</li>
+<li>インストール失敗時にべんり!</li>
+<li>windowsは使えない。</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode bash"><code class="sourceCode bash"><span class="ex">R</span> --no-save <span class="op">&lt;&lt; EOF</span> <span class="op">&gt;</span> <span class="ex">logfile</span> <span class="op">2&gt;&amp;1</span>
+install.packages(&quot;パッケージ名&quot;)
+EOF</code></pre></div>
+</div>
+<div id="tidyverse" class="section level2">
+<h2><span class="header-section-number">6.3</span> tidyverse群</h2>
+<ul>
+<li>よくつかわれるパッケージをまとめたもの</li>
+<li>データ処理につかう</li>
+<li>パイプ<code>%&gt;%</code>が使える</li>
+<li>グラフをきれいにかける</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">install.packages</span>(<span class="st">&quot;tidyverse&quot;</span>)
+<span class="kw">library</span>(tidyverse)</code></pre></div>
+<ul>
+<li>インストール時につまづきやすい</li>
+<li>エラーを読むと解決する</li>
+</ul>
+</div>
+<div id="tidy_example" class="section level2">
+<h2><span class="header-section-number">6.4</span> tidyverseの実践</h2>
+<ul>
+<li>ggplotについての例を示す</li>
+<li>tidyverseパッケージが必要</li>
+<li>ggplot2でもOK</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(tidyverse)</code></pre></div>
+</div>
+<div id="ggplot" class="section level2">
+<h2><span class="header-section-number">6.5</span> ggplot</h2>
+<ul>
+<li>グラフをつくる関数</li>
+<li>レイヤーを重ねる</li>
+<li>階層グラフィックス文法っていう書き方</li>
+<li><code>geom</code>関数でプロットの形式を変えれる</li>
+<li><code>ggsave()</code>で簡単にプロットを保存できる</li>
+</ul>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">mtcars_tibble &lt;-<span class="st"> </span><span class="kw">as_tibble</span>(mtcars)
+<span class="kw">ggplot</span>(
+  <span class="dt">data =</span> mtcars_tibble,
+  <span class="dt">mapping =</span> <span class="kw">aes</span>(
+    <span class="dt">x =</span> mpg,
+    <span class="dt">y =</span> disp,
+    <span class="dt">color =</span> cyl
+    )
+  ) <span class="op">+</span>
+<span class="st">  </span><span class="kw">geom_point</span>()</code></pre></div>
+<p><img src="_main_files/figure-html/ggplot_ex-1.png" width="70%" style="display: block; margin: auto;" /></p>
+<ul>
+<li>tibbleという型をつかう</li>
+<li><code>+</code>で関数をつなぐ</li>
+</ul>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="section-5.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="section-7.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

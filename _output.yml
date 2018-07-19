@@ -1,5 +1,7 @@
 bookdown::gitbook: 
     css: Css/newbie_book.css
+    include: 
+        in_header: include_html/include_css.html
 bookdown::pdf_book: 
     includes: 
         in_header: latex/preamble.tex
@@ -7,6 +9,6 @@ bookdown::pdf_book:
 documentclass: bxjsarticle
 classoption: xelatex,ja=standard
 geometry: no
-bookdown::eput_book:
+bookdown::epub_book:
     dev: svglite
     stylesheet: Css/newbie_book.css

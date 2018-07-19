@@ -4,7 +4,6 @@ author: "chroneru"
 date: "2018/08/02"
 site: bookdown::bookdown_site
 description: "この本は、HakodateR#0での説明に用いたものです。"
-always_allow_html: yes
 ---
 
 # はじめに {-}

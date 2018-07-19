@@ -14,7 +14,16 @@ rmd_files: [
     "09_bayes_prac.Rmd",
     "10_rmarkdown.Rmd",
     "11_shiny.Rmd",
-		"12_htmlwidgets.Rmd"
+		"12_htmlwidgets.Rmd",
+		"13_eval_expression.Rmd",
+		"14_pointer.Rmd",
+
+		"last.Rmd",
+
+		"appendix_01_infra.Rmd",
+		"appendix_02_regexp.Rmd",
+
+		"last.Rmd"
 ]
 
 before_chapter_script: "_common.R"

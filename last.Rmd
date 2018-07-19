@@ -1,0 +1,9 @@
+# さいごに {-}
+
+
+<p id="lastpage">
+今回は、ShinyやDiagrammeR, C言語をメインに紹介しました。<br/>
+まだまだ、紹介しきれていないことも多いので、<br/>
+ぜひ、次回の開催ができるようにしていきたいと思います。<br/>
+<span style="color: red;">Enjoy!</span>
+</p>

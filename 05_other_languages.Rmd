@@ -61,7 +61,7 @@ dyn.unload("./C/quiz_point.so")
          * R.h内部でRconfig.hが呼び出されるため
 
 
-## Cのコードはめんどい {#Ccompile}
+### Cのコードはめんどい {#Ccompile}
 
 * 関数の戻り値は`void`にする。
 * 引数はポインタを使う。
@@ -69,7 +69,7 @@ dyn.unload("./C/quiz_point.so")
 * gccだと.soをつくれてしまう
 * Rバッチだとエラーの特定がしづらい
 
-## Rからロード {#C2R}
+### Rからロード {#C2R}
 
 * 形式は，`.so`か`.dll`
 * `dyn.load(`"hoge.so"`)`で読み込む
@@ -114,14 +114,14 @@ cat(diagnosis[ (ans_u == "さくらんぼ") + 1 ])
 chmod u+x quiz_sh.sh
 ```
 
-## commandArgs()
+### commandArgs()
 
 * `trailingOnly = TRUE`を指定する。
     * `FALSE`だとコマンドとオプションも渡される。
 * Rコマンドのオプションに`--args`を指定する。
 * 引数を複数わたすこともできる。
 
-## shebang
+### shebang
 
 * シバンを変えることで`.R`スクリプトを直接実行できる。
 

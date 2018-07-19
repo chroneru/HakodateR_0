@@ -1,0 +1,216 @@
+# 動的処理
+
+## 小手調べ
+
+* 通常、Rではメモリを先に確保する
+    * 静的なうごきのほうが速い、軽い
+* でも文字列をオブジェクトにすることがある
+    * 動的なうごきは遅い、重い
+    * どれだけのメモリを確保すればいいかわからない
+* Rは動的型付けの関数型言語
+    * 関数型と手続き型の中間型かな
+
+## 関数型
+
+* `function(fun) fun()`って感じのやつ
+* ほかにもラムダとか使えるらしい
+* 詳しくはhaskell, F#に任せたい。
+* `lambdaR`パッケージもある。
+
+```{r function_type}
+testa <- function() print("a")
+
+testfun <- function(fun) {fun(); print(environment())}
+replicate(3, testfun(testa))
+```
+
+## 匿名関数
+
+* 名前のない関数
+* `fun = function(){}`とかのやつ
+* `apply`ファミリー, `prrr::map*`, `stat_function`とかで使う
+* 直接は関係ないけど、`()`でくくると代入式でもリターンしてくれる
+
+```{r func_unknown}
+(test_unknown <- "Hello")
+(function(var, n) {
+  tmp <- var
+  for(i in 1:n) {
+  var <- (var + tmp/var) / 2
+  }
+  return(var)})(2, 10)
+```
+
+## do.call関数 {#do_call_func}
+
+* `do.call()`は文字列を関数として扱うことができます。
+* そこまで、難しいことは無いと思う。
+* `quote`と`envir`は...評価タイミングがわかりにくい
+
+
+### whatとargs {#do_call_args}
+
+* `what`は、関数のこと
+    * 文字列でも、関数オブジェクトでもOK!
+* `args`(引数)は`list`型にする
+
+```{r do_call_1, error=TRUE}
+do.call("rnorm", args = c(5))
+set.seed(20); do.call("rnorm", args = list(5))
+set.seed(20); do.call(rnorm, args = list(5))
+```
+
+
+### quote {#do_call_quote}
+
+* オブジェクトを展開するかどうか
+* `TRUE`だとオブジェクトを評価しない
+    * 文字列っぽく扱う
+
+
+```{r do_call_2, error=TRUE}
+age <- 20
+do.call(paste, list(age, "歳ですよ", sep = ""), quote = FALSE)
+do.call(paste, list(age, "歳ですよ", sep = ""), quote = TRUE)
+
+do.call(paste, list(as.name(age), "歳ですよ", sep = ""), quote = FALSE)
+do.call(paste, list(as.name("age"), "歳ですよ", sep = ""), quote = FALSE)
+do.call(paste, list(as.name(age), "歳ですよ", sep = ""), quote = TRUE)
+```
+
+
+* ちなみに
+* `name`型は、`symbol`型のエイリアス(別名てきなやつ)
+
+```{r name_symbol}
+as.name(age)  ; as.name("age")
+as.symbol(age); as.symbol("age")
+```
+
+* 基本的には、ここまでの引数だけで十分だと思います
+* `envir`については、レキシカルスコープが絡むので、今回は省く
+
+## substitute関数 {#substitute_func}
+
+* 置換する関数
+* こっちも`env`は`list`型をうけとる
+
+```{r substitute_args, error=TRUE}
+set.seed(20)
+(hoge <- rnorm(5))
+(names(hoge) <- c("test1", "test2", "test3", "test4", "test5"))
+substitute(max(hoge))
+substitute(max(test1))
+substitute(max("test1"))
+substitute(max("test1"), env = hoge)
+```
+
+
+### 置換の挙動
+
+* ダブルクウォーテーションでくくると置換しない
+
+```{r substitute_2}
+hoge <- as.list(hoge)
+substitute(max(test1))
+substitute(max("test1"))
+substitute(max("test1"), env = hoge)
+substitute(max(test1), env = hoge)
+```
+
+
+* マッチの仕方を見てみる
+
+```{r substitute_match}
+hoge$test12 <- {set.seed(20); rnorm(5)}
+hoge$test12
+substitute(max(test12), env = hoge)
+```
+
+* 最長の文字列とマッチしていますね
+* test1とはマッチしていない
+
+
+### exprの型 {#substitute_expr}
+
+* `substitute()`の第一引数`expr`
+* なぜか、中身が展開されない
+* 型を見てみると
+
+```{r substitute_type}
+fuga <- substitute(max(test1), env = hoge)
+fuga
+class(fuga) 
+mode(fuga)
+typeof(fuga)
+class(fuga) <- "character"
+fuga
+```
+
+
+* 結果は
+
+|`class`|`mode`|`typeof`|
+|:-----:|:----:|:------:|
+|`call` |`call`|`language`|
+
+* つまり、文字列ではないわけです。
+
+* 最後の、classをcharacterにすると
+* ベクトルになっていますね。
+
+
+## eval関数 {#eval_func}
+
+* `eval`は、表現式を実行します。
+* 文字列だとびみょー
+
+```{r eval_char}
+set.seed(20)
+eval("rnorm(5)")
+eval(rnorm("5"))
+```
+
+* 関数部分は、文字列にすると動かない
+
+
+### evalqもある {#evalq_func}
+
+* 引数の評価をしない
+* 表現式を表現式のままうけとる
+
+```{r test_evalq, error=TRUE}
+eval(rnorm(a), envir = list(a = 5))
+evalq(rnorm(a), envir = list(a = 5))
+```
+
+## eval, substitute, do.call {#esd_func}
+
+* いよいよ動的処理
+* 今は、`eval`と`substitute`と`do.call`を使うのが主流らしい
+* `eval`と`parse`では遅いらしい
+
+```{r esd}
+str(hoge)
+
+substitute(max(test12), env = hoge)
+
+eval(
+  substitute(
+    max(test12),
+    env = hoge
+  )
+)
+```
+
+## 速度 {#esd_speed}
+
+```{r test_eval}
+microbenchmark::microbenchmark(
+  esd = function() eval(substitute(do.call(func, args = list(n = 30)), env = list(func = "rnorm"))),
+   ep  = function() eval(parse(text = paste0("rnorm", "(", "n" ,")")), envir = list(n = 30)),
+   times = 20
+ )
+```
+
+* meanを見るとesdのほうが速いですね
