@@ -3,7 +3,7 @@
 
 ## パッケージとは
 
-### いろんな人がつくった便利な関数群
+<h3>いろんな人がつくった便利な関数群</h3>
 
 * `install.packages()`でインストール
 * `library()`で読み込み
@@ -64,11 +64,7 @@ library(tidyverse)
 * `geom`関数でプロットの形式を変えれる
 * `ggsave()`で簡単にプロットを保存できる
 
-とりあえずここまでにしておく。
-
----
-
-```{r ggplot_ex, eval=FALSE}
+```{r ggplot_ex}
 mtcars_tibble <- as_tibble(mtcars)
 ggplot(
   data = mtcars_tibble,
@@ -84,5 +80,3 @@ ggplot(
 * tibbleという型をつかう
 * `+`で関数をつなぐ
 
-
-![mtcars_tibble](Image/newbie_workshop_image/mtcars_tibble.png)

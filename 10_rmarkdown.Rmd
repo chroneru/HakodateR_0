@@ -4,6 +4,7 @@
 
 * File > New File > R markdown > Document HTML(ラジオボタン) > OK
 * はじめてrmdファイルを作ろうとするとエラーが出る
+    * 出ない人もいるかもです
 * とりあえず，インストールしてください。
 
 ```{r , eval=FALSE}
@@ -46,7 +47,7 @@ install.packages("revealjs")
 
 #githubから
 install.packages("devtools")
-install_github("rstudio/revealjs")
+devtools::install_github("rstudio/revealjs")
 ```
 
 ```{r install_bookdown, eval=FALSE}
@@ -57,6 +58,7 @@ install.packages("bookdown")
 
 * pdfを出力するとエラーが出る
 * texライブラリが足りないみたい
+* 日本語はutf-8にすると闇が深い
 
 <pre>
 output: pdf_document
@@ -64,7 +66,7 @@ output: pdf_document
 Ctrl + Shift + K (knit)
 </pre>
 
-## texのログファイル
+### texのログファイル
 
 * pdfをレンダリングするとログが出るので読む
     * 大事なところだけでいい
@@ -76,7 +78,20 @@ Ctrl + Shift + K (knit)
 
 * `titling.sty`がないということ
 
-## texライブラリ
+<pre>
+Package microtype Warning: You don't seem to be using pdftex, luatex or xetex.
+(microtype)                `microtype' only works with these engines.
+(microtype)                I will quit now.
+
+)
+
+! Package microtype Error: The protrusion set `basicmath' is undeclared.
+(microtype)                Using set `\MT@default@pr@set ' instead.
+</pre>
+
+* `microtype`はpdftex, luatex, xetexでしか働かない
+
+### texライブラリ
 
 * texライブラリを追加すればOK
 
@@ -97,9 +112,41 @@ On Rstudio
 install.packages("tinytex")
 </pre>
 
-# コードチャンク
+## styのインストール
 
-## コードチャンクの書き方
+* さっきの方法でもいけるけど、リポジトリにある場合もある
+* `yum`, `apt`でもいける
+
+```bash
+sudo yum install texlive-*
+```
+
+```bash
+sudo apt-get install texlive-*
+```
+
+
+## texエンジン
+
+* yamlヘッダにlatex_engineを指定する
+* 日本語はlualatexかxelatex
+* pdflatexでも日本語化できるけど、SJISじゃないとエラーがいっぱい
+* `includes`でパッケージを指定できる
+    * 例として挙げてますが、`\usepackage`の部分は無視してください
+    * たぶん、エラー出ます
+
+<pre>
+---
+output: pdf_document: 
+    latex_engine: lualatex
+    header-includes: 
+        - \usepackage[utf-8]{inputenc} //絶対やらないでくださいハマります
+---
+</pre>
+
+## コードチャンク
+
+### コードチャンクの書き方
 
 * 先頭の\\はエスケープです。
 * 取り除いてください。

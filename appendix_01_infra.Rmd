@@ -1,0 +1,218 @@
+# (APPENDIX) 付録 {-}
+
+# 環境構築
+
+## virtualbox
+
+* windowsは,インストーラで一発
+    * 最近は、Docker for windowsが主流らしい
+* linuxは、めんどい
+    * ubuntu系は、apt-getに用意されてるっぽい
+
+```bash
+$ sudo apt-get install virtualbox
+```
+
+
+* 公式の手順通りにすすめると
+* 以下、debian系
+
+```bash
+sudo vim /etc/apt/sources.list
+```
+
+ここに、
+
+    deb https://download.virtualbox.org/virtualbox/debian xenial contrib
+
+これを追加する。
+
+
+```bash
+wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add -
+wget -q https://www.virtualbox.org/download/oracle_vbox.asc -O- | sudo apt-key add -
+
+sudo apt-get update
+sudo apt-get install virtualbox-5.2
+
+vboxmanage -v
+```
+
+## vagrant
+
+* vagrantのboxイメージにいろんな仮想環境が用意されている
+
+```bash
+wget https://releases.hashicorp.com/vagrant/2.1.2/vagrant_2.1.2_x86_64.deb
+
+sudo dpkg -i vagrant_2.1.2_x86_64.deb
+
+vagrant -v
+```
+
+* たぶん、これでインストールできたはず
+
+## boxイメージ
+
+* [vagrant cloud](https://app.vagrantup.com/boxes/search)でほしい環境を探す
+* 今回は`centos/7`を使う
+
+```bash
+vagrant box add centos/7
+```
+
+このとき、
+
+    3) virtualbox
+
+と選択を迫られたら、  
+3を入力して、Enter
+
+
+```bash
+vagrant box list
+```
+
+```bash
+mkdir -p ~/vagrant/centos7
+
+cd ~/vagrant/centos7
+
+vagrant init
+
+# もしエラーが出たら
+
+vagrant init centos7
+```
+
+## rstudio-server
+
+* Vagrantfileのあるところで
+
+```bash
+vagrant ssh
+```
+
+* これでcentosにログインできたと思います
+
+
+* これからRとrstudio-serverをインストールします
+
+```bash
+sudo yum install epel-release
+
+sudo yum --enablerepo=epel install R
+
+sudo yum install wget
+
+wget https://download2.rstudio.org/rstudio-server-rhel-1.1.442-x86_64.rpm
+
+ls
+
+sudo yum install rstudio-server-rhel-1.1.442-x86_64.rpm
+```
+
+## Vagrantfile
+
+* Vagrantfileでvagrantの設定ができる
+* Nginxとrstudio-server, Shiny-serverをインストールすると
+    * ポートやipアドレスの理解が必要
+    * ブラウザとどっかのポートがぶつかる
+        * 80番がどっかで2回使われている
+
+というわけで、割愛！  
+調整できたら、載せます
+
+## Nginx
+
+* リバースプロキシ
+    * サーバーに命令したりする
+* 最近の主流
+* インストールと自動起動だけのせとく
+
+
+```bash
+sudo vim /etc/yum.repos.d/nginx.repo
+```
+
+* これを、
+
+<pre>
+[nginx]
+name=nginx repo
+baseurl=http://nginx.org/packages/centos/7/$basearch/
+gpgcheck=0
+enabled=1
+</pre>
+
+追加する
+
+
+```bash
+sudo yum -y --enablerepo=nginx install nginx
+
+nginx -v
+```
+
+* いらないけど一応
+
+```bash
+sudo yum -y install net-tools
+```
+
+* 自動起動設定
+
+```bash
+sudo systemctl enable nginx
+```
+
+* 起動
+
+```bash
+sudo systemctl start nginx
+```
+
+
+
+## Shiny-server
+
+* 公式のやり方でOK
+* [ダウンロード方法](https://www.rstudio.com/products/shiny/download-server/)
+    * Pro版だと、サポートが受けられる
+        * ログイン時に鍵をかけれる
+
+
+* まず、shinyパッケージ必要
+
+```bash
+sudo su - \
+-c "R -e \"install.packages('shiny', repos='https://cran.rstudio.com/')\""
+```
+
+* repos は、お近くのサーバーで良いかと
+
+
+* あとは、インストール
+
+```bash
+wget https://download3.rstudio.org/centos6.3/x86_64/shiny-server-1.5.7.907-rh6-x86_64.rpm
+sudo yum install --nogpgcheck shiny-server-1.5.7.907-rh6-x86_64.rpm
+```
+
+* 自動起動設定
+
+```bash
+sudo systemctl enable shiny-server
+sudo systemctl start shiny-server
+```
+
+
+### パッケージのインストール {#shiny_packages}
+
+* shiny-serverでつかうパッケージをインストールする
+* `rmarkdown`の部分は適宜、パッケージ名で置き換えてください
+
+
+```bash
+sudo su - -c "R -e \"install.packages('rmarkdown', repos='https://cran.rstudio.com/')\""
+```

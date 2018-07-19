@@ -5,7 +5,7 @@
 * javascriptをつかってRをインタラクティブにしようってこと
 * html系ならなんでも組み合わせられる
 * ただし、相互干渉の可能性あり
-* (いっぱいあります)[http://gallery.htmlwidgets.org/]
+* [いっぱいあります](http://gallery.htmlwidgets.org/)
     * 今回は`leaflet`と`DiagrammeR`を紹介
     * 主に`DiagrammeR`
 
@@ -14,7 +14,7 @@
 * いけいけなマップを生成する。
 
 ```{r  process_leaflet, fig.width=6, fig.asp=0.618, out.width="70%", fig.align="center"}
-# ダブルクウォーテーションを使う
+# ダブルクウォーテーションを使う場合
 mermaid('
         graph LR
         first["leaflet()"]
@@ -25,8 +25,6 @@ mermaid('
         second --> last')
 ```
 
----
-
 
 ```{r Hakodate_ShinHakodate}
 
@@ -36,7 +34,7 @@ map_df <- data.frame(
   lat = c(41.768793, 41.773269, 41.904698, 41.814461)
 )
 
-# 函館駅と新函館駅を結ぶ
+# 函館駅と新函館北斗駅を結ぶ
 leaflet() %>% 
   addTiles() %>% 
   addMarkers(lng = map_df$lng[2:3], lat = map_df$lat[2:3], popup = map_df$popup[2:3]) %>% 
@@ -53,16 +51,14 @@ leaflet() %>%
 ```bash
 R --no-save << EOF > install_rCharts.log 2>&1
 devtools::install_github("rmnathv/rCharts")
-\EOF
+EOF
 ```
 
 ```bash
 R --no-save << EOF > install_rMaps.log 2>&1
 devtools::install_github("rmnathv/rMaps")
-\EOF
+EOF
 ```
-
----
 
 * 絶賛失敗中です。
 * jsコード読んでないのでどこが悪いかわからない。
@@ -102,8 +98,6 @@ read.c:3:17: 致命的エラー: png.h: No such file or directory
  ERROR: compilation failed for package ‘png’
 ```
 
----
-
 * 一応、失敗例も
 * wget以下が成功例
 
@@ -126,18 +120,16 @@ export LD_LIBRARY_PATH=/usr/local/lib
 export LIBRARY_PATH=/usr/local/lib
 ```
 
----
-
 ```bash
 R --no-save << EOF > install_png.log 2>&1
 install.packages("png")
-\EOF
+EOF
 ```
 
 ```bash
 R --no-save << EOF > install_leaflet.log 2>&1
 install.packages("leaflet")
-\EOF
+EOF
 ```
 
 
@@ -173,14 +165,12 @@ digraph prac_grviz {
       ")
 ```
 
----
 
 * コメントアウトは`//`, `/* */`, `#` が使える。
 * `digraph グラフ名 { グラフの情報 }`で書く
 * ダウンストリーム的に上から下に順ぐりに書く
 * `->`で有向, `--`で無向
 
----
 
 ```{r test_grViz_2, fig.width=6, fig.asp=0.618, out.width="70%", fig.align="center"}
 grViz("
@@ -205,15 +195,12 @@ grViz("
 ```
 
 
----
-
 * `[label = 'なまえ']`で表示する名前を書きます。
 * `[shape = 'circle']`でノードの形を設定します。
 * `[arrowtail = 'none', arrowhead = 'none']`でエッジの設定をします。
 
 * 五行を書いてみたのですが、全然綺麗じゃないですね。
 
----
 
 ```{r test_grViz_2_2, fig.width=6, fig.asp=0.618, out.width="70%", fig.align="center"}
 grViz("
@@ -248,8 +235,6 @@ grViz("
       ")
 
 ```
-
----
 
 * とても惜しい感じになってますね。
 * こんな感じでグラフが自動生成されてしまうため。
@@ -343,7 +328,6 @@ grViz("
  
 ```
 
----
 
 * `@@`の後に数字をつける
 * `@@1-1`みたいにすると複数のfootnumberをつけれる
@@ -363,7 +347,6 @@ grViz("
 * マジで優秀
 * なんどでもいう、優秀
 
----
 
 
 ```{r  ,fig.width=6, fig.asp=0.618, out.width="70%", fig.align="center"}
@@ -381,7 +364,6 @@ id3 --円だよ--> id5
 ")
 ```
 
----
 
 
 * すっきりした書き心地
@@ -393,7 +375,6 @@ id3 --円だよ--> id5
     * シングルクウォーテーションは効かない
 * そのため、`mermaid('グラフ')`で全体をくくる
     
----
 
 * 矢印はいっぱいある
     * 規則性があるのでわかりやすい
@@ -428,7 +409,6 @@ Note over aomori,kikonai: 青函トンネル
 ")
 ```
 
----
 
 * `sequenceDiagram`を書く
 * `participant 名前`で各シーケンスの名前を設定
@@ -438,7 +418,6 @@ Note over aomori,kikonai: 青函トンネル
     * `left of`, `right of`, `over`
     * Actor(ノード)を2つ設定するとまたいでNoteを入れられる。
 
----
 
 * 矢印はflowchartとはまた違う。
 * 例のごとくいっぱいある
@@ -540,7 +519,6 @@ create_graph() %>%
   render_graph(output = "visNetwork")
 ```
 
----
 
 ### 公式
 
@@ -887,7 +865,6 @@ get_edge_df(graph)
 graph %>% render_graph(output = "visNetwork")
 ```
 
----
 
 * まだまだありますが、ここでやめておきます。
 * CRANからインストールした場合、バージョンはstableになるので修正版は使えない

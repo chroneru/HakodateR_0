@@ -96,9 +96,8 @@ result <- as_tibble(result) %>%
   )
 ```
 
----
 
-```{r pareto_graph, fig.show = "hide"}
+```{r pareto_graph}
 result %>% 
   ggplot() +
   geom_hline(
@@ -131,9 +130,3 @@ result %>%
 # ggsave("pareto_graph.png")
 ```
 
-[見やすい方](newbie_workshop_pages.html#pareto_graph)
-
-
-```{r import_pareto_graph, fig.width=6, fig.asp=0.618, out.width="70%", fig.align="center", echo=FALSE}
-knitr::include_graphics("Image/newbie_workshop_image/pareto_graph.png")
-```

@@ -94,6 +94,7 @@ ls(envir = environment(shiny::renderText)) %>%
 
 <h3>`reactive()`を使おう!</h3>
 
+### reactiveを使ってみる。
 
 ```{r test_reactive, eval=FALSE}
 ui <- fluidPage(
@@ -331,5 +332,4 @@ server <- function(input, output) {
 shinyApp(ui = ui, server = server)
 
 ```
-
 

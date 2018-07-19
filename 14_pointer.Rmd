@@ -1,0 +1,150 @@
+# ポインタ {#pointer_R_C}
+
+## ポインタとは {#pointer_what}
+
+* C言語とかでよくみる
+* Rだとポインタはないことになってる
+
+* ここからはC言語をベースにしていきたいと思います
+
+
+* ポインタというのは、値が入っているメモリのアドレスを参照すること
+
+* 足し算をしてみると
+
+```{r tutorial_pointer, engine='c', engine.path='/usr/bin/gcc'}
+void plusfunc(double *x, double *y, double *res) {
+  *res = *x + *y;
+}
+```
+
+```{r tutorial_pointer_R}
+a <- 5; b <- 6; res <- 0;
+.C('plusfunc',as.numeric(a), as.numeric(b), res = as.numeric(res) )
+```
+
+
+* 図にしてみると
+
+```{r graph_pointer}
+grViz("
+      digraph graph_pointer_c {
+        graph [ rankdir = RL,
+                newrank = true ] // --------------------
+
+        node [ shape = box ] // ------------------------
+
+        subgraph cluster_a {
+          label = 'aのアドレスと値'
+
+          a_address [ label = 'aのアドレス\n120' ]
+
+          a [label = 'a\n6']
+        }
+
+        subgraph cluster_x {
+          label = 'xのアドレスと値'
+
+          x_address [ label = 'xのアドレス\n200' ]
+
+          x [ label = 'x\n120' ]
+
+          x_pointer [ label = '*x\n6' ]
+        }
+
+        edge [] // ------------------------
+
+        a_address -> x [ color = '#ff0000' ]
+        x_pointer -> a [ color = '#660000' ]
+
+      {rank = max; x_address; x; x_pointer}
+      {rank = min; a_address; a;}
+      }")
+```
+
+
+* こんな感じ
+* aのアドレスである120が、ポインタxの値になっている
+* ポインタxの指し示す値が6になっている
+    * 厳密には少し違う
+
+## Rはポインタ {#pointer_R}
+
+* Rのオブジェクトはポインタ
+* アドレスの部分を張り替えているだけ
+* つまり、同じ値だったらアドレス同じでいいじゃん
+
+## Rのメモリ {#memory_R}
+
+* メモリに値を保存している
+* では、メモリ量はどれぐらい使っているか
+
+```{r memory_test}
+# r4dsだとdiamondsを使っている
+mtcars2 <- mtcars
+pryr::object_size(mtcars)
+pryr::object_size(mtcars2)
+pryr::object_size(mtcars, mtcars2)
+```
+
+* 2つ合わせても6.74kBですべて一致している
+
+
+```{r memory_test2}
+mtcars3 <- mtcars %>% 
+  mutate(tpg = mpg / ( 4 * qsec ))
+pryr::object_size(mtcars)
+pryr::object_size(mtcars3)
+pryr::object_size(mtcars, mtcars3)
+```
+
+* mtcars3でむしろメモリ量へってる
+* 2つあわせると増えてる
+    * やっぱり、合わせた値じゃない
+
+
+```{r}
+as_tibble(mtcars) %>% head() %>% 
+  knitr::kable()
+as_tibble(mtcars3) %>% head() %>% 
+  knitr::kable()
+```
+
+
+* ちゃんと一列増えている
+* メモリが節約されてる
+* おそらくアドレスが共有されている
+
+
+```{r memory_graph}
+grViz("
+      digraph memory_image {
+        graph [ charset = 'UTF-8',
+                rankdir = BT,
+                compound = true
+              ]
+
+        node [ shape = egg ]
+
+        subgraph cluster_value {
+          
+          mpg; cyl; disp;
+          hp; drat; wt;
+          qsec; vs; am;
+          gear; carb;
+        }
+
+        tpg;
+
+        mtcars;
+        mtcars2;
+
+        edge[]
+
+        mtcars -> wt [ lhead = cluster_value, headport = s ]
+        mtcars2 -> disp [ lhead = cluster_value, headport = s ]
+        mtcars2 -> tpg
+
+      }")
+```
+
