@@ -1,0 +1,7 @@
+/<\/body>/i\
+<script>\
+    mermaid.initialize({\
+        startOnLoad: true,\
+        cloneCssStyles: false\
+    })\
+</script>
