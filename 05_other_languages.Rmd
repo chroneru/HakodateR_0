@@ -30,6 +30,7 @@ void quiz(char **ans_u) {
 
 
 * gccだとエラーは出ないが，危険っぽい
+    * ビルド後、読み込むとポインタでエラーが起こる場合がある
 
 ```bash
 gcc -shared -fPIC -I/usr/include/R -o quiz_point.so quiz_point.c
@@ -67,7 +68,17 @@ dyn.unload("./C/quiz_point.so")
 * 引数はポインタを使う。
 * RのデータとCの引数の型とが一致しない
 * gccだと.soをつくれてしまう
-* Rバッチだとエラーの特定がしづらい
+* でも、Rバッチだとエラーの特定がしづらい
+
+```c
+// プロトタイプ宣言
+void hoge(ポインタ);
+
+void hoge(ポインタ) {
+
+}
+```
+
 
 ### Rからロード {#C2R}
 
@@ -75,7 +86,7 @@ dyn.unload("./C/quiz_point.so")
 * `dyn.load(`"hoge.so"`)`で読み込む
 * `dyn.unload(`"hoge.so"`)`でアンロード
     * Rはメモリだけで処理するのでアンロードしておくといい
-    * fcloseぐらいに思っておく
+    * C言語のfcloseぐらいに思っておく
 * `.C('関数名',引数)`か`.Call()`を使う
 * RにはC用のデータ型が用意されている
 
@@ -97,6 +108,9 @@ else
         echo "引数の数が正しくありません。"
 fi
 ```
+
+* quiz_sh.R
+
 
 ```{r quiz_sh_r, eval=FALSE}
 ans_u <- commandArgs(trailingOnly = TRUE)
@@ -163,9 +177,24 @@ EOF
 
 * C++
 * Python
+    * reticulateが良さそう
+        * ただし、python環境必要
 * Ruby
 * SQL
 * Haskell
 * Rust
 
 などなどいろいろ用意されている。
+
+* ただし
+    * Rubyは直接の使用方法が今のところ無い
+
+```{r test_ruby}
+library(runr)
+
+rb <- proc_ruby()
+rb$start()
+rb$exec("puts \"Hello World\" ")
+rb$stop()
+
+```

@@ -26,6 +26,10 @@ output: 出力形式:
 ---
 </pre>
 
+* レベルを下げる場合は、タブ1つかスペース4つ
+* `self_contained`は、jsとかをまとめるかどうか
+    * 通常は`TRUE`を使う
+
 ## 出力形式
 
 |指定方法|出力形式|
@@ -37,8 +41,10 @@ output: 出力形式:
 |revealjs::revealjs_presentation|イケてるスライド|
 |bookdown::gitbook|本|
 
-* 他にもいろいろな出力形式がある。
-* pdfはlatexをつかうので、ハマる。
+* `bookdown`は、今回の資料で使った形式
+    * `pdf_book`や`epub_book`がある
+* 他にもいろいろな出力形式がある
+* pdfはlatexをつかうので、ハマる
 
 
 ```{r install_revealjs, eval=FALSE}
@@ -95,6 +101,10 @@ Package microtype Warning: You don't seem to be using pdftex, luatex or xetex.
 
 * texライブラリを追加すればOK
 
+* titling.styの場合
+    * 他のstyの場合は、titlingの部分を読み替えてください
+* wgetを使う場合は、CTANで必要なzipのURLを取得してください
+
 ```bash
 wget ftp://ftp.jaist.ac.jp/pub/CTAN/macros/latex/contrib/titling.zip
 unzip titling.zip
@@ -141,6 +151,28 @@ output: pdf_document:
     latex_engine: lualatex
     header-includes: 
         - \usepackage[utf-8]{inputenc} //絶対やらないでくださいハマります
+---
+</pre>
+
+## includes {#rmarkdown_includes}
+
+* yamlヘッダでファイルの読み込みもできる
+* pdfの場合、preamble.texファイルを読み込むのが主流
+
+<pre>
+---
+output:
+    html_document:
+        include:
+            in_header: ファイル名
+            before_body: ファイル名
+            after_body: ファイル名
+    pdf_document:
+        includes:
+            in_header: preamble.tex
+            before_body: before_body.tex
+            after_body: after_body.tex
+        latex_engine: xelatex
 ---
 </pre>
 
@@ -201,7 +233,7 @@ knitr::opts_chunk$set(
 * ````言語名:チャンク名`
 * `{言語名 チャンク名, オプション}`
 
-[他言語](#other_languages) に書いた言語以外にもいろいろ使える。
+[他言語](./section-5.html) に書いた言語以外にもいろいろ使える。
 
 ## tex数式 {#tex_math}
 
@@ -227,4 +259,4 @@ $$mgh=\frac{1}{2}mv^2$$
 |`\frac{a}{b}`|$\frac{a}{b}$の分数をつくる|
 |`\int_a^b`|$\int_a^b$こんな感じの積分を作る|
 
-
+* 他にもいっぱい用意されている

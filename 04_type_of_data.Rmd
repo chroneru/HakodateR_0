@@ -90,6 +90,15 @@ a[1,2]
 a[c(1,2),2]
 ```
 
+* 行だけや、列だけは
+* `[行番号,]` `[, 列番号]`でそれぞれ参照できる
+
+```{r matrix_row_col}
+a[1,]
+
+a[, 2]
+```
+
 * 代入もできる
 
 ```{r matrix_swap}
@@ -100,6 +109,9 @@ a[2,1] <- a[1,2]
 a[1,2] <- tmp
 a
 ```
+
+* ちなみに
+* `[`も関数
 
 ## NA
 
@@ -148,7 +160,7 @@ quiz()
 |:--------:|:--------:|:--------:|:--------:|
 |NULL      |symbol    |pairlist  |closure   |
 |environment|promise  |language  |special   |
-|builtin   |char      |logical   |integer   |
-|double    |complex   |character |...       |
+|builtin   |char      |`logical`   |`integer`   |
+|`double`    |`complex`   |`character` |`bytecode`       |
 
 とか、他にもいっぱいあります。

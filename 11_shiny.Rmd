@@ -126,6 +126,7 @@ shinyApp(ui = ui, server = server)
 * `reactive`の関数は、`{}`でくくると複数行の表現式を受け取れる。
 * `reactive`は、メモリ中の`input`変数が変わったら、再実行される。
     * 変わらなければ再代入されない。
+
 * なんども関数を実行することは速度の低下につながる。
 
 ## observer
@@ -166,6 +167,9 @@ shinyApp(ui = ui, server = server)
 * `observe()`は,`reactive`と決定的に違う。
 * `input`が変わらなくても、`observe`内の関数を再実行する。
     * `render*`内の関数を外に押し出すのにいいかも。
+* `observe()`が監視するのは、reacitveな表現式(オブジェクト)
+* `reactiveValues()`は、reactiveなオブジェクトを生成する
+    * classみたいなもん
 
 
 
@@ -205,8 +209,15 @@ ui <- fluidPage(
 
 server <- function(input, output) {
   check_var <- reactive(data.frame(num = input$test_num, slide = input$test_slide))
-  observe({table_1 <- as.data.frame(check_var())})
-  output$test_table <- renderDataTable({as.data.frame(check_var())})
+  DT <- reactiveValues(table_1 = NA)
+
+	# 直接 table_1 に代入すると
+	# reactiveじゃないのでエラーになる
+	#observe(table_1 <- as.data.frame(check_var()))
+
+  observe(DT$table_1 <- as.data.frame(check_var()))
+  # output$test_table <- renderDataTable({as.data.frame(check_var())})
+  output$test_table <- renderDataTable(DT$table_1)
 }
 
 shinyApp(ui = ui, server = server)
@@ -253,6 +264,16 @@ ls(envir = environment(shiny::titlePanel)) %>%
 
 * `tags$head()`内の`tags$style()`で直接スタイルを書く
 
+<pre>
+h1, h2, h3 {
+	color: red;
+	font-size: 10em;
+}
+
+body {
+	background-color: grey;
+}
+</pre>
 
 ```{r test_shiny_css, eval=FALSE}
 ui <- fluidPage(
@@ -277,8 +298,9 @@ ui <- fluidPage(
 
 server <- function(input, output) {
   check_var <- reactive(data.frame(num = input$test_num, slide = input$test_slide))
-  observe({table_1 <- as.data.frame(check_var())})
-  output$test_table <- renderDataTable({as.data.frame(check_var())})
+	DT <- reactiveValues(table_1 = NA)
+  observe({DT$table_1 <- as.data.frame(check_var())})
+  output$test_table <- renderDataTable(DT$table_1)
 }
 
 shinyApp(ui = ui, server = server)
@@ -292,6 +314,9 @@ shinyApp(ui = ui, server = server)
 * googleapiのcssを`@import`する
 * 日本語は開発中らしい
 * earlyaccessでcssを読み込める
+* コメントアウトは外してください
+
+
 
 ```{r import_font_css, eval=FALSE}
 ui <- fluidPage(
@@ -325,7 +350,6 @@ ui <- fluidPage(
 
 server <- function(input, output) {
   check_var <- reactive(data.frame(num = input$test_num, slide = input$test_slide))
-  observe({table_1 <- as.data.frame(check_var())})
   output$test_table <- renderDataTable({as.data.frame(check_var())})
 }
 

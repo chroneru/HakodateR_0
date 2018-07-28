@@ -63,8 +63,10 @@ ToothGrowth2_VC_lm <- lm(Tooth_length ~ Dose, data = ToothGrowth2 %>%
 		 filter(Supplement == "VC"))
 ToothGrowth2_OJ_lm <- lm(Tooth_length ~ Dose, data = ToothGrowth2 %>%
 		 filter(Supplement == "OJ"))
+
 ToothGrowth2_lm <- list(VC_lm = summary(ToothGrowth2_VC_lm),
 											  OJ_lm = summary(ToothGrowth2_OJ_lm))
+
 ToothGrowth2_lm$VC_lm$coefficients; ToothGrowth2_lm$OJ_lm$coefficients
 
 # Tooth_length = 3.295 + 11.716 * Dose
@@ -95,6 +97,8 @@ ToothGrowth2 %>%
 <br/>
 
 <h2>そんなときはベイズ</h2>
+
+$$p^{\prime}(H \mid D) = \frac{p(D \mid H) * p(H)}{p(D)}$$
 
 ## baysian linear regression
 
@@ -187,6 +191,14 @@ knitr::include_graphics("./Image/newbie_workshop_image/bayes_and_lm_plot.png")
 <h2 id="h2_alone">ある仮説のときにデータがこうなってるよね?<br/>
 これって別の仮説の時のデータだとしたらどっちいいんかな?ってこと</h2>
 
+<br/>
+
+$$\frac{p^{\prime} (H_{1} \mid D)}{p^{\prime}(H_0 \mid D)} = \frac{p(D \mid H_{1}) * p(H_{1})}{p(D \mid H_{0}) * p(H_{0})}$$
+
+* つまり
+
+$$\frac{p(D \mid H_{1})}{p(D \mid H_{0})} = \frac{\frac{p^{\prime}(H_{1} \mid D)}{p(H_{1})}}{\frac{p^{\prime}(H_{0} \mid D)}{p(H_{0})}}$$
+
 ## anovaBF
 
 * `BayesFactor::anovaBF`
@@ -197,6 +209,7 @@ knitr::include_graphics("./Image/newbie_workshop_image/bayes_and_lm_plot.png")
     * 今回は順位尺度と見る
 
 ```{r anovaBF_error, error=TRUE}
+# そのままやるとエラーになる
 bf <- BayesFactor::anovaBF(
   Tooth_length ~ Dose,
   data = ToothGrowth2
@@ -219,6 +232,7 @@ bf <- BayesFactor::anovaBF(
   data = ToothGrowth2
   )
 bf
+bf[3:4] / bf[2]
 ```
 
 
@@ -229,7 +243,7 @@ plot(bf)
 plot(bf[3:4]/bf[2])
 ```
 
-## プロット結果
+<h3>プロット結果</h3>
 
 * 見た感じ`Supplement`は関係なさそう
 * `Supplement + Dose + Supplement:Dose`で仮設を立てるのが最も良さそう
@@ -266,7 +280,7 @@ ToothGrowth2 %>% head() %>% knitr::kable()
 ```
 
 
-```{r ToothGrowth_lm_result_plot, fig.width=6, fig.asp=0.618, out.width="70%", fig.align="center", echo=FALSE}
+```{r ToothGrowth_lm_result_plot, fig.width=6, fig.asp=0.618, out.width="70%", fig.align="center"}
 par(mfrow = c(2, 2))
 plot(ToothGrowth_lm_result)
 ```
@@ -274,16 +288,19 @@ plot(ToothGrowth_lm_result)
 * 残差が同じぐらいの広がり
 * 正規性が見て取れる
 * クックの距離が0.5を超えているようなので当てはまりもよさそう
+    * 目盛りが狭すぎて見づらいけど
 
 
 ```{r ToothGrowth_lm_result_ggplot, fig.width=6, fig.asp=0.618, out.width="70%", fig.align="center"}
 ToothGrowth2 %>% 
   ggplot(aes(Dose, color = Supplement)) +
-  geom_point(aes(y = Tooth_length_res), 
+  geom_point(aes(y = Tooth_length_res) , 
 						 position = position_jitter(width = 0.1, height = 1),
 						 color = "#0000ff") +
-  geom_point(aes(y = Tooth_length), 
-						 position = position_jitter(width = 0.1))
+  geom_point(aes(y = Tooth_length) , 
+						 position = position_jitter(width = 0.1)
+						) +
+	facet_wrap(~ Supplement)
 ```
 
 

@@ -31,6 +31,10 @@ replicate(3, testfun(testa))
 * `apply`ファミリー, `prrr::map*`, `stat_function`とかで使う
 * 直接は関係ないけど、`()`でくくると代入式でもリターンしてくれる
 
+```{r quote_func_args}
+(function(a, b) a + b)(a = 1, b = 2)
+```
+
 ```{r func_unknown}
 (test_unknown <- "Hello")
 (function(var, n) {
@@ -81,6 +85,8 @@ do.call(paste, list(as.name(age), "歳ですよ", sep = ""), quote = TRUE)
 
 * ちなみに
 * `name`型は、`symbol`型のエイリアス(別名てきなやつ)
+    * Rubyでいうsymbolとcharacterみたいな感じ
+        `:symbol`, `"character"`
 
 ```{r name_symbol}
 as.name(age)  ; as.name("age")
@@ -104,6 +110,8 @@ substitute(max(test1))
 substitute(max("test1"))
 substitute(max("test1"), env = hoge)
 ```
+
+* `.GlobalEnv`にオブジェクトがあっても勝手に置換されない
 
 
 ### 置換の挙動
@@ -150,14 +158,14 @@ fuga
 
 * 結果は
 
-|`class`|`mode`|`typeof`|
+|class|mode|typeof|
 |:-----:|:----:|:------:|
 |`call` |`call`|`language`|
 
-* つまり、文字列ではないわけです。
+* つまり、文字列ではない
 
 * 最後の、classをcharacterにすると
-* ベクトルになっていますね。
+* ベクトルになっている
 
 
 ## eval関数 {#eval_func}
@@ -178,11 +186,15 @@ eval(rnorm("5"))
 
 * 引数の評価をしない
 * 表現式を表現式のままうけとる
+    * qはquoteという意味
+        * くくる
 
 ```{r test_evalq, error=TRUE}
 eval(rnorm(a), envir = list(a = 5))
 evalq(rnorm(a), envir = list(a = 5))
 ```
+
+* `eval`の方は、aを展開しようとする
 
 ## eval, substitute, do.call {#esd_func}
 

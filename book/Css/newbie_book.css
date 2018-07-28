@@ -1,3 +1,15 @@
+/* --------------- header --------------- */
+
+.book-header {
+  background-color: rgba(47, 79, 79, 0.8) /* #2f4f4f */ !important ;
+}
+
+.book-header a:hover {
+  color: rgba(255, 255, 255, 1) !important;
+}
+
+/* --------------- body ------------------ */
+
 /* font-size は、上のバーから選択できる */
 
 .book li {
@@ -86,4 +98,20 @@
 .book p#lastpage {
   margin-top: 20%;
   font-size: 120%;
+}
+
+/* ------------- lastpage ------------ */
+
+.book p.lastpage_bye {
+  text-align: center;
+  font-size: 120px !important;
+  color: #00fa9a;
+  opacity: 0.6;
+  display: block;
+}
+
+.book p.lastpage_bye:hover {
+  color: #66cdaa;
+  opacity: 1;
+  background-color: #ffffe0;
 }

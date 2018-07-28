@@ -74,6 +74,18 @@ grViz("
 * アドレスの部分を張り替えているだけ
 * つまり、同じ値だったらアドレス同じでいいじゃん
 
+```{r assign_object}
+a <- 2
+a
+
+a <- "char"
+a
+
+a <- TRUE
+a
+```
+
+
 ## Rのメモリ {#memory_R}
 
 * メモリに値を保存している
@@ -137,13 +149,13 @@ grViz("
         tpg;
 
         mtcars;
-        mtcars2;
+        mtcars3;
 
         edge[]
 
         mtcars -> wt [ lhead = cluster_value, headport = s ]
-        mtcars2 -> disp [ lhead = cluster_value, headport = s ]
-        mtcars2 -> tpg
+        mtcars3 -> disp [ lhead = cluster_value, headport = s ]
+        mtcars3 -> tpg
 
       }")
 ```

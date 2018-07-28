@@ -18,15 +18,21 @@
 
 
 ```{r pareto_func}
+# a, b, c, d, e の五文字がいくつもあるデータ
+# を想定している
+
 pareto_func <- function(vec) {
 
 res_count <- c("a" = NA, "b" = NA, "c" = NA, "d" = NA, "e" = NA)
+
 for(moji in c("a", "b", "c", "d", "e")) {
     res_count[moji] <- sum(vec == moji)
 }
+
 res_count <- sort(res_count, decreasing = TRUE)
 res_pareto <- cumsum(res_count)
 res_pareto <- res_pareto / res_pareto[5]
+
 list("count" = res_count, "density" = res_pareto)
 }
 ```
@@ -40,9 +46,18 @@ list("count" = res_count, "density" = res_pareto)
     * `function(a = 5)`のようにデフォルトも設定できる
 * `c("a" = NA)`で名前を与えられる。
     * `names(ベクトル)`で名前を確認できる。
+
 * `sort()`はならべかえ
+
+```{r sort_ex}
+sort(1:5, decreasing = FALSE)
+
+sort(1:5, decreasing = TRUE)
+```
+
 * `cumsum()`は累積和
 
 ```{r cumsum_ex}
 cumsum( c(1, 2, 3, 4, 5))
 ```
+
