@@ -11,4 +11,5 @@ forcats
 DiagrammeR
 leaflet
 shiny
+runr
 bindrcpp

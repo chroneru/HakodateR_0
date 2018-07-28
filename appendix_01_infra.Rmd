@@ -6,6 +6,8 @@
 
 * windowsは,インストーラで一発
     * 最近は、Docker for windowsが主流らしい
+        * windows10だと導入が簡単
+    * R用のイメージ rocker もある
 * linuxは、めんどい
     * ubuntu系は、apt-getに用意されてるっぽい
 
@@ -116,12 +118,13 @@ sudo yum install rstudio-server-rhel-1.1.442-x86_64.rpm
 
 * Vagrantfileでvagrantの設定ができる
 * Nginxとrstudio-server, Shiny-serverをインストールすると
-    * ポートやipアドレスの理解が必要
     * ブラウザとどっかのポートがぶつかる
         * 80番がどっかで2回使われている
+    * ポートやipアドレスの理解が必要
 
 というわけで、割愛！  
 調整できたら、載せます
+
 
 ## Nginx
 
@@ -145,7 +148,7 @@ gpgcheck=0
 enabled=1
 </pre>
 
-追加する
+* 追加する
 
 
 ```bash
@@ -206,6 +209,7 @@ sudo systemctl enable shiny-server
 sudo systemctl start shiny-server
 ```
 
+* Nginxをつなげると、https化も出来る
 
 ### パッケージのインストール {#shiny_packages}
 

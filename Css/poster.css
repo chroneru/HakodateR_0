@@ -1,0 +1,8 @@
+body {
+	background: url(../Image/poster_background_image/hakodate_2.jpg);
+	background-size: /* 251mm 172mm */
+									 /* 297mm 210mm */
+									 cover;
+	background-repeat: no-repeat;
+	/* background-position: 50% 0%; */
+}

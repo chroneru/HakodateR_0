@@ -14,6 +14,7 @@ read.csv("ファイル名", stringAsFactors = FALSE)
 ## read_csv
 
 * tidyverse群に用意されてる関数(readr)
+* 読み込むと、tibble型になる
 
 ```r
 read_csv(
@@ -65,21 +66,29 @@ sample(1:100, size = 2)
 ## パレート図 {#pareto_graph}
 
 ```{r pareto_play}
+# 1から5を一つづつとってくる
 prob_vec <- sample(1:5, size = 5)
+
+# 1から5のうちから10000個分とってくる
+# 確率は、1から5までで振り分けてある
 vec1 <- sample(
   1:5,
   size = 10000,
   replace = TRUE,
   prob = prob_vec
 )
+
+# vec1の数を文字列に変える
 replace_abcde <- function(vec1) {
   num <- 1
   for(moji in c("a", "b", "c", "d", "e")) {
     vec1[vec1 == num] <- moji
     num <- num + 1
   }
+
   assign("vec1", vec1, envir = parent.env(environment()))
 }
+
 replace_abcde(vec1)
 result <- pareto_func(vec1)
 result

@@ -20,8 +20,9 @@ ui <- fluidPage(
 
 server <- function(input, output) {
   check_var <- reactive(data.frame(num = input$test_num, slide = input$test_slide))
-  observe({table_1 <- as.data.frame(check_var())})
-  output$test_table <- renderDataTable({as.data.frame(check_var())})
+	DT <- reactiveValues(table_1 = NA)
+  observe({DT$table_1 <- as.data.frame(check_var())})
+  output$test_table <- renderDataTable(DT$table_1)
 }
 
 shinyApp(ui = ui, server = server)

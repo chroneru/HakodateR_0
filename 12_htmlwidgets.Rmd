@@ -41,6 +41,11 @@ leaflet() %>%
   addPolylines(lng = map_df$lng[2:3], lat = map_df$lat[2:3])
 ```
 
+* `leaflet()`と`addTiles()`でマップを用意
+* `addMarkers`でマークする
+    * lngは経度、 latは緯度
+* `addPolylines()`で直線を引く
+
 ## Leaflet Route Machine
 
 * 経路探索用のleafletプラグイン
@@ -108,6 +113,7 @@ sudo yum install libpng-config
 # 失敗
 sudo yum install libpng.x86_64
 
+# 成功
 wget http://prdownloads.sourceforge.net/libpng/libpng-1.6.34.tar.gz
 tar zxvf libpng-1.6.34.tar.gz
 cd libpng-1.6.34
@@ -171,6 +177,11 @@ digraph prac_grviz {
 * ダウンストリーム的に上から下に順ぐりに書く
 * `->`で有向, `--`で無向
 
+* `graph[]`でグラフ全体の設定をする
+    * `rankdir`は全体の方向を設定する
+        * `TB`, `LR`はそれぞれ
+            * Top to Bottom 上から下
+            * Left to Right 左から右
 
 ```{r test_grViz_2, fig.width=6, fig.asp=0.618, out.width="70%", fig.align="center"}
 grViz("
@@ -194,6 +205,7 @@ grViz("
 
 ```
 
+* `graph [ charset = '文字コード' ]`で文字コードを設定する。
 
 * `[label = 'なまえ']`で表示する名前を書きます。
 * `[shape = 'circle']`でノードの形を設定します。
@@ -239,6 +251,12 @@ grViz("
 * とても惜しい感じになってますね。
 * こんな感じでグラフが自動生成されてしまうため。
 * 調整がかなり難しい。
+
+* `layout`はいろいろある
+    * `dot`はデフォルト
+    * `circo`, `neato`, `twopi`, `fdp`, `sfdp`, `osage`
+* `{rank = min; node;}`は、ノードの優先順位を決める
+
 
 
 ## footnumber
@@ -328,13 +346,20 @@ grViz("
  
 ```
 
+* `subgraph`でサブグラフを設定できる
+    * `cluster_*`で名前の最初に`cluster_`をつける
 
 * `@@`の後に数字をつける
 * `@@1-1`みたいにすると複数のfootnumberをつけれる
 * `[footnumber]: `で属性を設定できる
 * `graph graph_name {}`の外はRの表現を使える
+
 * Rの表現式でのエスケープとhtmlにわたす改行文字の表現で`\\n`となる
 
+---
+
+* 最近、新たに脆弱性が見つかったらしい
+    * ぬるぽ
 
 ## mermaid
 
@@ -469,7 +494,10 @@ create_graph() %>%
   render_graph()
 ```
 
----
+1. `create_graph()`でグラフのもとを作る
+1. `add_balanced_tree()`で均等なツリーをグラフに追加する
+1. `render_graph()`でグラフの情報をレンダリングする
+
 
 ```{r pipe_render_graph_2}
 create_graph() %>%
@@ -485,7 +513,8 @@ create_graph() %>%
                )
 ```
 
----
+* `render_graph()`で最終的なグラフの出力を指定する
+
 
 ```{r pipe_render_graph_3}
 create_graph() %>%
@@ -496,7 +525,9 @@ create_graph() %>%
   render_graph(layout = "circle")
 ```
 
----
+* `set_node_attr_to_display()`のデフォルト引数が
+    * `attr=NULL`, `nodes=NULL`
+    * 引数を指定しない場合、情報が削除される
 
 ```{r pipe_render_graph_4}
 create_graph() %>%
@@ -508,7 +539,9 @@ create_graph() %>%
   render_graph(layout = "circle")
 ```
 
----
+* `add_gnm_graph()`は、ノードとエッジを生成する
+    * エッジのつながり方は、乱数をもとにしている
+        * `set_seed`で再現性を保つ
 
 ```{r pipe_render_graph_5}
 create_graph() %>%
@@ -519,12 +552,117 @@ create_graph() %>%
   render_graph(output = "visNetwork")
 ```
 
+* `output = "visNetwork"`とした場合は
+* 内部で`DiagrammeR::visnetwork()`が呼び出される
+    * 引数は`graph`のみなので、グラフに予め情報をセットしておく
 
-### 公式
+## 公式(traversal)
 
 * ここからは公式ドキュメントをベースに
 * コードを修正していきます。
 * 公式のドキュメントが更新されるのを待ちたい。
+
+* `trav_out()`, `trav_in()`, `trav_both()`を中心に説明していく
+    * `trav_out()`は、元のノードから外のノードとのつながり
+    * `trav_in()`は、外から内側へのつながり
+    * `trav_both()`は、真ん中から内側と外側へのつながり
+
+
+```{r from_1_to_2}
+graph_1_2 <- create_graph() %>%
+  add_node() %>%
+  add_node() %>%
+  add_edge(1, 2) 
+graph_1_2 %>% render_graph()
+graph_1_2 %>% 
+  select_nodes_by_id(1) %>%
+  trav_out() %>%
+  get_selection()
+```
+
+* `select_nodes_by_id()`で選択したノードから
+* `trav_out()`で外側に動く
+
+```{r from_2_1_out}
+graph_2_1 <- create_graph() %>%
+  add_node %>%
+  add_node %>%
+  add_edge(from = 2, to = 1)
+graph_2_1 %>% render_graph()
+graph_2_1 %>% 
+  select_nodes_by_id(1) %>%
+  trav_out() %>%
+  get_selection()
+```
+
+* node1に向かってエッジがあるから
+    * `trav_out()`は外側のnode1に向かって動く
+* 逆に、`trav_in()`を使うとnode2に向かって動く
+
+```{r from_2_1_in}
+graph_2_1 %>% select_nodes_by_id(1) %>%
+  trav_in() %>%
+  get_selection()
+```
+
+* 複数のノードがあっても同じように働く
+
+```{r poly_node_trav}
+poly_node <- create_graph() %>%
+  add_n_nodes(5) %>%
+  add_edge_df(create_edge_df(c(1,2,3,4), c(2,3,4,5)))
+poly_node %>% render_graph(layout = "kk")
+poly_node %>% 
+  select_nodes_by_id(1) %>%
+  trav_out() %>%
+  # 2
+  trav_out() %>%
+  # 3
+  trav_out() %>%
+  # 4
+  trav_out() %>%
+  # 5
+  get_selection()
+```
+
+* 複数のノードがエッジでつながっていても同じ
+
+```{r center_1_out}
+graph_center_1 <- create_graph() %>%
+  add_node() %>% # ノードがひとつだけのグラフ
+  select_nodes_by_id(1) %>%
+  add_n_nodes_ws(10, "from", type = "from_nodes") %>% # ノード1から
+  add_n_nodes_ws(10, "to", type = "to_nodes") # ノード1に向かって
+graph_center_1 %>% render_graph(layout = "tree")
+graph_center_1 %>% 
+  trav_out() %>%
+  get_selection()
+```
+
+* `select_nodes_by_id()`でノードが選択される
+    * `add_n_nodes_ws()`で選択したノードからノードをどっち向きに増やすかを決める
+        * `direction`引数は、`"from"`か`"to"`のどっちか
+* `trav_out()`は、外側に向かう
+
+```{r center_1_in}
+graph_center_1 %>% 
+  trav_in() %>% 
+  get_selection()
+```
+
+* `trav_both`をつかうと
+    * 内側、外側の両方にはたらく
+
+```{r center_1_both}
+graph_center_1 %>% 
+  trav_both() %>% 
+  get_selection()
+```
+
+## trav関数によるマッチ {#trav_conditions}
+
+* `trav_*`の`conditions`引数でフィルタリングできる
+    * `conditions`には、条件式を入れる
 
 
 ```{r traversal_1}
@@ -533,15 +671,18 @@ graph <-
   create_graph() %>%
   add_n_nodes(
     n = 1,
-    type = "a"
+    type = "a",
+    label = "a"
   ) %>% 
   add_n_nodes(
     n = 4,
-    type = "b"
+    type = "b",
+    label = "b"
   ) %>% 
   add_n_nodes(
     n = 4,
-    type = "c"
+    type = "c",
+    label = "c"
   ) %>% 
   add_edges_w_string(
     edges = "1->2 1->3 4->1 5->1 1->6 1->7 8->1 9->1"
@@ -550,17 +691,31 @@ graph <-
 render_graph(graph, output = "visNetwork")
 ```
 
----
+* `add_n_nodes()`でノードを追加する
+    * `n`はノード数
+    * `type`は、文字ベクトルを入れる
+        * ノードをグループに分ける
+    * `add_n_nodes(n = 4, type = "c")`は
+    * ノード数4つのcグループを追加している
+
+* `add_edges_w_string()`でエッジの方向を指定する
+    * wは、たぶんwithの意味
+    * string(文字列)でエッジを追加する
 
 ```{r traversal_2_update}
+# さっきのグラフを更新する
 update_graph <-  graph %>%
   select_nodes_by_id(nodes = 1) %>%
   trav_out(conditions = type == "c") %>%
-  add_n_nodes_ws(1, direction = "from", type = "d")
+  add_n_nodes_ws(1, direction = "from", type = "d", label = "d")
 render_graph(update_graph, output = "visNetwork")
 ```
 
----
+* `select_nodes_by_id(nodes = 1)`でノード1を選択
+* `trav_out(conditions = type == "c")`で
+    * 外側に向かうノードのうちtypeがcであるノードを選択
+    * 2つのノードが選択されている
+* `add_n_nodes_ws()`で2つのノードそれぞれから1個ずつノードを追加する
 
 ```{r traversal_3}
 nodes <-
@@ -588,7 +743,29 @@ graph <-
 render_graph(graph, output = "visNetwork")
 ```
 
----
+```{r traversal_3_1}
+graph %>% 
+  get_node_info()
+graph %>%
+  select_nodes(
+    # aではじまる(正規表現^は先頭を表すアンカー)
+    conditions =  stringr::str_detect(graph$nodes_df$label, "^a")) %>%
+  trav_out() %>%
+  get_selection()
+```
+
+* バージョンアップで条件式に正規表現が使えない
+    * `stringr::str_detect`で論理値を受け取る
+
+* aではじまるapple, apricot, almond
+    * `trav_out()`でそれぞれの外側を選択
+    * pineapple, apricot, celery, almondが選択される
+
+
+<br/>
+
+* 次のグラフは、`trav_*`の比較演算子の説明で使われていたもの
+* `set_node_attrs()`で、ノードの大きさを設定している
 
 ```{r traversal_4_random_graph}
 random_graph <-
@@ -600,7 +777,11 @@ random_graph %>% get_edge_df()
 render_graph(random_graph, output = "visNetwork")
 ```
 
----
+## ノードからエッジのtraversal {#traversal_to_edges}
+
+* `trav_*_edge()`をつかう
+* 基本的にはノードの時と変わらない
+* 最後に選択されるのが、エッジに変わるだけ
 
 ```{r traversal_5}
 nodes <-
@@ -629,10 +810,14 @@ edges <-
     rel = as.vector(
       replicate(
         5, sample(
-          c("likes", "dislikes",
-            "allergic_to"), 5,
-          TRUE,
-          c(0.5, 0.25, 0.25)))))
+                  c("likes", "dislikes","allergic_to"),
+                  5,
+                  TRUE,
+                  c(0.5, 0.25, 0.25)
+                  )
+        )
+      )
+    )
 
 graph <-
   create_graph(
@@ -643,23 +828,27 @@ graph <-
 graph %>% render_graph(output = "visNetwork")
 ```
 
----
+* forループをつかうこともできる
 
-```{r traversal_6,eval=F}
+```{r traversal_6}
 set.seed(20)
 
 graph <-
   create_graph(directed = TRUE) %>% 
   add_gnm_graph(10, 20,
                 set_seed = 20)
+
+for(i in 1:count_nodes(graph)) {
   graph <-
     graph %>% 
-   # select_nodes_by_id(i) %>% 
+    select_nodes_by_id(i) %>% 
     set_node_attrs(
       node_attr = "type",
       values = sample(
         c("a", "b", "c"), count_nodes(graph), replace = TRUE))
+}
 
+for(i in 1:count_edges(graph)) {
   graph <-
     graph %>% 
     set_edge_attrs(
@@ -668,12 +857,13 @@ graph <-
       edge_attr = "data_value",
       values = sample(
         seq(0, 8, 0.5), count_edges(graph), replace = TRUE))
+}
 
 # Look at the graph
 graph %>% render_graph(output = "visNetwork")
 ```
 
----
+## エッジからノードのtraversal {#traversal_to_nodes}
 
 ```{r traversal_7}
 set.seed(20)
@@ -750,7 +940,9 @@ graph %>% get_edge_df
 graph_allergies %>% render_graph(output = "visNetwork")
 ```
 
----
+## パッケージ内のファイル {#software_repos}
+
+* `DiagrammeR`に用意されているcsvファイルを使ってのグラフ生成
 
 ```{r software_repository_1}
 contributors_csv <-

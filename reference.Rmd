@@ -6,6 +6,8 @@
 * [アート・オブ・Rプログラミング](https://www.oreilly.co.jp/books/9784873115795/)
 * [R for Data Science](http://r4ds.had.co.nz/)
 * [BayesFactor](https://richarddmorey.github.io/BayesFactor/)
+* [ぞうさんのベイズファクター](https://www.slideshare.net/kazutantan/bayes-factor)
+* [googlefonts](https://googlefonts.github.io/japanese/)
 * [DiagrammeR](http://rich-iannone.github.io/DiagrammeR/docs.html)
 * [mermaid.js](https://mermaidjs.github.io/)
 * [virtualbox](https://www.virtualbox.org/wiki/Linux_Downloads)

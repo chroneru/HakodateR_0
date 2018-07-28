@@ -58,6 +58,36 @@ dpkg -l | grep '  *vim  *'
     * ..\*で任意の一文字の1回以上の繰り返し
         * 任意の一文字と任意の一文字の0回以上の繰り返し
 
+## Rでの正規表現 {#R_regexp}
+
+* Rでは、文字列表現と正規表現が区別される
+* 正規表現で`\`を使いたい場合は、
+* 文字列表現で`\\`と`\`を重ねる必要がある
+
+```{r extract_escape}
+escape <- "this is tasty."
+writeLines(escape)
+#str_extract(escape, "\.")
+#> Error: '\.' is an unrecognized escape in character string starting ""\."
+str_extract(escape, "\\.")
+str_extract(escape, "..*\\.")
+```
+
+```{r escape_graph}
+
+mermaid("
+        graph LR
+        str[文字列]
+        reg[正規表現]
+        pat[パターン]
+
+        str-->|\\|reg
+        reg-->|\\|pat
+        ")
+
+```
+
+
 # Sed {#sed_page}
 
 
@@ -70,7 +100,7 @@ dpkg -l | grep '  *vim  *'
 |s        |置換する|/アドレス/s/パターン/置換後のパターン/|
 |y        |パターンで指定したものを入れ替える|y/パターン/パターン/|
 |p        |表示する|アドレス/p|
-|d        |削除    |アドレス/d|
+|d        |削除して一行目に戻る|アドレス/d|
 
 他にも大文字コマンドがあるが、使用方法が難しいので今回は割愛します。
 
@@ -131,3 +161,5 @@ dpkg -l | sed -n -e '/..*[^a-z]\([Vv]im*\)[^a-z]..*/s//\1toemacs/p'
     * `\(a\)``\(b\)`のように複数保存した場合、参照は手前から順に1,2,となる
 * `\([Vv]im*\)`を保存して参照すると、viとなっている。
     * m\* は0回として保存
+
+

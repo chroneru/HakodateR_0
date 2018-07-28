@@ -7,6 +7,9 @@ bookdown::render_book("index.Rmd", output_format = "bookdown::pdf_book")
 #_bookdown.yamlで指定したRmdをまとめる
 bookdown::render_book("index.Rmd", output_format = "bookdown::gitbook", output_dir = "book/", config_file = "_bookdown.yml")
 
+#html_document2
+bookdown::render_book("index.Rmd", output_format = "bookdown::html_document2", output_dir = "book/", config_file = "_bookdown.yml")
+
 #pdf
 #bookdown::render_book("index.Rmd", output_format = "bookdown::pdf_book", config_file = "_bookdown.yml")
 

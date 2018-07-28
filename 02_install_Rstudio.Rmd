@@ -28,6 +28,6 @@ sudo dpkg -i rstudio-1.1.447-amd64.deb
 
 ```bash
 sudo yum install wget
-wget https://download2.rstudio.org/rstudio-server-rhel-1.1.442-x86_64.rpm
+wget https://download1.rstudio.org/rstudio-1.1.456-x86_64.rpm
 sudo yum install rstudio-server-rhel-1.1.442-x86_64.rpm
 ```
